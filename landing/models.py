@@ -23,6 +23,8 @@ class Store(models.Model):
     address = models.CharField('Адрес', max_length=250, null=True, blank=True)
     description = models.CharField('Описание', max_length=500, null=True, blank=True)
     image = models.ImageField('Изображение', upload_to='store/')
+    # category = models.ForeignKey(FoodCategory, verbose_name='Тэг', null=True, blank=True, on_delete=models.CASCADE)
+    tag = models.ManyToManyField(FoodCategory, related_name='tags')
 
     class Meta:
         verbose_name = 'Заведение'
@@ -35,6 +37,7 @@ class Store(models.Model):
 class Product(models.Model):
     store = models.ForeignKey(Store, on_delete=models.DO_NOTHING, verbose_name='Заведение')
     category = models.ForeignKey(FoodCategory, on_delete=models.DO_NOTHING, verbose_name='Категория')
+
     name = models.CharField('Название', max_length=250)
     price = models.DecimalField('Цена', max_digits=7, decimal_places=2)
     description = models.CharField('Описание', max_length=100)

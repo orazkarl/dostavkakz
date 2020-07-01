@@ -24,7 +24,7 @@ SECRET_KEY = 'p-fn#zm9!h2dhljbc!6*n)s3qahxg+ls)&oa00ev(zs0n77j71'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+
 ]
 
 MIDDLEWARE = [
@@ -53,6 +54,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
 ]
 
 ROOT_URLCONF = 'dostavkakz.urls'
@@ -140,3 +142,24 @@ AUTHENTICATION_BACKENDS = [
 SITE_ID = 1
 
 LOGIN_REDIRECT_URL = '/'
+
+ACCOUNT_ADAPTER = 'user_auth.adapter.AccountAdapter'
+
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 7
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 10
+ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 86400  # 1 day in seconds
+# ACCOUNT_LOGOUT_REDIRECT_URL = '/accounts/login'
+
+
+# ACCOUNT_FORMS = {
+# 'login': 'user_auth.forms.CustomLoginForm',
+# 'signup': 'user_auth.forms.CustomSignupForm',
+# 'add_email': 'allauth.account.forms.AddEmailForm',
+# 'change_password': 'user_auth.forms.CustomChangePasswordForm',
+# 'set_password': 'allauth.account.forms.SetPasswordForm',
+# 'reset_password': 'user_auth.forms.CustomResetPasswordForm',
+# 'reset_password_from_key': 'user_auth.forms.CustomResetPasswordKeyForm',
+# 'disconnect': 'allauth.socialaccount.forms.DisconnectForm',
+# }
