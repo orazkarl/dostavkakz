@@ -25,6 +25,8 @@ class Store(models.Model):
     image = models.ImageField('Изображение', upload_to='store/')
     # category = models.ForeignKey(FoodCategory, verbose_name='Тэг', null=True, blank=True, on_delete=models.CASCADE)
     tag = models.ManyToManyField(FoodCategory, related_name='tags')
+    time_open = models.TimeField('Открывается', null=True, blank=True)
+    time_closed = models.TimeField('Закрывается', null=True, blank=True)
 
     class Meta:
         verbose_name = 'Заведение'
@@ -37,7 +39,6 @@ class Store(models.Model):
 class Product(models.Model):
     store = models.ForeignKey(Store, on_delete=models.DO_NOTHING, verbose_name='Заведение')
     category = models.ForeignKey(FoodCategory, on_delete=models.DO_NOTHING, verbose_name='Категория')
-
     name = models.CharField('Название', max_length=250)
     price = models.DecimalField('Цена', max_digits=7, decimal_places=2)
     description = models.CharField('Описание', max_length=100)

@@ -1,0 +1,79 @@
+{% extends 'landing/base.html' %}
+{% load static %}
+{% block content %}
+    <div class="rest-bck">
+        <img src="{{ store.image.url }}" alt="">
+        <div class="topstroke">
+            <p class="devtime">
+                <!-- <i class="fa fa-bicycle" aria-hidden="true" style="color: #fff; padding-right: 5px;"></i> -->
+                Среднее время доставки
+            <p class="time">20-30 мин.</p></p>
+            <p class="otkr"> Открыто сегодня с:
+            <p class="opentime">{{ store.time_open }} - {{ store.time_closed }}</p></p>
+            <p class="cart"><i class="fa fa-shopping-cart" aria-hidden="true" style="padding-right: 8px;"></i> 0 позиций
+            </p>
+        </div>
+
+        <div class="midstroke">
+            <p class="restname">{{ store.name }}</p>
+            <p class="slogan">{{ store.description }}</p>
+            <div class="cash" style="display: inline-flex; font-weight: bold;">
+                <p class="cash1">$$
+                <p class="cash2">$$</p></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="menubody">
+        <div class="menutop" style="display: inline-flex;">
+            <p class="rate1"><i class="fa fa-star-half-o" aria-hidden="true"></i> 9 из 10</p>
+            <button class="izbr"><i class="fa fa-heart-o" aria-hidden="true"
+                                    style="font-size: 18px; padding-right: 5px;"></i> Добавить в избранное
+            </button>
+            <button class="izbr1"><i class="fa fa-heart-o" aria-hidden="true" style="font-size: 18px;"></i></button>
+{#            <form method="get">#}
+                <input type="search" class="menusrch" placeholder="Поиск по меню..." name="q" value="{{ request.GET.q }}" >
+{#            </form>#}
+
+
+        </div>
+
+        <div class="menu-h">
+            <h3>ВЫГОДНЫЕ ПРЕДЛОЖЕННИЯ</h3>
+            <div class="m1" style="display: inline-flex;">
+                <div class="menu">
+                    {% for product in products %}
+                        <div class="pos">
+                            <div class="pos-body">
+                                <div class="pos-info" style="">
+                                    <h5 class="name"><i>+</i>{{ product.name }}</h5>
+                                    <p class="info1">{{ product.description }}</p>
+                                    <p class="price" s>{{ product.price }} ₸</p>
+                                </div>
+                                <div class="pos-img" style="">
+                                    <img src="{{ product.image.url }}" style="" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <div class="rest-inf">
+                    <div class="infbody">
+                        <h4>О ресторане</h4>
+                        <h5>Адрес</h5>
+                        <p>{{ store.address }}</p>
+                        <br>
+                        <h5>Время работы</h5>
+                        <p>Ежедневно {{ store.time_open }} - {{ store.time_closed }}</p>
+                        <br>
+                        <p>При наличии аллергии или диетических ограничений, сообщите об этом ресторану. Он предоставит
+                            подробную информацию о блюдах.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

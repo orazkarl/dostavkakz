@@ -1,21 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+{% extends 'landing/base.html' %}
+{% load static %}
+{% block content %}
+    <div class="block1">
+        <p class="m-city"><i class="fa fa-map-marker" aria-hidden="true"></i> Алматы</p>
+        <p class="m-popular"><i class="fa fa-star-o" aria-hidden="true"></i> Популярное</p>
+        <p class="m-dost"><i class="fa fa-bicycle" aria-hidden="true"></i> Доставка</p>
+    </div>
 
-</head>
-<body>
-<a href="{% url 'account_login' %}">Войти</a>
-<a href="{% url 'logout' %}">Logout</a>
-{#<script src="http://malsup.github.com/jquery.form.js"></script>#}
+    <div class="h-1">
+        <h2>Популярное</h2>
+        {% for store in stores %}
+            <div class="content">
+                <div class="card">
+                    <a href="{% url 'store_detail'  store.slug %}" style="text-decoration: none">
+                        <div class="card-img">
+                            <img src="{{ store.image.url }}" alt="" style="height: 105%">
+                        </div>
+                        <div class="card-det">
+                            <div class="card-det1">
+                                <h4 style="padding-bottom: 3px; color: #000;">{{ store.name }} </h4>
+                                <p>{{ store.description }}</p>
+                            </div>
+                        </div>
+                    </a>
+                    <div class="rate">
+                        <p>$$ |</p>
+                        <p class="what">{% for tag in store.tag.all %} {{ tag.name }} {% endfor %}</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
 
-<div class="container">
-    <h2>Basic Modal Example</h2>
-    
-</div>
-</body>
-</html>
+    </div>
+
+
+
+{% endblock %}

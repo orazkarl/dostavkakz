@@ -6,7 +6,7 @@
 
 {% block content %}
     <form class="form-signin" action="{% url 'account_signup' %}" method="post">
-    <p class="text-center btn-lg"> <a style="text-decoration: none" href="{% url 'home' %}">Главная</a></p>
+        <p class="text-center btn-lg"><a style="text-decoration: none" href="{% url 'home' %}">Главная</a></p>
         <h2 class="form-signin-heading text-center">Регистрация</h2>
         <br>
         {% csrf_token %}
