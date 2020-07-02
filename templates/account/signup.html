@@ -5,17 +5,28 @@
 {% block head_title %}{% trans "Signup" %}{% endblock %}
 
 {% block content %}
-<h1>{% trans "Sign Up" %}</h1>
+    <form class="form-signin" action="{% url 'account_signup' %}" method="post">
+    <p class="text-center btn-lg"> <a style="text-decoration: none" href="{% url 'home' %}">Главная</a></p>
+        <h2 class="form-signin-heading text-center">Регистрация</h2>
+        <br>
+        {% csrf_token %}
+        {{ form.as_p }}
 
-<p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
-
-<form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
-  {% csrf_token %}
-  {{ form.as_p }}
-  {% if redirect_field_value %}
-  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-  {% endif %}
-  <button type="submit">{% trans "Sign Up" %} &raquo;</button>
-</form>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Регистрация</button>
+        <hr>
+        <span class="text"> Уже есть аккаунт? <a href="{% url 'account_login' %}">Войти</a></span>
+    </form>
+    {#<h1>{% trans "Sign Up" %}</h1>#}
+    {##}
+    {#<p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>#}
+    {##}
+    {#<form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">#}
+    {#  {% csrf_token %}#}
+    {#  {{ form.as_p }}#}
+    {#  {% if redirect_field_value %}#}
+    {#  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />#}
+    {#  {% endif %}#}
+    {#  <button type="submit">{% trans "Sign Up" %} &raquo;</button>#}
+    {#</form>#}
 
 {% endblock %}
