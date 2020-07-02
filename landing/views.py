@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.views.generic import *
 from django.http import JsonResponse, HttpResponse
 from .models import FoodCategory, Store, Product
+from django.contrib.auth.decorators import login_required
+from cart.cart import Cart
 
 
 
@@ -34,3 +36,51 @@ class StoreView(DetailView):
         return super().get(request, *args, **kwargs)
 
 
+
+
+# Cart
+@login_required(login_url="/accounts/login")
+def cart_add(request, id):
+    cart = Cart(request)
+    product = Product.objects.get(id=id)
+    store_slug = product.store.slug
+    red = '/store/' + store_slug
+    cart.add(product=product)
+    return redirect(red)
+
+
+@login_required(login_url="/accounts/login")
+def item_clear(request, id):
+    cart = Cart(request)
+    product = Product.objects.get(id=id)
+
+    cart.remove(product)
+    return redirect("cart_detail")
+
+
+@login_required(login_url="/accounts/login")
+def item_increment(request, id):
+    cart = Cart(request)
+    product = Product.objects.get(id=id)
+    cart.add(product=product)
+    return redirect("cart_detail")
+
+
+@login_required(login_url="/accounts/login")
+def item_decrement(request, id):
+    cart = Cart(request)
+    product = Product.objects.get(id=id)
+    cart.decrement(product=product)
+    return redirect("cart_detail")
+
+
+@login_required(login_url="/accounts/login")
+def cart_clear(request):
+    cart = Cart(request)
+    cart.clear()
+    return redirect("cart_detail")
+
+
+@login_required(login_url="/accounts/login")
+def cart_detail(request):
+    return render(request, 'landing/cart_detail.html')
