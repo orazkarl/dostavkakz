@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'phonenumber_field',
 
     'cart',
+
 ]
 
 MIDDLEWARE = [
@@ -56,7 +57,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
 
 ]
 
@@ -86,8 +86,12 @@ WSGI_APPLICATION = 'dostavkakz.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'mydb',
+        'USER': 'admin',
+        'PASSWORD': '123admin',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
 
@@ -175,3 +179,7 @@ ACCOUNT_FORMS = {
 }
 
 CART_SESSION_ID = 'cart'
+
+# mobizon
+# MOBIZON_DOMEN = 'api.mobizon.kz'
+# MOBIZON_KEY = 'kz985662942c6d4ac5f9e63cb39d2f57f7a21ed8c69ae360fd93d01205cec0935057a5'

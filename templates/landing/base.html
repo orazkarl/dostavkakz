@@ -23,8 +23,13 @@
         <a href="{% url 'home' %}">get<span class="all">all</span></a>
     </div>
 
-    <input type="search" class="search" placeholder="&#128269; Найти">
+    <form action="{% url 'search_stores' %}" oninput="return searchStores(this);">
+        <input type="search" class="search" placeholder="&#128269; Найти" name="q">
+        <input type="submit" style="display: none">
+    </form>
+    <div id="results-search-store-name">
 
+    </div>
     <div class="login">
         <div class="dropdown">
             <button style="background: none; border: none; outline: none;" class="btn btn-secondary" type="button"
@@ -34,10 +39,10 @@
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 {% if user.is_authenticated %}
                     <a class="dropdown-item" href="">Профиль</a>
-                <a class="dropdown-item" href="{% url 'logout_user' %}">Выйти</a>
+                    <a class="dropdown-item" href="{% url 'logout_user' %}">Выйти</a>
                 {% else %}
                     <a class="dropdown-item" href="{% url 'account_login' %}">Войти</a>
-                <a class="dropdown-item" href="{% url 'account_signup' %}">Регистрация</a>
+                    <a class="dropdown-item" href="{% url 'account_signup' %}">Регистрация</a>
                 {% endif %}
 
             </div>
@@ -52,7 +57,7 @@
                 <a href="{% url 'account_signup' %}" class="reg">Регистрация</a>
                 <a href="{% url 'account_login' %}">Войти</a>
             {% endif %}
-        <a href="#" id="menu" class="icon" onclick="myFunction()">&#9776;</a>
+            <a href="#" id="menu" class="icon" onclick="myFunction()">&#9776;</a>
 
         </div>
     </nav>
@@ -70,4 +75,29 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
         crossorigin="anonymous"></script>
+
+        <script src="https://katesbeauty.kz/static/assets/js/jquery-2.2.4.min.js"></script>
+
+<script>
+    function searchStores(form) {
+        event.preventDefault();
+        $.ajax({ // create an AJAX call...
+            data: $(form).serialize(), // get the form data
+            type: $(form).attr('method'), // GET or POST
+            url: $(form).attr('action'), // the file to call
+            success: function (response) { // on success..
+                if(response){
+                store_name = response[0]['fields']['name']
+                }
+                else {
+                    store_name = response
+                }
+                $('#results-search-store-name').html(store_name) ;
+                console.log(store_name); // update the DIV
+                {#document.getElementById("results").style.display = "none";#}
+            },
+        });
+        return false;
+    }
+</script>
 </html>

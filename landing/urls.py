@@ -3,7 +3,8 @@ from . import views
 
 urlpatterns = [
     path('', views.HomeView.as_view(), name='home'),
-    path('store/<slug:slug>', views.StoreView.as_view(), name='store_detail'),
+    path('search/', views.search_stores, name='search_stores'),
+    path('stores/<slug:slug>', views.StoreView.as_view(), name='store_detail'),
 
     # cart
     path('cart/add/<int:id>/', views.cart_add, name='cart_add'),

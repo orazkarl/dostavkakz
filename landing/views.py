@@ -4,23 +4,55 @@ from django.http import JsonResponse, HttpResponse
 from .models import FoodCategory, Store, Product
 from django.contrib.auth.decorators import login_required
 from cart.cart import Cart
-
-
+from django.db.models import Q
+import json
+from django.core import serializers
 
 class HomeView(ListView):
     template_name = 'landing/index.html'
     queryset = Store.objects.all()
+
     def get(self, request, *args, **kwargs):
         self.extra_context = {
             'stores': Store.objects.all(),
         }
+        text = 'д'
+
         return super().get(request, *args, **kwargs)
 
+
+
+def search_stores(request):
+    query = request.GET['q']
+    if not query:
+        return HttpResponse('')
+
+    results = Store.objects.filter(Q(description__icontains=query) | Q(name__icontains=query) | Q(address__icontains=query) | Q(tag__name__icontains=query)).distinct('name')
+    if results.count() == 0:
+        return HttpResponse('')
+    # results = Store.objects.annotate(search=SearchVector('description','name'),).filter(search=text)
+    # l = []
+    #
+    # for store in Store.objects.all():
+    #     print(text, store.tag.all())
+    #     if text.lower() in str(store.tag.all()).lower():
+    #         l.append(store)
+    # context = {'stores' : l}
+    context = {
+        'results_search' : results,
+    }
+
+    data = serializers.serialize('json', results)
+    # res = {"results_search": data}
+    # return JsonResponse(res)
+    return HttpResponse(data, content_type="application/json")
+    # return render(request, 'landing/base.html', context)
 class StoreView(DetailView):
     model = Store
     template_name = 'landing/store_deatil.html'
+
     def get(self, request, *args, **kwargs):
-        store_slug =self.kwargs.get(self.slug_url_kwarg, None)
+        store_slug = self.kwargs.get(self.slug_url_kwarg, None)
         store = Store.objects.get(slug=store_slug)
 
         products = Product.objects.filter(store=store)
@@ -30,12 +62,10 @@ class StoreView(DetailView):
         #         return super().get(request, *args, **kwargs)
         #     products  = Product.objects.filter(store=store, name__icontains=query)
         self.extra_context = {
-            'products' : products,
+            'products': products,
         }
 
         return super().get(request, *args, **kwargs)
-
-
 
 
 # Cart
