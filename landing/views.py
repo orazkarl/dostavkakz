@@ -9,6 +9,7 @@ from django.core import serializers
 from dostavkakz.settings import COURIER_TELEGRAM_BOT_TOKEN
 import requests
 
+
 class HomeView(ListView):
     template_name = 'landing/index.html'
     queryset = Store.objects.all()
@@ -103,17 +104,25 @@ def cart_clear(request):
 def cart_detail(request):
     return render(request, 'landing/cart_detail.html')
 
+
 @login_required(login_url="/accounts/login")
 def checkout(request):
-    if request.GET:
-        chechout = request.GET['checkout']
     cart = Cart(request)
+    name = ''
+    quantity = ''
+    price = ''
+    total_price = []
+    message = """Новый заказ:\n"""
     for value in cart.cart.values():
-        print(value)
-    message = """
-    Новый заказ:
-    ***
-    """
-
-    # requests.get("https://api.telegram.org/bot%s/sendMessage" % COURIER_TELEGRAM_BOT_TOKEN,params={'chat_id': '-1001302242759', 'text': message})
+        name = value['name']
+        quantity = value['quantity']
+        price = value['price']
+        temp = 'Названия: ' + name + "\n" + 'Количество: ' + str(quantity) + "\n" + 'Цена: ' + str(
+            quantity * float(price)) + "\n"
+        message = message + temp + "\n"
+        total_price.append(quantity * float(price))
+    message += 'Адрес: ' + "\n"
+    message += 'ИТОГО: ' + str(sum(total_price))
+    print(message)
+    requests.get("https://api.telegram.org/bot%s/sendMessage" % COURIER_TELEGRAM_BOT_TOKEN,params={'chat_id': '-1001302242759', 'text': message})
     return HttpResponse('Заказ принят')

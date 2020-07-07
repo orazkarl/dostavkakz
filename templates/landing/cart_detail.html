@@ -18,7 +18,6 @@ Cart Detail:
 {% endfor %}
 
 <form action="{% url 'checkout' %}">
-    <input type="text" value="{{ request.session.cart }}" style="display:none;" name="checkout">
+{#    <input type="text" value="{{ request.session.cart }}" style="display:none;" name="checkout">#}
     <input type="submit">
 </form>
-
