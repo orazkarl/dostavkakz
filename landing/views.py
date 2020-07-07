@@ -5,8 +5,9 @@ from .models import FoodCategory, Store, Product
 from django.contrib.auth.decorators import login_required
 from cart.cart import Cart
 from django.db.models import Q
-import json
 from django.core import serializers
+from dostavkakz.settings import COURIER_TELEGRAM_BOT_TOKEN
+import requests
 
 class HomeView(ListView):
     template_name = 'landing/index.html'
@@ -16,10 +17,7 @@ class HomeView(ListView):
         self.extra_context = {
             'stores': Store.objects.all(),
         }
-        text = 'д'
-
         return super().get(request, *args, **kwargs)
-
 
 
 def search_stores(request):
@@ -27,26 +25,16 @@ def search_stores(request):
     if not query:
         return HttpResponse('')
 
-    results = Store.objects.filter(Q(description__icontains=query) | Q(name__icontains=query) | Q(address__icontains=query) | Q(tag__name__icontains=query)).distinct('name')
+    results = Store.objects.filter(
+        Q(description__icontains=query) | Q(name__icontains=query) | Q(address__icontains=query) | Q(
+            tag__name__icontains=query)).distinct('name')
     if results.count() == 0:
         return HttpResponse('')
-    # results = Store.objects.annotate(search=SearchVector('description','name'),).filter(search=text)
-    # l = []
-    #
-    # for store in Store.objects.all():
-    #     print(text, store.tag.all())
-    #     if text.lower() in str(store.tag.all()).lower():
-    #         l.append(store)
-    # context = {'stores' : l}
-    context = {
-        'results_search' : results,
-    }
-
     data = serializers.serialize('json', results)
-    # res = {"results_search": data}
-    # return JsonResponse(res)
+
     return HttpResponse(data, content_type="application/json")
-    # return render(request, 'landing/base.html', context)
+
+
 class StoreView(DetailView):
     model = Store
     template_name = 'landing/store_deatil.html'
@@ -74,7 +62,7 @@ def cart_add(request, id):
     cart = Cart(request)
     product = Product.objects.get(id=id)
     store_slug = product.store.slug
-    red = '/store/' + store_slug
+    red = '/stores/' + store_slug
     cart.add(product=product)
     return redirect(red)
 
@@ -114,3 +102,18 @@ def cart_clear(request):
 @login_required(login_url="/accounts/login")
 def cart_detail(request):
     return render(request, 'landing/cart_detail.html')
+
+@login_required(login_url="/accounts/login")
+def checkout(request):
+    if request.GET:
+        chechout = request.GET['checkout']
+    cart = Cart(request)
+    for value in cart.cart.values():
+        print(value)
+    message = """
+    Новый заказ:
+    ***
+    """
+
+    # requests.get("https://api.telegram.org/bot%s/sendMessage" % COURIER_TELEGRAM_BOT_TOKEN,params={'chat_id': '-1001302242759', 'text': message})
+    return HttpResponse('Заказ принят')

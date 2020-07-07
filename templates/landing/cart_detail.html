@@ -1,9 +1,24 @@
 {% load cart_tag %}
 
-Total Length :: {{request.session.cart|length}}
-
+Total Length :: {{ request.session.cart|length }}
+<br>
 Cart Detail:
 
 {% for key,value in request.session.cart.items %}
-{{value.name}} {{value.price}} {{value.quantity}} {{value.image}} Total {{ value.price|multiply:value.quantity }}
+    Name: {{ value.name }}
+    <br>
+    Price: {{ value.price }}
+    <br>
+    Quantity: {{ value.quantity }}
+    <br>
+    <img src="{{ value.image }}" alt="" height="200px">
+    <br>
+    Total {{ value.price|multiply:value.quantity }}
+
 {% endfor %}
+
+<form action="{% url 'checkout' %}">
+    <input type="text" value="{{ request.session.cart }}" style="display:none;" name="checkout">
+    <input type="submit">
+</form>
+

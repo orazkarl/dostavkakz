@@ -76,7 +76,7 @@
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
         crossorigin="anonymous"></script>
 
-        <script src="https://katesbeauty.kz/static/assets/js/jquery-2.2.4.min.js"></script>
+<script src="https://katesbeauty.kz/static/assets/js/jquery-2.2.4.min.js"></script>
 
 <script>
     function searchStores(form) {
@@ -86,13 +86,12 @@
             type: $(form).attr('method'), // GET or POST
             url: $(form).attr('action'), // the file to call
             success: function (response) { // on success..
-                if(response){
-                store_name = response[0]['fields']['name']
-                }
-                else {
+                if (response) {
+                    store_name = response[0]['fields']['name']
+                } else {
                     store_name = response
                 }
-                $('#results-search-store-name').html(store_name) ;
+                $('#results-search-store-name').html(store_name);
                 console.log(store_name); // update the DIV
                 {#document.getElementById("results").style.display = "none";#}
             },
@@ -100,4 +99,4 @@
         return false;
     }
 </script>
-</html>
+
