@@ -77,6 +77,21 @@
 
             </div>
         </div>
+        <div>
+            <h1>Отзывы</h1>
+            {% for review in reviews %}
+                Рейтинг: {{ review.raiting }}
+                <br>
+                Пользователь: {{ review.user }}
+                <br>
+                {% if review.comment %}
+                    Комментария: {{ review.comment }}
+                {% endif %}
+                <br>
+                Дата: {{ review.pub_date }}
+            {% endfor %}
+        </div>
     </div>
+
 
 {% endblock %}

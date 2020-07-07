@@ -1,4 +1,5 @@
 from django.db import models
+from user_auth.models import User
 
 slug_help_text = "Слаг - это короткая метка для представления страницы в URL. \
 Содержит только буквы, цифры, подчеркивания или дефисы."
@@ -50,3 +51,26 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Review(models.Model):
+    RATING_CHOICES = (
+        (1, '1'),
+        (2, '2'),
+        (3, '3'),
+        (4, '4'),
+        (5, '5'),
+    )
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь')
+    store = models.ForeignKey(Store, on_delete=models.CASCADE, verbose_name='Заведения')
+    pub_date = models.DateTimeField(auto_now_add=True)
+    comment = models.CharField('Комментарий', max_length=250, null=True, blank=True)
+    raiting = models.PositiveIntegerField('Рейтинг', choices=RATING_CHOICES)
+
+    def __str__(self):
+        return f"{self.user} - {self.store}"
+
+    class Meta:
+        verbose_name = 'Отзыв'
+        verbose_name_plural = 'Отзывы'
+

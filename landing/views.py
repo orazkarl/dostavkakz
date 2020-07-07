@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic import *
 from django.http import JsonResponse, HttpResponse
-from .models import FoodCategory, Store, Product
+from .models import FoodCategory, Store, Product, Review
 from django.contrib.auth.decorators import login_required
 from cart.cart import Cart
 from django.db.models import Q
@@ -45,6 +45,7 @@ class StoreView(DetailView):
         store = Store.objects.get(slug=store_slug)
 
         products = Product.objects.filter(store=store)
+        reviews = Review.objects.filter(store=store)
         # if self.request.GET.get('q'):
         #     query = self.request.GET.get('q')
         #     if not query:
@@ -52,6 +53,7 @@ class StoreView(DetailView):
         #     products  = Product.objects.filter(store=store, name__icontains=query)
         self.extra_context = {
             'products': products,
+            'reviews': reviews,
         }
 
         return super().get(request, *args, **kwargs)

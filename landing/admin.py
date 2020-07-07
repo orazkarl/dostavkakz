@@ -18,3 +18,4 @@ class StoreAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Product)
+admin.site.register(Review)
