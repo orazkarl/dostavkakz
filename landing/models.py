@@ -1,5 +1,6 @@
 from django.db import models
 from user_auth.models import User
+import numpy as np
 
 slug_help_text = "Слаг - это короткая метка для представления страницы в URL. \
 Содержит только буквы, цифры, подчеркивания или дефисы."
@@ -36,6 +37,10 @@ class Store(models.Model):
     def __str__(self):
         return self.name
 
+    def average_rating(self):
+        all_ratings = map(lambda x: x.rating, self.review_set.all())
+        return np.mean(list(all_ratings))
+
 
 class Product(models.Model):
     store = models.ForeignKey(Store, on_delete=models.DO_NOTHING, verbose_name='Заведение')
@@ -65,7 +70,7 @@ class Review(models.Model):
     store = models.ForeignKey(Store, on_delete=models.CASCADE, verbose_name='Заведения')
     pub_date = models.DateTimeField(auto_now_add=True)
     comment = models.CharField('Комментарий', max_length=250, null=True, blank=True)
-    raiting = models.PositiveIntegerField('Рейтинг', choices=RATING_CHOICES)
+    rating = models.PositiveIntegerField('Рейтинг', choices=RATING_CHOICES)
 
     def __str__(self):
         return f"{self.user} - {self.store}"
@@ -73,4 +78,3 @@ class Review(models.Model):
     class Meta:
         verbose_name = 'Отзыв'
         verbose_name_plural = 'Отзывы'
-

@@ -43,7 +43,6 @@ class StoreView(DetailView):
     def get(self, request, *args, **kwargs):
         store_slug = self.kwargs.get(self.slug_url_kwarg, None)
         store = Store.objects.get(slug=store_slug)
-
         products = Product.objects.filter(store=store)
         reviews = Review.objects.filter(store=store)
         # if self.request.GET.get('q'):
@@ -126,5 +125,6 @@ def checkout(request):
     message += 'Адрес: ' + "\n"
     message += 'ИТОГО: ' + str(sum(total_price))
     print(message)
-    requests.get("https://api.telegram.org/bot%s/sendMessage" % COURIER_TELEGRAM_BOT_TOKEN,params={'chat_id': '-1001302242759', 'text': message})
+    requests.get("https://api.telegram.org/bot%s/sendMessage" % COURIER_TELEGRAM_BOT_TOKEN,
+                 params={'chat_id': '-1001302242759', 'text': message})
     return HttpResponse('Заказ принят')

@@ -26,7 +26,7 @@
 
     <div class="menubody">
         <div class="menutop" style="display: inline-flex;">
-            <p class="rate1"><i class="fa fa-star-half-o" aria-hidden="true"></i> 9 из 10</p>
+            <p class="rate1"><i class="fa fa-star-half-o" aria-hidden="true"></i> {{ store.average_rating }} из 5</p>
             <button class="izbr"><i class="fa fa-heart-o" aria-hidden="true"
                                     style="font-size: 18px; padding-right: 5px;"></i> Добавить в избранное
             </button>
@@ -80,15 +80,18 @@
         <div>
             <h1>Отзывы</h1>
             {% for review in reviews %}
-                Рейтинг: {{ review.raiting }}
+                Рейтинг: {{ review.rating }}
                 <br>
                 Пользователь: {{ review.user }}
                 <br>
                 {% if review.comment %}
                     Комментария: {{ review.comment }}
+                    <br>
                 {% endif %}
-                <br>
+
                 Дата: {{ review.pub_date }}
+                <br>
+                <br>
             {% endfor %}
         </div>
     </div>
