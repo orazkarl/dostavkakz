@@ -1,10 +1,12 @@
 {% load cart_tag %}
 
-Total Length :: {{ request.session.cart|length }}
+Total Length :: {{ items|length }}
+SUM: {{ total_price }}
 <br>
 Cart Detail:
 
-{% for key,value in request.session.cart.items %}
+{#{% for key,value in request.session.cart.items %}#}
+{% for value in items %}
     Name: {{ value.name }}
     <br>
     Price: {{ value.price }}
@@ -17,7 +19,7 @@ Cart Detail:
 
 {% endfor %}
 
-<form action="{% url 'checkout' %}">
-{#    <input type="text" value="{{ request.session.cart }}" style="display:none;" name="checkout">#}
+<form action="{% url 'checkout' slug %}">
+    <input type="text" value="{{ request.session.cart }}" style="display:none;" name="checkout">
     <input type="submit">
 </form>

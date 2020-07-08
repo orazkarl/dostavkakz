@@ -12,10 +12,10 @@ urlpatterns = [
     path('cart/item_increment/<int:id>/', views.item_increment, name='item_increment'),
     path('cart/item_decrement/<int:id>/', views.item_decrement, name='item_decrement'),
     path('cart/cart_clear/', views.cart_clear, name='cart_clear'),
-    path('cart/cart-detail/', views.cart_detail, name='cart_detail'),
+    path('stores/<slug:slug>/cart', views.cart_detail, name='cart_detail'),
 
     #
-    path('checkout/' , views.checkout, name='checkout'),
+    path('stores/<slug:slug>/checkout/' , views.checkout, name='checkout'),
 
     # wishist
     path('wishlist/', views.WishlistView.as_view(), name='wishlist'),

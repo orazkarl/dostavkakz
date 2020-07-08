@@ -10,7 +10,8 @@
             <p class="time">20-30 мин.</p></p>
             <p class="otkr"> Открыто сегодня с:
             <p class="opentime">{{ store.time_open }} - {{ store.time_closed }}</p></p>
-            <p class="cart"><i class="fa fa-shopping-cart" aria-hidden="true" style="padding-right: 8px;"></i> 0 позиций
+            <p class="cart"><i class="fa fa-shopping-cart" aria-hidden="true" style="padding-right: 8px;"></i> <a
+                    href="{% url 'cart_detail' store.slug %}">Корзина</a>
             </p>
         </div>
 
@@ -47,7 +48,7 @@
                             <div class="pos-body">
                                 <div class="pos-info" style="">
                                     <h5 class="name">
-                                        <a href="{% url 'cart_add' product.id %}"
+                                        <a href="{% url 'cart_add' slug=store.slug id=product.id %}"
                                            style="text-decoration: none; color: black"><i>+++</i></a>
                                         {{ product.name }}
                                     </h5>

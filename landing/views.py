@@ -102,29 +102,43 @@ def cart_clear(request):
 
 
 @login_required(login_url="/accounts/login")
-def cart_detail(request):
-    return render(request, 'landing/cart_detail.html')
+def cart_detail(request, slug):
+    cart = Cart(request)
+    items = []
+    total_price = []
+    for item in cart.cart.values():
+        product_id = item['product_id']
+        product = Product.objects.get(id=product_id)
+        if slug == product.store.slug:
+            items.append(item)
+            total_price.append(item['quantity'] * float(item['price']))
+    total_price = sum(total_price)
+    context = {
+        'items': items,
+        'slug': slug,
+        'total_price': total_price,
+    }
+    return render(request, 'landing/cart_detail.html', context=context)
 
 
 @login_required(login_url="/accounts/login")
-def checkout(request):
+def checkout(request, slug):
     cart = Cart(request)
-    name = ''
-    quantity = ''
-    price = ''
     total_price = []
     message = """Новый заказ:\n"""
     for value in cart.cart.values():
-        name = value['name']
-        quantity = value['quantity']
-        price = value['price']
-        temp = 'Названия: ' + name + "\n" + 'Количество: ' + str(quantity) + "\n" + 'Цена: ' + str(
-            quantity * float(price)) + "\n"
-        message = message + temp + "\n"
-        total_price.append(quantity * float(price))
+        product_id = value['product_id']
+        product = Product.objects.get(id=product_id)
+        if slug == product.store.slug:
+            name = value['name']
+            quantity = value['quantity']
+            price = value['price']
+            temp = 'Названия: ' + name + "\n" + 'Количество: ' + str(quantity) + "\n" + 'Цена: ' + str(
+                quantity * float(price)) + "\n"
+            message = message + temp + "\n"
+            total_price.append(quantity * float(price))
     message += 'Адрес: ' + "\n"
     message += 'ИТОГО: ' + str(sum(total_price))
-    print(message)
     requests.get("https://api.telegram.org/bot%s/sendMessage" % COURIER_TELEGRAM_BOT_TOKEN,
                  params={'chat_id': '-1001302242759', 'text': message})
     return HttpResponse('Заказ принят')
