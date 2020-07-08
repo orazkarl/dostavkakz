@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% for item in object_list %}
+    {{ item.store_item }}
+
+    <a type="button" href="{% url 'del_wishlist' %}?store_id={{ item.store_item.id }}">DEL</a>
+{% endfor %}
+</body>
+</html>

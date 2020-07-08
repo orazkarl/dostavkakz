@@ -1,7 +1,7 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import *
 from django.http import JsonResponse, HttpResponse
-from .models import FoodCategory, Store, Product, Review
+from .models import FoodCategory, Store, Product, Review, Wishlist
 from django.contrib.auth.decorators import login_required
 from cart.cart import Cart
 from django.db.models import Q
@@ -128,3 +128,35 @@ def checkout(request):
     requests.get("https://api.telegram.org/bot%s/sendMessage" % COURIER_TELEGRAM_BOT_TOKEN,
                  params={'chat_id': '-1001302242759', 'text': message})
     return HttpResponse('Заказ принят')
+
+
+class WishlistView(ListView):
+    template_name = 'landing/wishlist.html'
+
+    def get(self, request, *args, **kwargs):
+        self.queryset = Wishlist.objects.filter(user_id=request.user.id)
+        return super().get(request, *args, **kwargs)
+
+
+def add_wishlist(request):
+    user = request.user
+    store_id = request.GET['store_id']
+    # url = request.GET['url']
+
+    item = get_object_or_404(Store, id=store_id)
+    url = '/stores/' + item.slug
+    if not Wishlist.objects.filter(user_id=user.id, store_item=item):
+        Wishlist.objects.create(user_id=user.id, store_item=item)
+
+    return redirect(url)
+
+
+def del_wishlist(request):
+    user = request.user
+    store_id = request.GET['store_id']
+    item = get_object_or_404(Store, id=store_id)
+
+    if Wishlist.objects.filter(user_id=user.id, store_item=item):
+        Wishlist.objects.filter(user_id=user.id, store_item=item).delete()
+
+    return redirect('/wishlist')

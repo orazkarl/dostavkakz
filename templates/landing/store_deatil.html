@@ -27,13 +27,13 @@
     <div class="menubody">
         <div class="menutop" style="display: inline-flex;">
             <p class="rate1"><i class="fa fa-star-half-o" aria-hidden="true"></i> {{ store.average_rating }} из 5</p>
-            <button class="izbr"><i class="fa fa-heart-o" aria-hidden="true"
+            <a type="button" href="{% url 'add_wishlist' %}?store_id={{ store.id }}" class="izbr"><i class="fa fa-heart-o" aria-hidden="true"
                                     style="font-size: 18px; padding-right: 5px;"></i> Добавить в избранное
-            </button>
+            </a>
             <button class="izbr1"><i class="fa fa-heart-o" aria-hidden="true" style="font-size: 18px;"></i></button>
-{#            <form method="get">#}
-                <input type="search" class="menusrch" placeholder="Поиск по меню..." name="q" value="{{ request.GET.q }}" >
-{#            </form>#}
+            {#            <form method="get">#}
+            <input type="search" class="menusrch" placeholder="Поиск по меню..." name="q" value="{{ request.GET.q }}">
+            {#            </form>#}
 
 
         </div>
@@ -47,7 +47,8 @@
                             <div class="pos-body">
                                 <div class="pos-info" style="">
                                     <h5 class="name">
-                                        <a href="{% url 'cart_add' product.id %}" style="text-decoration: none; color: black"><i>+++</i></a>
+                                        <a href="{% url 'cart_add' product.id %}"
+                                           style="text-decoration: none; color: black"><i>+++</i></a>
                                         {{ product.name }}
                                     </h5>
                                     <p class="info1">{{ product.description }}</p>
@@ -98,3 +99,5 @@
 
 
 {% endblock %}
+
+
