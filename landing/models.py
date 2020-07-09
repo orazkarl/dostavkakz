@@ -29,6 +29,8 @@ class Store(models.Model):
     tag = models.ManyToManyField(FoodCategory, related_name='tags')
     time_open = models.TimeField('Открывается', null=True, blank=True)
     time_closed = models.TimeField('Закрывается', null=True, blank=True)
+    latitude = models.CharField('Широота', max_length=50, null=True, blank=True)
+    longitude = models.CharField('Высота', max_length=50, null=True, blank=True)
 
     class Meta:
         verbose_name = 'Заведение'

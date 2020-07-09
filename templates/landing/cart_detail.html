@@ -1,8 +1,9 @@
 {% load cart_tag %}
 
 Total Length :: {{ items|length }}
-SUM: {{ total_price }}
 <br>
+SUM: {{ total_price }}
+<br><br>
 Cart Detail:
 
 {#{% for key,value in request.session.cart.items %}#}
@@ -13,9 +14,11 @@ Cart Detail:
     <br>
     Quantity: {{ value.quantity }}
     <br>
-    <img src="{{ value.image }}" alt="" height="200px">
-    <br>
+{#    <img src="{{ value.image }}" alt="" height="200px">#}
+{#    <br>#}
     Total {{ value.price|multiply:value.quantity }}
+    <br>
+    <br>
 
 {% endfor %}
 

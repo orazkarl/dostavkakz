@@ -8,6 +8,15 @@ from django.db.models import Q
 from django.core import serializers
 from dostavkakz.settings import COURIER_TELEGRAM_BOT_TOKEN
 import requests
+from bs4 import BeautifulSoup
+
+
+def checkIP():
+    ip = requests.get('http://checkip.dyndns.org').content
+    soup = BeautifulSoup(ip, 'html.parser')
+    ip = soup.find('body').text
+    ip = ip.split(' ')[3]
+    return ip
 
 
 class HomeView(ListView):
@@ -15,6 +24,7 @@ class HomeView(ListView):
     queryset = Store.objects.all()
 
     def get(self, request, *args, **kwargs):
+        ip = checkIP()
         self.extra_context = {
             'stores': Store.objects.all(),
         }

@@ -15,6 +15,7 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
@@ -46,6 +47,7 @@ INSTALLED_APPS = [
     'phonenumber_field',
 
     'cart',
+    'django_2gis_maps',
 
 ]
 
@@ -57,6 +59,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'geoip2_extras.middleware.GeoIP2Middleware',
 
 ]
 
@@ -186,3 +189,7 @@ CART_SESSION_ID = 'cart'
 
 
 COURIER_TELEGRAM_BOT_TOKEN = '1307138365:AAGtwTSrMWlXIGtrEqbzRnIelXHA1IE0EWY'
+
+
+
+GEOIP_PATH = os.path.dirname(__file__)
