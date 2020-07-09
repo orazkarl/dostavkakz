@@ -184,3 +184,7 @@ def del_wishlist(request):
         Wishlist.objects.filter(user_id=user.id, store_item=item).delete()
 
     return redirect('/wishlist')
+
+
+class ProfileView(TemplateView):
+    template_name = 'landing/profile.html'

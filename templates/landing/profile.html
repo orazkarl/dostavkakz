@@ -1,0 +1,58 @@
+{% extends 'landing/base.html' %}
+{% load static %}
+{% block content %}
+    User: {{ request.user.username }}
+    <br>
+    E-mail: {{ request.user.email }}
+    <br>
+    Name: {{ request.user.first_name }} {{ request.user.last_name }}
+    <br>
+    Координатымаркера:
+    <div id="location">LatLng(54.98, 82.89)</div>
+    <div id="map" style="width: 100%; height: 400px;"></div>
+    <script src="https://maps.api.2gis.ru/2.0/loader.js"></script>
+
+    <script type="text/javascript">
+        var locationInfo = document.getElementById('location');
+
+        DG.then(function () {
+            var map,
+                marker;
+
+            map = DG.map('map', {
+                center: [43.23317, 76.957453],
+                zoom: 15,
+
+            });
+            map.locate({setView: true, watch: true})
+
+                .on('locationfound', function (e) {
+                    DG.marker([e.latitude, e.longitude]).addTo(map);
+                    marker = DG.marker([e.latitude, e.longitude], {draggable: true}).addTo(map);
+                    marker.on('drag', function (e) {
+                        var lat = e.target._latlng.lat.toFixed(3),
+                            lng = e.target._latlng.lng.toFixed(3);
+
+                        locationInfo.innerHTML = lat + ', ' + lng;
+                    });
+                })
+                .on('locationerror', function (e) {
+                    DG.popup()
+                        .setLatLng(map.getCenter())
+                        .setContent('Доступ к определению местоположения отключён')
+                        .openOn(map);
+                });
+
+
+            {#marker = DG.marker([43.23317, 76.957453], {#}
+            {#        draggable: true,#}
+            {##}
+            {#        interactive: false,#}
+            {#        zIndexOffset: 0;#}
+            {##}
+            {# }).addTo(map);#}
+            {##}
+
+        });
+    </script>
+{% endblock %}

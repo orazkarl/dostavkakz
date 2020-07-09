@@ -22,4 +22,7 @@ urlpatterns = [
     path('add_wishlist/', views.add_wishlist, name='add_wishlist'),
     path('del_wishlist/', views.del_wishlist, name='del_wishlist'),
 
+    # profile
+    path('my', views.ProfileView.as_view(), name='my'),
+
 ]
