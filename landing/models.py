@@ -93,3 +93,24 @@ class Wishlist(models.Model):
     class Meta:
         verbose_name = 'Избранное'
         verbose_name_plural = 'Избранные'
+
+
+class Order(models.Model):
+    ORDER_STATUS_CHOICES = (
+        (1, 'Не оплачен'),
+        (2, 'Оплачен'),
+        (3, 'Доставлен'),
+    )
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь')
+    order_item = models.CharField('Заказ', max_length=1000, null=True, blank=True)
+    address = models.CharField('Адрес', null=True, blank=True, max_length=250)
+    total_price = models.DecimalField('Цена', max_digits=8, decimal_places=2)
+    status = models.CharField('Статус', choices=ORDER_STATUS_CHOICES, max_length=25, null=True, blank=True)
+
+    class Meta:
+        verbose_name = 'Заказ'
+        verbose_name_plural = 'Заказы'
+
+    def __str__(self):
+        return self.order_item

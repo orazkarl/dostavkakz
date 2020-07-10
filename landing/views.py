@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import *
 from django.http import JsonResponse, HttpResponse
-from .models import FoodCategory, Store, Product, Review, Wishlist
+from .models import FoodCategory, Store, Product, Review, Wishlist, Order
 from django.contrib.auth.decorators import login_required
 from cart.cart import Cart
 
@@ -128,11 +128,14 @@ def checkout(request, slug):
     print(type(Cart(request)))
     cart = Cart(request)
     total_price = []
-    message = """Новый заказ:\n"""
+    # message = """Новый заказ:\n"""
+    message  = ''
+
     for value in cart.cart.values():
         product_id = value['product_id']
         product = Product.objects.get(id=product_id)
         if slug == product.store.slug:
+
             name = value['name']
             quantity = value['quantity']
             price = value['price']
@@ -140,10 +143,15 @@ def checkout(request, slug):
                 quantity * float(price)) + "\n"
             message = message + temp + "\n"
             total_price.append(quantity * float(price))
+    print(message)
+
+    Order.objects.create(user=request.user, order_item=message)
     message += 'Адрес: ' + "\n"
     message += 'ИТОГО: ' + str(sum(total_price))
-    requests.get("https://api.telegram.org/bot%s/sendMessage" % COURIER_TELEGRAM_BOT_TOKEN,
-                 params={'chat_id': '-1001302242759', 'text': message})
+
+
+    # requests.get("https://api.telegram.org/bot%s/sendMessage" % COURIER_TELEGRAM_BOT_TOKEN,
+    #              params={'chat_id': '-1001302242759', 'text': message})
     return HttpResponse('Заказ принят')
 
 

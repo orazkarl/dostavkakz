@@ -9,5 +9,4 @@ def logout_user(request):
     return redirect('home')
 
 class CustomPasswordChangeView(PasswordChangeView):
-    print('asd')
     success_url = reverse_lazy('profile')
