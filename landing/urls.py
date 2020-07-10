@@ -15,7 +15,7 @@ urlpatterns = [
     path('stores/<slug:slug>/cart', views.cart_detail, name='cart_detail'),
 
     #
-    path('stores/<slug:slug>/checkout/' , views.checkout, name='checkout'),
+    path('stores/<slug:slug>/checkout/', views.checkout, name='checkout'),
 
     # wishist
     path('wishlist/', views.WishlistView.as_view(), name='wishlist'),
@@ -24,5 +24,6 @@ urlpatterns = [
 
     # profile
     path('profile', views.ProfileView.as_view(), name='profile'),
+    path('order', views.OrderView.as_view(), name='order'),
 
 ]

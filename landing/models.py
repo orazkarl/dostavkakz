@@ -97,9 +97,9 @@ class Wishlist(models.Model):
 
 class Order(models.Model):
     ORDER_STATUS_CHOICES = (
-        (1, 'Не оплачен'),
-        (2, 'Оплачен'),
-        (3, 'Доставлен'),
+        ('1', 'Не оплачен'),
+        ('2', 'Оплачен'),
+        ('3', 'Доставлен'),
     )
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь')

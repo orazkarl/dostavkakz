@@ -125,17 +125,15 @@ def cart_detail(request, slug):
 
 @login_required(login_url="/accounts/login")
 def checkout(request, slug):
-    print(type(Cart(request)))
     cart = Cart(request)
     total_price = []
     # message = """Новый заказ:\n"""
-    message  = ''
+    message = ''
 
     for value in cart.cart.values():
         product_id = value['product_id']
         product = Product.objects.get(id=product_id)
         if slug == product.store.slug:
-
             name = value['name']
             quantity = value['quantity']
             price = value['price']
@@ -143,15 +141,14 @@ def checkout(request, slug):
                 quantity * float(price)) + "\n"
             message = message + temp + "\n"
             total_price.append(quantity * float(price))
-    print(message)
 
-    Order.objects.create(user=request.user, order_item=message)
+    total_price = sum(total_price)
+    Order.objects.create(user=request.user, order_item=message, address='Адрес', total_price=total_price, status='1')
     message += 'Адрес: ' + "\n"
-    message += 'ИТОГО: ' + str(sum(total_price))
+    message += 'ИТОГО: ' + str(total_price)
 
-
-    # requests.get("https://api.telegram.org/bot%s/sendMessage" % COURIER_TELEGRAM_BOT_TOKEN,
-    #              params={'chat_id': '-1001302242759', 'text': message})
+    requests.get("https://api.telegram.org/bot%s/sendMessage" % COURIER_TELEGRAM_BOT_TOKEN,
+                 params={'chat_id': '-1001302242759', 'text': message})
     return HttpResponse('Заказ принят')
 
 
@@ -192,7 +189,6 @@ class ProfileView(TemplateView):
 
     def post(self, request, *args, **kwargs):
         if request.POST:
-            print(request.POST)
             user = request.user
             if 'first_name' in request.POST:
                 user.first_name = request.POST['first_name']
@@ -201,4 +197,13 @@ class ProfileView(TemplateView):
             if 'username' in request.POST:
                 user.username = request.POST['username']
                 user.save()
+        return super().get(request, *args, **kwargs)
+
+
+class OrderView(ListView):
+    template_name = 'landing/order.html'
+    queryset = Order.objects.all()
+
+    def get(self, request, *args, **kwargs):
+        self.queryset = Order.objects.filter(user=request.user)
         return super().get(request, *args, **kwargs)

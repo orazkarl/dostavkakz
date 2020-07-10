@@ -1,0 +1,16 @@
+{% extends 'landing/base.html' %}
+{% load static %}
+{% block content %}
+    <div>
+        Заказы
+    </div>
+    {% for order in object_list %}
+        {{ forloop.counter }}. Продукт {{ order.order_item }}
+        <br>
+        Цена {{ order.total_price }}
+        <br>
+        Статус {{ order.get_status_display }}
+        <br>
+        <br>
+    {% endfor %}
+{% endblock %}
