@@ -4,6 +4,7 @@ from django.http import JsonResponse, HttpResponse
 from .models import FoodCategory, Store, Product, Review, Wishlist
 from django.contrib.auth.decorators import login_required
 from cart.cart import Cart
+
 from django.db.models import Q
 from django.core import serializers
 from dostavkakz.settings import COURIER_TELEGRAM_BOT_TOKEN
@@ -11,20 +12,11 @@ import requests
 from bs4 import BeautifulSoup
 
 
-def checkIP():
-    ip = requests.get('http://checkip.dyndns.org').content
-    soup = BeautifulSoup(ip, 'html.parser')
-    ip = soup.find('body').text
-    ip = ip.split(' ')[3]
-    return ip
-
-
 class HomeView(ListView):
     template_name = 'landing/index.html'
     queryset = Store.objects.all()
 
     def get(self, request, *args, **kwargs):
-        ip = checkIP()
         self.extra_context = {
             'stores': Store.objects.all(),
         }
@@ -133,6 +125,7 @@ def cart_detail(request, slug):
 
 @login_required(login_url="/accounts/login")
 def checkout(request, slug):
+    print(type(Cart(request)))
     cart = Cart(request)
     total_price = []
     message = """Новый заказ:\n"""
@@ -188,3 +181,16 @@ def del_wishlist(request):
 
 class ProfileView(TemplateView):
     template_name = 'landing/profile.html'
+
+    def post(self, request, *args, **kwargs):
+        if request.POST:
+            print(request.POST)
+            user = request.user
+            if 'first_name' in request.POST:
+                user.first_name = request.POST['first_name']
+                user.last_name = request.POST['last_name']
+                user.save()
+            if 'username' in request.POST:
+                user.username = request.POST['username']
+                user.save()
+        return super().get(request, *args, **kwargs)

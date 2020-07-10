@@ -192,4 +192,4 @@ COURIER_TELEGRAM_BOT_TOKEN = '1307138365:AAGtwTSrMWlXIGtrEqbzRnIelXHA1IE0EWY'
 
 
 
-GEOIP_PATH = os.path.dirname(__file__)
+
