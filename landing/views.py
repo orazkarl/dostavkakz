@@ -207,3 +207,7 @@ class OrderView(ListView):
     def get(self, request, *args, **kwargs):
         self.queryset = Order.objects.filter(user=request.user)
         return super().get(request, *args, **kwargs)
+
+
+class MyAddressView(TemplateView):
+    template_name = 'landing/addresses.html'

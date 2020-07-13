@@ -23,7 +23,8 @@ urlpatterns = [
     path('del_wishlist/', views.del_wishlist, name='del_wishlist'),
 
     # profile
-    path('profile', views.ProfileView.as_view(), name='profile'),
-    path('order', views.OrderView.as_view(), name='order'),
+    path('profile/', views.ProfileView.as_view(), name='profile'),
+    path('order/', views.OrderView.as_view(), name='order'),
+    path('addresses/', views.MyAddressView.as_view(), name='addresses'),
 
 ]
