@@ -1,0 +1,94 @@
+@media screen and (max-width: 450px) {
+	.navbar1 {
+		display: block !important;
+	}
+	.navbar-toogler {
+		margin-left: 2%;
+	}
+	body {
+		background: #000;
+	}
+	.log-block {
+		display: none;
+	}
+	.maincenter {
+		margin-top: 40%;
+	}
+	.logo {
+	    margin-top: 1%;
+	    margin-left: 21.5%;}
+	.maincat-s {
+		margin-left: 28%;
+		margin-top: 3%;
+	}
+	.mainsearch {
+		margin-left: 1%;
+		margin-top: 5%;
+	}
+	.mainsearch1 {
+		width: 278px;
+		height: 45px;
+	}
+	.header__logo1 {
+		display: none !important;
+	}
+	.foodtab {
+		margin-left: 9%;
+	}
+	.Header__header {
+		background: #ceae00 !important;
+	}
+	.categ_s_body {
+  		display: inline-flex;
+ 	 	margin-left: 4%;
+}
+	.mainsearch11 {
+		display: none !important;
+	}
+	.log-block1 {
+		display: none;
+	}
+	.s-logo {
+		display: none;
+	}
+	.s-cart {
+		display: block !important;
+	}
+	.ASAP {
+  margin-left: 15%;
+}
+.f-price {
+	margin-left: 20%;
+}
+.f-price h5 {
+	margin-left: 12%;
+}
+.selectcat {
+	margin-left: 6%;
+	margin-top: 5%;
+}
+.accordion {
+  display: block;
+  margin-top: 4%;
+}
+.body1 {
+	display: none !important;
+}
+.list-mob {
+	display: block !important;
+}
+.categories-pc {
+	display: none;
+}
+.categories {
+	display: block;
+}
+
+}
+
+@media screen and (max-width: 1024px) {
+	.log-block {
+		margin-left: 83%;
+	}
+
+}

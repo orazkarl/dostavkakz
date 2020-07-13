@@ -1,0 +1,262 @@
+
+<div class="Carousel CuisineCarousel">
+    <div class="Carousel__container">
+        <div class="CuisineCarouselItem CuisineCarouselItem--feature"><img class="CuisineCarouselItem__Img "
+                                                                           src="https://s3.amazonaws.com/s3.delivery.com/Food+Carousel/Deals-Blue.jpg"
+                                                                           alt="Deals &amp; Free Delivery">
+            <p class="CuisineCarouselItem__Title CuisineCarouselItem__Title--feature ">Deals &amp; Free Delivery</p>
+        </div>
+        <div class="CuisineCarouselItem CuisineCarouselItem--feature"><img class="CuisineCarouselItem__Img "
+                                                                           src="https://s3.amazonaws.com/s3.delivery.com/Food+Carousel/AlcoholToGo.jpg"
+                                                                           alt="Alcohol To&amp;#8209;Go">
+            <p class="CuisineCarouselItem__Title CuisineCarouselItem__Title--feature ">Alcohol To?Go</p></div>
+        <a class="CuisineCarouselItem"
+           href="/search/food/turkish?address=1%20Fulton%20St%2C%2010007&amp;orderTime=ASAP&amp;orderType=delivery&amp;page=1&amp;per_page=20"><img
+                class="CuisineCarouselItem__Img "
+                src="https://cuisine-images.s3.amazonaws.com/Cuisine+icons/Turkish.jpg" alt="Turkish">
+            <p class="CuisineCarouselItem__Title  ">Turkish</p></a><a class="CuisineCarouselItem"
+                                                                      href="/search/food/sushi?address=1%20Fulton%20St%2C%2010007&amp;orderTime=ASAP&amp;orderType=delivery&amp;page=1&amp;per_page=20"><img
+            class="CuisineCarouselItem__Img " src="https://s3.amazonaws.com/cuisine-images/Cuisine+icons/Sushi.jpg"
+            alt="Sushi">
+        <p class="CuisineCarouselItem__Title  ">Sushi</p></a><a class="CuisineCarouselItem"
+                                                                href="/search/food/italian?address=1%20Fulton%20St%2C%2010007&amp;orderTime=ASAP&amp;orderType=delivery&amp;page=1&amp;per_page=20"><img
+            class="CuisineCarouselItem__Img " src="https://s3.amazonaws.com/cuisine-images/Cuisine+icons/Italian.jpg"
+            alt="Italian">
+        <p class="CuisineCarouselItem__Title  ">Italian</p></a><a class="CuisineCarouselItem"
+                                                                  href="/search/food/sandwiches?address=1%20Fulton%20St%2C%2010007&amp;orderTime=ASAP&amp;orderType=delivery&amp;page=1&amp;per_page=20"><img
+            class="CuisineCarouselItem__Img " src="https://s3.amazonaws.com/cuisine-images/Cuisine+icons/Sandwiches.jpg"
+            alt="Sandwiches">
+        <p class="CuisineCarouselItem__Title  ">Sandwiches</p></a><a class="CuisineCarouselItem"
+                                                                     href="/search/food/salads?address=1%20Fulton%20St%2C%2010007&amp;orderTime=ASAP&amp;orderType=delivery&amp;page=1&amp;per_page=20"><img
+            class="CuisineCarouselItem__Img " src="https://s3.amazonaws.com/cuisine-images/Cuisine+icons/Salads.jpg"
+            alt="Salads">
+        <p class="CuisineCarouselItem__Title  ">Salads</p></a><a class="CuisineCarouselItem"
+                                                                 href="/search/food/breakfast?address=1%20Fulton%20St%2C%2010007&amp;orderTime=ASAP&amp;orderType=delivery&amp;page=1&amp;per_page=20"><img
+            class="CuisineCarouselItem__Img " src="https://s3.amazonaws.com/cuisine-images/Cuisine+icons/Breakfast.jpg"
+            alt="Breakfast">
+        <p class="CuisineCarouselItem__Title  ">Breakfast</p></a><a class="CuisineCarouselItem"
+                                                                    href="/search/food/asian?address=1%20Fulton%20St%2C%2010007&amp;orderTime=ASAP&amp;orderType=delivery&amp;page=1&amp;per_page=20"><img
+            class="CuisineCarouselItem__Img " src="https://s3.amazonaws.com/cuisine-images/Cuisine+icons/Asian_icon.jpg"
+            alt="Asian">
+        <p class="CuisineCarouselItem__Title  ">Asian</p></a><a class="CuisineCarouselItem"
+                                                                href="/search/food/pizza?address=1%20Fulton%20St%2C%2010007&amp;orderTime=ASAP&amp;orderType=delivery&amp;page=1&amp;per_page=20"><img
+            class="CuisineCarouselItem__Img " src="https://s3.amazonaws.com/cuisine-images/Cuisine+icons/Pizza.jpg"
+            alt="Pizza">
+        <p class="CuisineCarouselItem__Title  ">Pizza</p></a><a class="CuisineCarouselItem"
+                                                                href="/search/food/deli?address=1%20Fulton%20St%2C%2010007&amp;orderTime=ASAP&amp;orderType=delivery&amp;page=1&amp;per_page=20"><img
+            class="CuisineCarouselItem__Img " src="https://s3.amazonaws.com/cuisine-images/Cuisine+icons/Deli.jpg"
+            alt="Deli">
+        <p class="CuisineCarouselItem__Title  ">Deli</p></a><a class="CuisineCarouselItem"
+                                                               href="/search/food/mediterranean?address=1%20Fulton%20St%2C%2010007&amp;orderTime=ASAP&amp;orderType=delivery&amp;page=1&amp;per_page=20"><img
+            class="CuisineCarouselItem__Img "
+            src="https://s3.amazonaws.com/cuisine-images/Cuisine+icons/Mediterranean.jpg" alt="Mediterranean">
+        <p class="CuisineCarouselItem__Title  ">Mediterranean</p></a><a class="CuisineCarouselItem"
+                                                                        href="/search/food/chinese?address=1%20Fulton%20St%2C%2010007&amp;orderTime=ASAP&amp;orderType=delivery&amp;page=1&amp;per_page=20"><img
+            class="CuisineCarouselItem__Img " src="https://s3.amazonaws.com/cuisine-images/Cuisine+icons/Chinese.jpg"
+            alt="Chinese">
+        <p class="CuisineCarouselItem__Title  ">Chinese</p></a><a class="CuisineCarouselItem"
+                                                                  href="/search/food/american?address=1%20Fulton%20St%2C%2010007&amp;orderTime=ASAP&amp;orderType=delivery&amp;page=1&amp;per_page=20"><img
+            class="CuisineCarouselItem__Img " src="https://s3.amazonaws.com/cuisine-images/Cuisine+icons/American.jpg"
+            alt="American">
+        <p class="CuisineCarouselItem__Title  ">American</p></a><a class="CuisineCarouselItem"
+                                                                   href="/search/food/vegetarian?address=1%20Fulton%20St%2C%2010007&amp;orderTime=ASAP&amp;orderType=delivery&amp;page=1&amp;per_page=20"><img
+            class="CuisineCarouselItem__Img " src="https://s3.amazonaws.com/cuisine-images/Cuisine+icons/Vegetarian.jpg"
+            alt="Vegetarian">
+        <p class="CuisineCarouselItem__Title  ">Vegetarian</p></a><a class="CuisineCarouselItem"
+                                                                     href="/search/food/indian?address=1%20Fulton%20St%2C%2010007&amp;orderTime=ASAP&amp;orderType=delivery&amp;page=1&amp;per_page=20"><img
+            class="CuisineCarouselItem__Img " src="https://s3.amazonaws.com/cuisine-images/Cuisine+icons/Indian.jpg"
+            alt="Indian">
+        <p class="CuisineCarouselItem__Title  ">Indian</p></a><a class="CuisineCarouselItem"
+                                                                 href="/search/food/healthy?address=1%20Fulton%20St%2C%2010007&amp;orderTime=ASAP&amp;orderType=delivery&amp;page=1&amp;per_page=20"><img
+            class="CuisineCarouselItem__Img " src="https://s3.amazonaws.com/cuisine-images/Cuisine+icons/Healthy.jpg"
+            alt="Healthy">
+        <p class="CuisineCarouselItem__Title  ">Healthy</p></a><a class="CuisineCarouselItem"
+                                                                  href="/search/food/japanese?address=1%20Fulton%20St%2C%2010007&amp;orderTime=ASAP&amp;orderType=delivery&amp;page=1&amp;per_page=20"><img
+            class="CuisineCarouselItem__Img " src="https://s3.amazonaws.com/cuisine-images/Cuisine+icons/Japanese.jpg"
+            alt="Japanese">
+        <p class="CuisineCarouselItem__Title  ">Japanese</p></a><a class="CuisineCarouselItem"
+                                                                   href="/search/food/cafe?address=1%20Fulton%20St%2C%2010007&amp;orderTime=ASAP&amp;orderType=delivery&amp;page=1&amp;per_page=20"><img
+            class="CuisineCarouselItem__Img " src="https://cuisine-images.s3.amazonaws.com/Cuisine+icons/Cafe.jpg"
+            alt="Cafe">
+        <p class="CuisineCarouselItem__Title  ">Cafe</p></a><a class="CuisineCarouselItem"
+                                                               href="/search/food/mexican?address=1%20Fulton%20St%2C%2010007&amp;orderTime=ASAP&amp;orderType=delivery&amp;page=1&amp;per_page=20"><img
+            class="CuisineCarouselItem__Img " src="https://s3.amazonaws.com/cuisine-images/Cuisine+icons/Mexican.jpg"
+            alt="Mexican">
+        <p class="CuisineCarouselItem__Title  ">Mexican</p></a><a class="CuisineCarouselItem"
+                                                                  href="/search/food/burgers?address=1%20Fulton%20St%2C%2010007&amp;orderTime=ASAP&amp;orderType=delivery&amp;page=1&amp;per_page=20"><img
+            class="CuisineCarouselItem__Img " src="https://s3.amazonaws.com/cuisine-images/Cuisine+icons/Burger.jpg"
+            alt="Burgers">
+        <p class="CuisineCarouselItem__Title  ">Burgers</p></a><a class="CuisineCarouselItem"
+                                                                  href="/search/food/thai?address=1%20Fulton%20St%2C%2010007&amp;orderTime=ASAP&amp;orderType=delivery&amp;page=1&amp;per_page=20"><img
+            class="CuisineCarouselItem__Img " src="https://s3.amazonaws.com/cuisine-images/Cuisine+icons/Thai.jpg"
+            alt="Thai">
+        <p class="CuisineCarouselItem__Title  ">Thai</p></a><a class="CuisineCarouselItem"
+                                                               href="/search/food/wings?address=1%20Fulton%20St%2C%2010007&amp;orderTime=ASAP&amp;orderType=delivery&amp;page=1&amp;per_page=20"><img
+            class="CuisineCarouselItem__Img " src="https://s3.amazonaws.com/cuisine-images/Cuisine+icons/Wings.jpg"
+            alt="Wings">
+        <p class="CuisineCarouselItem__Title  ">Wings</p></a><a class="CuisineCarouselItem"
+                                                                href="/search/food/vegan?address=1%20Fulton%20St%2C%2010007&amp;orderTime=ASAP&amp;orderType=delivery&amp;page=1&amp;per_page=20"><img
+            class="CuisineCarouselItem__Img " src="https://s3.amazonaws.com/cuisine-images/Cuisine+icons/Vegetarian.jpg"
+            alt="Vegan">
+        <p class="CuisineCarouselItem__Title  ">Vegan</p></a><a class="CuisineCarouselItem"
+                                                                href="/search/food/seafood?address=1%20Fulton%20St%2C%2010007&amp;orderTime=ASAP&amp;orderType=delivery&amp;page=1&amp;per_page=20"><img
+            class="CuisineCarouselItem__Img " src="https://cuisine-images.s3.amazonaws.com/Cuisine+icons/Seafood.jpg"
+            alt="Seafood">
+        <p class="CuisineCarouselItem__Title  ">Seafood</p></a><a class="CuisineCarouselItem"
+                                                                  href="/search/food/gluten-free?address=1%20Fulton%20St%2C%2010007&amp;orderTime=ASAP&amp;orderType=delivery&amp;page=1&amp;per_page=20"><img
+            class="CuisineCarouselItem__Img " src="https://s3.amazonaws.com/cuisine-images/Cuisine+icons/Generic.jpg"
+            alt="Gluten-Free">
+        <p class="CuisineCarouselItem__Title  ">Gluten-Free</p></a><a class="CuisineCarouselItem"
+                                                                      href="/search/food/middle-eastern?address=1%20Fulton%20St%2C%2010007&amp;orderTime=ASAP&amp;orderType=delivery&amp;page=1&amp;per_page=20"><img
+            class="CuisineCarouselItem__Img " src="https://cuisine-images.s3.amazonaws.com/Cuisine+icons/Greek.jpg"
+            alt="Middle Eastern">
+        <p class="CuisineCarouselItem__Title  ">Middle Eastern</p></a><a class="CuisineCarouselItem"
+                                                                         href="/search/food/desserts?address=1%20Fulton%20St%2C%2010007&amp;orderTime=ASAP&amp;orderType=delivery&amp;page=1&amp;per_page=20"><img
+            class="CuisineCarouselItem__Img " src="https://cuisine-images.s3.amazonaws.com/Cuisine+icons/Dessert.jpg"
+            alt="Desserts">
+        <p class="CuisineCarouselItem__Title  ">Desserts</p></a><a class="CuisineCarouselItem"
+                                                                   href="/search/food/greek?address=1%20Fulton%20St%2C%2010007&amp;orderTime=ASAP&amp;orderType=delivery&amp;page=1&amp;per_page=20"><img
+            class="CuisineCarouselItem__Img " src="https://cuisine-images.s3.amazonaws.com/Cuisine+icons/Greek.jpg"
+            alt="Greek">
+        <p class="CuisineCarouselItem__Title  ">Greek</p></a><a class="CuisineCarouselItem"
+                                                                href="/search/food/tex-mex?address=1%20Fulton%20St%2C%2010007&amp;orderTime=ASAP&amp;orderType=delivery&amp;page=1&amp;per_page=20"><img
+            class="CuisineCarouselItem__Img " src="https://s3.amazonaws.com/cuisine-images/Cuisine+icons/Mexican.jpg"
+            alt="Tex-Mex">
+        <p class="CuisineCarouselItem__Title  ">Tex-Mex</p></a><a class="CuisineCarouselItem"
+                                                                  href="/search/food/chicken?address=1%20Fulton%20St%2C%2010007&amp;orderTime=ASAP&amp;orderType=delivery&amp;page=1&amp;per_page=20"><img
+            class="CuisineCarouselItem__Img " src="https://cuisine-images.s3.amazonaws.com/Cuisine+icons/Chicken.jpg"
+            alt="Chicken">
+        <p class="CuisineCarouselItem__Title  ">Chicken</p></a><a class="CuisineCarouselItem"
+                                                                  href="/search/food/bagels?address=1%20Fulton%20St%2C%2010007&amp;orderTime=ASAP&amp;orderType=delivery&amp;page=1&amp;per_page=20"><img
+            class="CuisineCarouselItem__Img " src="https://cuisine-images.s3.amazonaws.com/Cuisine+icons/Bagels.jpg"
+            alt="Bagels">
+        <p class="CuisineCarouselItem__Title  ">Bagels</p></a><a class="CuisineCarouselItem"
+                                                                 href="/search/food/fusion?address=1%20Fulton%20St%2C%2010007&amp;orderTime=ASAP&amp;orderType=delivery&amp;page=1&amp;per_page=20"><img
+            class="CuisineCarouselItem__Img " src="https://s3.amazonaws.com/cuisine-images/Cuisine+icons/Generic.jpg"
+            alt="Fusion">
+        <p class="CuisineCarouselItem__Title  ">Fusion</p></a><a class="CuisineCarouselItem"
+                                                                 href="/search/food/fast-food?address=1%20Fulton%20St%2C%2010007&amp;orderTime=ASAP&amp;orderType=delivery&amp;page=1&amp;per_page=20"><img
+            class="CuisineCarouselItem__Img " src="https://s3.amazonaws.com/cuisine-images/Cuisine+icons/American.jpg"
+            alt="Fast Food">
+        <p class="CuisineCarouselItem__Title  ">Fast Food</p></a><a class="CuisineCarouselItem"
+                                                                    href="/search/food/halal?address=1%20Fulton%20St%2C%2010007&amp;orderTime=ASAP&amp;orderType=delivery&amp;page=1&amp;per_page=20"><img
+            class="CuisineCarouselItem__Img "
+            src="https://s3.amazonaws.com/cuisine-images/Cuisine+icons/Mediterranean.jpg" alt="Halal">
+        <p class="CuisineCarouselItem__Title  ">Halal</p></a><a class="CuisineCarouselItem"
+                                                                href="/search/food/ice-cream?address=1%20Fulton%20St%2C%2010007&amp;orderTime=ASAP&amp;orderType=delivery&amp;page=1&amp;per_page=20"><img
+            class="CuisineCarouselItem__Img " src="https://cuisine-images.s3.amazonaws.com/Cuisine+icons/IceCream.jpg"
+            alt="Ice Cream">
+        <p class="CuisineCarouselItem__Title  ">Ice Cream</p></a><a class="CuisineCarouselItem"
+                                                                    href="/search/food/hawaiian?address=1%20Fulton%20St%2C%2010007&amp;orderTime=ASAP&amp;orderType=delivery&amp;page=1&amp;per_page=20"><img
+            class="CuisineCarouselItem__Img " src="https://s3.amazonaws.com/cuisine-images/Cuisine+icons/Generic.jpg"
+            alt="Hawaiian">
+        <p class="CuisineCarouselItem__Title  ">Hawaiian</p></a><a class="CuisineCarouselItem"
+                                                                   href="/search/food/kosher?address=1%20Fulton%20St%2C%2010007&amp;orderTime=ASAP&amp;orderType=delivery&amp;page=1&amp;per_page=20"><img
+            class="CuisineCarouselItem__Img " src="https://s3.amazonaws.com/cuisine-images/Cuisine+icons/Generic.jpg"
+            alt="Kosher">
+        <p class="CuisineCarouselItem__Title  ">Kosher</p></a><a class="CuisineCarouselItem"
+                                                                 href="/search/food/latin?address=1%20Fulton%20St%2C%2010007&amp;orderTime=ASAP&amp;orderType=delivery&amp;page=1&amp;per_page=20"><img
+            class="CuisineCarouselItem__Img " src="https://s3.amazonaws.com/cuisine-images/Cuisine+icons/Generic.jpg"
+            alt="Latin">
+        <p class="CuisineCarouselItem__Title  ">Latin</p></a><a class="CuisineCarouselItem"
+                                                                href="/search/food/juice-bar?address=1%20Fulton%20St%2C%2010007&amp;orderTime=ASAP&amp;orderType=delivery&amp;page=1&amp;per_page=20"><img
+            class="CuisineCarouselItem__Img " src="https://cuisine-images.s3.amazonaws.com/Cuisine+icons/JuiceBar.jpg"
+            alt="Juice Bar">
+        <p class="CuisineCarouselItem__Title  ">Juice Bar</p></a><a class="CuisineCarouselItem"
+                                                                    href="/search/food/bar-food?address=1%20Fulton%20St%2C%2010007&amp;orderTime=ASAP&amp;orderType=delivery&amp;page=1&amp;per_page=20"><img
+            class="CuisineCarouselItem__Img " src="https://s3.amazonaws.com/cuisine-images/Cuisine+icons/Wings.jpg"
+            alt="Bar Food">
+        <p class="CuisineCarouselItem__Title  ">Bar Food</p></a><a class="CuisineCarouselItem"
+                                                                   href="/search/food/irish?address=1%20Fulton%20St%2C%2010007&amp;orderTime=ASAP&amp;orderType=delivery&amp;page=1&amp;per_page=20"><img
+            class="CuisineCarouselItem__Img " src="https://s3.amazonaws.com/cuisine-images/Cuisine+icons/Generic.jpg"
+            alt="Irish">
+        <p class="CuisineCarouselItem__Title  ">Irish</p></a><a class="CuisineCarouselItem"
+                                                                href="/search/food/organic?address=1%20Fulton%20St%2C%2010007&amp;orderTime=ASAP&amp;orderType=delivery&amp;page=1&amp;per_page=20"><img
+            class="CuisineCarouselItem__Img " src="https://s3.amazonaws.com/cuisine-images/Cuisine+icons/Vegetarian.jpg"
+            alt="Organic">
+        <p class="CuisineCarouselItem__Title  ">Organic</p></a><a class="CuisineCarouselItem"
+                                                                  href="/search/food/french?address=1%20Fulton%20St%2C%2010007&amp;orderTime=ASAP&amp;orderType=delivery&amp;page=1&amp;per_page=20"><img
+            class="CuisineCarouselItem__Img " src="https://s3.amazonaws.com/cuisine-images/Cuisine+icons/Generic.jpg"
+            alt="French">
+        <p class="CuisineCarouselItem__Title  ">French</p></a><a class="CuisineCarouselItem"
+                                                                 href="/search/food/soul-food?address=1%20Fulton%20St%2C%2010007&amp;orderTime=ASAP&amp;orderType=delivery&amp;page=1&amp;per_page=20"><img
+            class="CuisineCarouselItem__Img " src="https://cuisine-images.s3.amazonaws.com/Cuisine+icons/Chicken.jpg"
+            alt="Soul Food">
+        <p class="CuisineCarouselItem__Title  ">Soul Food</p></a><a class="CuisineCarouselItem"
+                                                                    href="/search/food/bbq?address=1%20Fulton%20St%2C%2010007&amp;orderTime=ASAP&amp;orderType=delivery&amp;page=1&amp;per_page=20"><img
+            class="CuisineCarouselItem__Img " src="https://s3.amazonaws.com/cuisine-images/Cuisine+icons/Wings.jpg"
+            alt="BBQ">
+        <p class="CuisineCarouselItem__Title  ">BBQ</p></a><a class="CuisineCarouselItem"
+                                                              href="/search/food/korean?address=1%20Fulton%20St%2C%2010007&amp;orderTime=ASAP&amp;orderType=delivery&amp;page=1&amp;per_page=20"><img
+            class="CuisineCarouselItem__Img " src="https://s3.amazonaws.com/cuisine-images/Cuisine+icons/Korean.jpg"
+            alt="Korean">
+        <p class="CuisineCarouselItem__Title  ">Korean</p></a><a class="CuisineCarouselItem"
+                                                                 href="/search/food/diner?address=1%20Fulton%20St%2C%2010007&amp;orderTime=ASAP&amp;orderType=delivery&amp;page=1&amp;per_page=20"><img
+            class="CuisineCarouselItem__Img " src="https://s3.amazonaws.com/cuisine-images/Cuisine+icons/Sandwiches.jpg"
+            alt="Diner">
+        <p class="CuisineCarouselItem__Title  ">Diner</p></a><a class="CuisineCarouselItem"
+                                                                href="/search/food/glatt-kosher?address=1%20Fulton%20St%2C%2010007&amp;orderTime=ASAP&amp;orderType=delivery&amp;page=1&amp;per_page=20"><img
+            class="CuisineCarouselItem__Img " src="https://s3.amazonaws.com/cuisine-images/Cuisine+icons/Generic.jpg"
+            alt="Glatt Kosher">
+        <p class="CuisineCarouselItem__Title  ">Glatt Kosher</p></a><a class="CuisineCarouselItem"
+                                                                       href="/search/food/frozen-yogurt?address=1%20Fulton%20St%2C%2010007&amp;orderTime=ASAP&amp;orderType=delivery&amp;page=1&amp;per_page=20"><img
+            class="CuisineCarouselItem__Img " src="https://cuisine-images.s3.amazonaws.com/Cuisine+icons/FroYo.jpg"
+            alt="Frozen Yogurt">
+        <p class="CuisineCarouselItem__Title  ">Frozen Yogurt</p></a><a class="CuisineCarouselItem"
+                                                                        href="/search/food/soups?address=1%20Fulton%20St%2C%2010007&amp;orderTime=ASAP&amp;orderType=delivery&amp;page=1&amp;per_page=20"><img
+            class="CuisineCarouselItem__Img " src="https://s3.amazonaws.com/cuisine-images/Cuisine+icons/Korean.jpg"
+            alt="Soups">
+        <p class="CuisineCarouselItem__Title  ">Soups</p></a><a class="CuisineCarouselItem"
+                                                                href="/search/food/cuban?address=1%20Fulton%20St%2C%2010007&amp;orderTime=ASAP&amp;orderType=delivery&amp;page=1&amp;per_page=20"><img
+            class="CuisineCarouselItem__Img " src="https://s3.amazonaws.com/cuisine-images/Cuisine+icons/Generic.jpg"
+            alt="Cuban">
+        <p class="CuisineCarouselItem__Title  ">Cuban</p></a><a class="CuisineCarouselItem"
+                                                                href="/search/food/brunch?address=1%20Fulton%20St%2C%2010007&amp;orderTime=ASAP&amp;orderType=delivery&amp;page=1&amp;per_page=20"><img
+            class="CuisineCarouselItem__Img " src="https://s3.amazonaws.com/cuisine-images/Cuisine+icons/Breakfast.jpg"
+            alt="Brunch">
+        <p class="CuisineCarouselItem__Title  ">Brunch</p></a><a class="CuisineCarouselItem"
+                                                                 href="/search/food/hot-dogs?address=1%20Fulton%20St%2C%2010007&amp;orderTime=ASAP&amp;orderType=delivery&amp;page=1&amp;per_page=20"><img
+            class="CuisineCarouselItem__Img " src="https://cuisine-images.s3.amazonaws.com/Cuisine+icons/HotDogs.jpg"
+            alt="Hot Dogs">
+        <p class="CuisineCarouselItem__Title  ">Hot Dogs</p></a><a class="CuisineCarouselItem"
+                                                                   href="/search/food/caribbean?address=1%20Fulton%20St%2C%2010007&amp;orderTime=ASAP&amp;orderType=delivery&amp;page=1&amp;per_page=20"><img
+            class="CuisineCarouselItem__Img " src="https://s3.amazonaws.com/cuisine-images/Cuisine+icons/Generic.jpg"
+            alt="Caribbean">
+        <p class="CuisineCarouselItem__Title  ">Caribbean</p></a><a class="CuisineCarouselItem"
+                                                                    href="/search/food/spanish?address=1%20Fulton%20St%2C%2010007&amp;orderTime=ASAP&amp;orderType=delivery&amp;page=1&amp;per_page=20"><img
+            class="CuisineCarouselItem__Img " src="https://s3.amazonaws.com/cuisine-images/Cuisine+icons/Generic.jpg"
+            alt="Spanish">
+        <p class="CuisineCarouselItem__Title  ">Spanish</p></a><a class="CuisineCarouselItem"
+                                                                  href="/search/food/bakery?address=1%20Fulton%20St%2C%2010007&amp;orderTime=ASAP&amp;orderType=delivery&amp;page=1&amp;per_page=20"><img
+            class="CuisineCarouselItem__Img " src="https://cuisine-images.s3.amazonaws.com/Cuisine+icons/Bakery.jpg"
+            alt="Bakery">
+        <p class="CuisineCarouselItem__Title  ">Bakery</p></a><a class="CuisineCarouselItem"
+                                                                 href="/search/food/empanadas?address=1%20Fulton%20St%2C%2010007&amp;orderTime=ASAP&amp;orderType=delivery&amp;page=1&amp;per_page=20"><img
+            class="CuisineCarouselItem__Img " src="https://s3.amazonaws.com/cuisine-images/Cuisine+icons/Generic.jpg"
+            alt="Empanadas">
+        <p class="CuisineCarouselItem__Title  ">Empanadas</p></a><a class="CuisineCarouselItem"
+                                                                    href="/search/food/armenian?address=1%20Fulton%20St%2C%2010007&amp;orderTime=ASAP&amp;orderType=delivery&amp;page=1&amp;per_page=20"><img
+            class="CuisineCarouselItem__Img " src="https://s3.amazonaws.com/cuisine-images/Cuisine+icons/Generic.jpg"
+            alt="Armenian">
+        <p class="CuisineCarouselItem__Title  ">Armenian</p></a><a class="CuisineCarouselItem"
+                                                                   href="/search/food/cajun?address=1%20Fulton%20St%2C%2010007&amp;orderTime=ASAP&amp;orderType=delivery&amp;page=1&amp;per_page=20"><img
+            class="CuisineCarouselItem__Img " src="https://s3.amazonaws.com/cuisine-images/Cuisine+icons/Generic.jpg"
+            alt="Cajun">
+        <p class="CuisineCarouselItem__Title  ">Cajun</p></a><a class="CuisineCarouselItem"
+                                                                href="/search/food/vietnamese?address=1%20Fulton%20St%2C%2010007&amp;orderTime=ASAP&amp;orderType=delivery&amp;page=1&amp;per_page=20"><img
+            class="CuisineCarouselItem__Img " src="https://s3.amazonaws.com/cuisine-images/Cuisine+icons/Generic.jpg"
+            alt="Vietnamese">
+        <p class="CuisineCarouselItem__Title  ">Vietnamese</p></a><a class="CuisineCarouselItem"
+                                                                     href="/search/food/tapas?address=1%20Fulton%20St%2C%2010007&amp;orderTime=ASAP&amp;orderType=delivery&amp;page=1&amp;per_page=20"><img
+            class="CuisineCarouselItem__Img " src="https://s3.amazonaws.com/cuisine-images/Cuisine+icons/Generic.jpg"
+            alt="Tapas">
+        <p class="CuisineCarouselItem__Title  ">Tapas</p></a><a class="CuisineCarouselItem"
+                                                                href="/search/food/farm-to-table?address=1%20Fulton%20St%2C%2010007&amp;orderTime=ASAP&amp;orderType=delivery&amp;page=1&amp;per_page=20"><img
+            class="CuisineCarouselItem__Img "
+            src="https://cuisine-images.s3.amazonaws.com/Cuisine+icons/FarmToTable.jpg" alt="Farm to Table">
+        <p class="CuisineCarouselItem__Title  ">Farm to Table</p></a></div>
+    <button class="Carousel__btn-prev Carousel__btn-prev--hidden fs-ignore-rage-clicks"><span
+            class="icon-left-arrow-thick"></span></button>
+    <button class="Carousel__btn-next Carousel__btn-next--hidden fs-ignore-rage-clicks"><span
+            class="icon-right-arrow-thick"></span></button>
+</div>
