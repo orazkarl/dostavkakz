@@ -1,102 +1,67 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0, minimum-scale=1, maximum-scale=1, user-scalable=0, shrink-to-fit=no">
-
-    <title>getall.kz | Возьми всё!</title>
-    <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.png' %}">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <link rel="stylesheet" href="{% static 'css/media.css' %}">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <link rel="stylesheet" href="{% static 'font-awesome/css/font-awesome.min.css' %}">
-    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap" rel="stylesheet">
-
-</head>
-<body>
-<header style="display: inline-flex;">
-    <div class="header__logo">
-        <a href="{% url 'home' %}">get<span class="all">all</span></a>
-    </div>
-
-    <form action="{% url 'search_stores' %}" oninput="return searchStores(this);">
-        <input type="search" class="search" placeholder="&#128269; Найти" name="q">
-        <input type="submit" style="display: none">
-    </form>
-    <div id="results-search-store-name">
-
-    </div>
-    <div class="login">
-        <div class="dropdown">
-            <button style="background: none; border: none; outline: none;" class="btn btn-secondary" type="button"
-                    id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i
-                    style="color: #666;" class="fa fa-user-circle-o" aria-hidden="true"></i></button>
-
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                {% if user.is_authenticated %}
-                    <a class="dropdown-item" href="{% url 'profile' %}">Профиль</a>
-                    <a class="dropdown-item" href="{% url 'logout_user' %}">Выйти</a>
-                {% else %}
-                    <a class="dropdown-item" href="{% url 'account_login' %}">Войти</a>
-                    <a class="dropdown-item" href="{% url 'account_signup' %}">Регистрация</a>
-                {% endif %}
-
-            </div>
-        </div>
-    </div>
-    <nav>
-        <div class="topnav" id="myTopnav">
-            {% if user.is_authenticated %}
-                <a href="{% url 'profile' %}" class="reg">Профиль</a>
-                <a href="{% url 'logout_user' %}">Выйти</a>
-            {% else %}
-                <a href="{% url 'account_signup' %}" class="reg">Регистрация</a>
-                <a href="{% url 'account_login' %}">Войти</a>
-            {% endif %}
-            <a href="#" id="menu" class="icon" onclick="myFunction()">&#9776;</a>
-
-        </div>
-    </nav>
-</header>
-{% block content %}
-{% endblock %}
-</body>
-
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-        crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
-        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
-        crossorigin="anonymous"></script>
-
-<script src="https://katesbeauty.kz/static/assets/js/jquery-2.2.4.min.js"></script>
-
-<script>
-    function searchStores(form) {
-        event.preventDefault();
-        $.ajax({ // create an AJAX call...
-            data: $(form).serialize(), // get the form data
-            type: $(form).attr('method'), // GET or POST
-            url: $(form).attr('action'), // the file to call
-            success: function (response) { // on success..
-                if (response) {
-                    store_name = response[0]['fields']['name']
-                } else {
-                    store_name = response
-                }
-                $('#results-search-store-name').html(store_name);
-                console.log(store_name); // update the DIV
-                {#document.getElementById("results").style.display = "none";#}
-            },
-        });
-        return false;
-    }
-</script>
-
+{# {% load static %}#}
+{#<!DOCTYPE html>#}
+{#<html lang="ru-RU">#}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">#}
+{#    <title>Jetkizu.me | Доставим всё!</title>#}
+{#    <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.png' %}">#}
+{#    <link rel="stylesheet" href="{% static 'css/style.css' %}">#}
+{#    <link rel="stylesheet" href="{% static 'css/media.css' %}">#}
+{#    <link rel="stylesheet" href="{% static 'font-awesome/css/font-awesome.min.css' %}">#}
+{#    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"#}
+{#          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">#}
+{#    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">#}
+{#    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap" rel="stylesheet">#}
+{#</head>#}
+{##}
+{#<header>#}
+{#    <div class="log-block">#}
+{#        <a href="" class="login">Войти</a>#}
+{#        <a href="" class="reg">Регистрация</a>#}
+{#    </div>#}
+{##}
+{#    <div class="navbar1" style="display: none;">#}
+{#        <nav class="navbar navbar-expand-lg navbar-light bg-light">#}
+{#            <a class="navbar-brand" href="#">Главное меню</a>#}
+{#            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"#}
+{#                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">#}
+{#                <span class="navbar-toggler-icon"></span>#}
+{#            </button>#}
+{##}
+{#            <div class="collapse navbar-collapse" id="navbarSupportedContent">#}
+{#                <ul class="navbar-nav mr-auto">#}
+{#                    <li class="nav-item active">#}
+{#                        <a class="nav-link" href="#">Войти <span class="sr-only">(current)</span></a>#}
+{#                    </li>#}
+{#                    <li class="nav-item active">#}
+{#                        <a class="nav-link" href="#">Регистрация</a>#}
+{#                    </li>#}
+{#                    <li class="nav-item active">#}
+{#                        <a class="nav-link" href="#">Избранное</a>#}
+{#                    </li>#}
+{#                </ul>#}
+{#            </div>#}
+{#        </nav>#}
+{#    </div>#}
+{##}
+{#</header>#}
+{##}
+{#<body>#}
+{##}
+{#{% block content %}#}
+{#{% endblock %}#}
+{##}
+{#</body>#}
+{##}
+{##}
+{#<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"#}
+{#        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"#}
+{#        crossorigin="anonymous"></script>#}
+{#<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"#}
+{#        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"#}
+{#        crossorigin="anonymous"></script>#}
+{#<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"#}
+{#        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"#}
+{#        crossorigin="anonymous"></script>#}
+{#</html>#}

@@ -1,40 +1,82 @@
-{% extends 'landing/base.html' %}
 {% load static %}
+<!DOCTYPE html>
+<html lang="ru-RU">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Jetkizu.me | Доставим всё!</title>
+    <link rel="shortcut icon" type="image/png" href="/images/favicon.png">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/media.css' %}">
+    <link rel="stylesheet" href="{% static 'font-awesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap" rel="stylesheet">
+</head>
 
-{% block content %}
-    <div class="block1">
-        <p class="m-city"><i class="fa fa-map-marker" aria-hidden="true"></i> Алматы</p>
-        <p class="m-popular"><i class="fa fa-star-o" aria-hidden="true"></i> Популярное</p>
-        <p class="m-dost"><i class="fa fa-bicycle" aria-hidden="true"></i> Доставка</p>
+<header>
+    <div class="log-block">
+        <a href="" class="login">Войти</a>
+        <a href="" class="reg">Регистрация</a>
     </div>
 
+    <div class="navbar1" style="display: none;">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">Главное меню</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-    <div class="h-1">
-        <h2>Популярное</h2>
-        {% for store in stores %}
-            <div class="content">
-                <div class="card">
-                    <a href="{% url 'store_detail'  store.slug %}" style="text-decoration: none">
-                        <div class="card-img">
-                            <img src="{{ store.image.url }}" alt="" style="height: 105%">
-                        </div>
-                        <div class="card-det">
-                            <div class="card-det1">
-                                <h4 style="padding-bottom: 3px; color: #000;">{{ store.name }} </h4>
-                                <p>{{ store.description }}</p>
-                            </div>
-                        </div>
-                    </a>
-                    <div class="rate">
-                        <p>$$ |</p>
-                        <p class="what">{% for tag in store.tag.all %} {{ tag.name }} {% endfor %}</p>
-                    </div>
-                </div>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Войти <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Регистрация</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Избранное</a>
+                    </li>
+                </ul>
             </div>
-        {% endfor %}
-
+        </nav>
     </div>
 
+</header>
+
+<body>
+
+<div class="maincenter">
+    <div class="logo">
+        <img src="{% static 'images/logo.png' %}" alt="">
+    </div>
+    <div class="maincat-s">
+        <a href="" class="m-food"><i class="fa fa-cutlery" aria-hidden="true"></i>
+        </a>
+        <a href="" class="m-drinks"><i class="fa fa-glass" aria-hidden="true"></i>
+        </a>
+        <a href="" class="m-goods"><i class="fa fa-shopping-basket" aria-hidden="true"></i></a>
+    </div>
+    <div class="mainsearch" style="display: inline-flex;">
+        <input type="search" class="mainsearch1"> <a href="{% url 'stores_list' %}">
+        <button class="searchbtn">Найти</button>
+    </a>
+    </div>
+</div>
+
+</body>
 
 
-{% endblock %}
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+</html>

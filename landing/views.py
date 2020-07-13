@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import *
 from django.http import JsonResponse, HttpResponse
 from .models import FoodCategory, Store, Product, Review, Wishlist, Order
+from user_auth.models import User, Address
 from django.contrib.auth.decorators import login_required
 from cart.cart import Cart
 
@@ -12,8 +13,12 @@ import requests
 from bs4 import BeautifulSoup
 
 
-class HomeView(ListView):
+class HomeView(TemplateView):
     template_name = 'landing/index.html'
+
+
+class StoresList(ListView):
+    template_name = 'landing/stores_list.html'
     queryset = Store.objects.all()
 
     def get(self, request, *args, **kwargs):
@@ -211,3 +216,24 @@ class OrderView(ListView):
 
 class MyAddressView(TemplateView):
     template_name = 'landing/addresses.html'
+
+    def post(self, request, *args, **kwargs):
+        user = request.user
+        if request.POST:
+            if 'edit' in request.POST['type']:
+                id = request.POST['address_id']
+                new_address_name = request.POST['address_name']
+                new_address_number_house = request.POST['address_number_house']
+                new_address_number_apartment = request.POST['address_number_apartment']
+                address = user.address.get(id=id)
+
+                address.address_name = new_address_name
+                address.number_house = new_address_number_house
+                address.number_apartment = new_address_number_apartment
+                print(address.number_house)
+                address.save()
+            if 'delete' in request.POST['type']:
+                id = request.POST['address_id']
+                address = user.address.get(id=id)
+                address.delete()
+        return super().get(request, *args, **kwargs)

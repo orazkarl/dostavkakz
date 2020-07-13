@@ -15,7 +15,7 @@ class User(AbstractUser):
 
 
 class Address(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, related_name='address')
     address_name = models.CharField('Адрес', max_length=250, null=True, blank=True)
     number_house = models.CharField('Номер дома', max_length=10, null=True, blank=True)
     number_apartment = models.PositiveIntegerField(null=True, blank=True)

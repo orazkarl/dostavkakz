@@ -1,0 +1,814 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru-RU">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Jetkizu.me | Доставим всё!</title>
+    <link rel="shortcut icon" type="image/png" href="/images/favicon.png">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/media.css' %}">
+    <link rel="stylesheet" href="{% static 'font-awesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap" rel="stylesheet">
+</head>
+
+<header style="display: inline-flex; background: #FB0; width: 100%; border-bottom: 2px solid; border-color: #c4c4c4;">
+
+    <a href="index.html">
+        <div class="s-logo1">
+            <img src="{% static 'images/logo1.png' %}" alt="">
+        </div>
+    </a>
+    <div class="mainsearch11" style="display: inline-flex;">
+        <input type="search" class="mainsearch1">
+        <button class="searchbtn1">Найти</button>
+    </div>
+    <div class="log-block1">
+        <a href="" class="login1">Войти</a>
+        <a href="" class="reg1">Регистрация</a>
+    </div>
+
+    <div class="navbar1" style="display: none;">
+        <nav class="navbar navbar2 navbar-expand-lg navbar-light bg-light" style="background: #FB0 !important;">
+            <input name="AutocompleteInput-0"
+                   class="searchpage_search"
+                   placeholder="Поиск..."
+                   aria-haspopup="false"
+                   aria-autocomplete="list"
+                   aria-owns="AutocompleteResultsList-0"
+                   aria-activedescendant="false"
+                   maxlength="100" autocomplete="off"
+                   value="">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Войти <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Регистрация</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Избранное</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+    <a href="#" class="s-cart" style="margin-top: 2%; color: #000; display: none;"><i class="fa fa-shopping-cart"
+                                                                                      aria-hidden="true"
+                                                                                      style="font-size: 35px;"></i></a>
+
+</header>
+
+<body style="background: none;">
+
+<h5 class="selectcat">Пожалуйста, выберите категорию</h5>
+
+<div class="categories">
+
+    <div class="categ_s_body">
+        <div class="s-food categ_s">
+            <a href="#" class="s-food1">Еда</a>
+        </div>
+
+        <div class="s-drinks categ_s">
+            <a href="#" class="s-drinks1">Напитки</a>
+        </div>
+
+        <div class="s-pharmacy categ_s">
+            <a href="#" class="s-pharmacy1">Аптеки</a>
+        </div>
+
+    </div>
+
+    <div class="categ_s_body">
+        <div class="s-shops categ_s">
+            <a href="#" class="s-shops1">Магазины</a>
+        </div>
+
+        <div class="s-laundry categ_s">
+            <a href="#" class="s-laundry1">Прачечные</a>
+        </div>
+
+        <div class="s-auto categ_s">
+            <a href="#" class="s-auto1">Автозапчасти</a>
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="categories-pc">
+
+    <div class="categ_s_body">
+        <div class="s-food categ_s1">
+            <a href="#" class="s-food1">Еда</a>
+        </div>
+
+        <div class="s-drinks categ_s1">
+            <a href="#" class="s-drinks1">Напитки</a>
+        </div>
+
+        <div class="s-pharmacy categ_s1">
+            <a href="#" class="s-pharmacy1">Аптеки</a>
+        </div>
+
+    </div>
+
+    <div class="categ_s_body">
+        <div class="s-shops categ_s1">
+            <a href="#" class="s-shops1">Магазины</a>
+        </div>
+
+        <div class="s-laundry categ_s1">
+            <a href="#" class="s-laundry1">Прачечные</a>
+        </div>
+
+        <div class="s-auto categ_s1">
+            <a href="#" class="s-auto1">Автозапчасти</a>
+        </div>
+
+    </div>
+
+</div>
+
+<div class="accordion" id="accordionExample">
+    <div class="card">
+        <div class="card-header" id="headingOne">
+            <h2 class="mb-0">
+                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse"
+                        data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" id="f-button"
+                        onclick="changeButtonName()">
+                    Скрыть фильтры
+                </button>
+            </h2>
+        </div>
+
+        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+            <div class="card-body">
+                <form action="">
+                    <div style="display: inline-flex; width: 100%;">
+                        <div class="kitchen">
+                            <h5>Кухня</h5>
+                            <select aria-label="Select order date"
+                                    class="kitchen"
+                                    name="OrderTimeSelector__Day"
+                                    id="OrderTimeSelector__Day">
+                                <option value="Wed 07/08">Фастфуд</option>
+                                <option value="Thu 07/09">Азиатская</option>
+                                <option value="Fri 07/10">Европейская</option>
+                                <option value="Sat 07/11">Восточная</option>
+                                <option value="Sun 07/12">Русская</option>
+                                <option value="Mon 07/13">Казахская</option>
+                            </select></div>
+
+                        <div class="ASAP">
+                            <h5>Время доставки</h5>
+                            <select aria-label="Select order date"
+                                    class="kitchen"
+                                    name="OrderTimeSelector__Day"
+                                    id="OrderTimeSelector__Day">
+                                <option value="Wed 07/08">Сейчас</option>
+                                <option value="Thu 07/09">Через час</option>
+                                <option value="Fri 07/10">Через 2 часа</option>
+                                <option value="Sat 07/11">Через 3 часа</option>
+                                <option value="Sun 07/12">Через 4 часа</option>
+                                <option value="Mon 07/13">Через 5 часов</option>
+                            </select></div>
+                    </div>
+
+                    <div style="margin-top: 5%;">
+                        <div class="Filters__filter"><label class="Checkbox Filters__label" for="Checkbox__1"
+                                                            style="display: -webkit-inline-box; font-size: 20px;">
+                            <div class="Checkbox__selection">
+                                <input type="checkbox" id="Checkbox__1" name="features"
+                                       class="Checkbox__selection__input " value="free_delivery">
+                                <i class="Checkbox__selection__check "></i></div>
+                            <p class="Checkbox__text" style="margin-left: 2%; font-size: 20px;"> Бесплатная доставка
+                                (105)</p></label></div>
+                    </div>
+
+                    <div>
+                        <div class="Filters__filter"><label class="Checkbox Filters__label" for="Checkbox__1"
+                                                            style="display: -webkit-inline-box; font-size: 20px;">
+                            <div class="Checkbox__selection">
+                                <input type="checkbox" id="Checkbox__1" name="features"
+                                       class="Checkbox__selection__input " value="free_delivery">
+                                <i class="Checkbox__selection__check "></i></div>
+                            <p class="Checkbox__text" style="margin-left: 2%; font-size: 20px;"> Блюда на компанию</p>
+                        </label></div>
+                    </div>
+                    <div>
+                        <div class="Filters__filter"><label class="Checkbox Filters__label" for="Checkbox__1"
+                                                            style="display: -webkit-inline-box; font-size: 20px;">
+                            <div class="Checkbox__selection">
+                                <input type="checkbox" id="Checkbox__1" name="features"
+                                       class="Checkbox__selection__input " value="free_delivery">
+                                <i class="Checkbox__selection__check "></i></div>
+                            <p class="Checkbox__text" style="margin-left: 2%; font-size: 20px;"> Акции</p></label></div>
+                    </div>
+                    <div>
+                        <div class="Filters__filter"><label class="Checkbox Filters__label" for="Checkbox__1"
+                                                            style="display: -webkit-inline-box; font-size: 20px;">
+                            <div class="Checkbox__selection">
+                                <input type="checkbox" id="Checkbox__1" name="features"
+                                       class="Checkbox__selection__input " value="free_delivery">
+                                <i class="Checkbox__selection__check "></i></div>
+                            <p class="Checkbox__text" style="margin-left: 2%; font-size: 20px;"> Новинки</p></label>
+                        </div>
+                    </div>
+
+                    <div class="f-price">
+                        <h5>Средний чек</h5>
+                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                            <label class="btn btn-secondary active">
+                                <input type="radio" name="options" id="option1" checked> $
+                            </label>
+                            <label class="btn btn-secondary">
+                                <input type="radio" name="options" id="option2"> $$
+                            </label>
+                            <label class="btn btn-secondary">
+                                <input type="radio" name="options" id="option3"> $$$
+                            </label>
+                            <label class="btn btn-secondary">
+                                <input type="radio" name="options" id="option3"> $$$$
+                            </label>
+                        </div>
+
+                    </div>
+
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="list-mob" style="display: none;">
+    <div class="list1" style="margin-top: 5%; box-shadow: 0 0 8px rgba(0,0,0,0.5);">
+        <div class="list_body" style="display: inline-flex; width: 100%;">
+            <div class="l-img" style="margin-top: 5%;">
+                <div class="l-img1">
+                    <a href=""><img src="img/KFC_logo.png" alt="" style="width: 100px; height: 100px;"></a>
+                </div>
+            </div>
+
+            <div class="l-info" style="margin-left: 5%;">
+                <a href="#" style="color: #000; text-decoration: none;">
+                    <h5 style="margin-top: 2%;">KFC Dostyk Plaza</h5>
+                    <p class="s-price1">$$</p>
+                    <div style="display: inline-flex;">
+                        <div>
+                            <p class="l-dets">Растояние <br> 2-км</p>
+                        </div>
+                        <div style="margin-left: 5%; border-left: 1px solid; padding-left: 10px; border-color: #c4c4c4;">
+                            <p class="l-status">Доставка <br> Бесплатно</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="list1" style="margin-top: 5%; box-shadow: 0 0 8px rgba(0,0,0,0.5);">
+        <div class="list_body" style="display: inline-flex; width: 100%;">
+            <div class="l-img" style="margin-top: 5%;">
+                <div class="l-img1">
+                    <a href=""><img src="img/KFC_logo.png" alt="" style="width: 100px; height: 100px;"></a>
+                </div>
+            </div>
+
+            <div class="l-info" style="margin-left: 5%;">
+                <a href="#" style="color: #000; text-decoration: none;">
+                    <h5 style="margin-top: 2%;">KFC Dostyk Plaza</h5>
+                    <p class="s-price1">$$</p>
+                    <div style="display: inline-flex;">
+                        <div>
+                            <p class="l-dets">Растояние <br> 2-км</p>
+                        </div>
+                        <div style="margin-left: 5%; border-left: 1px solid; padding-left: 10px; border-color: #c4c4c4;">
+                            <p class="l-status">Доставка <br> Бесплатно</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="list1" style="margin-top: 5%; box-shadow: 0 0 8px rgba(0,0,0,0.5);">
+        <div class="list_body" style="display: inline-flex; width: 100%;">
+            <div class="l-img" style="margin-top: 5%;">
+                <div class="l-img1">
+                    <a href=""><img src="img/KFC_logo.png" alt="" style="width: 100px; height: 100px;"></a>
+                </div>
+            </div>
+
+            <div class="l-info" style="margin-left: 5%;">
+                <a href="#" style="color: #000; text-decoration: none;">
+                    <h5 style="margin-top: 2%;">KFC Dostyk Plaza</h5>
+                    <p class="s-price1">$$</p>
+                    <div style="display: inline-flex;">
+                        <div>
+                            <p class="l-dets">Растояние <br> 2-км</p>
+                        </div>
+                        <div style="margin-left: 5%; border-left: 1px solid; padding-left: 10px; border-color: #c4c4c4;">
+                            <p class="l-status">Доставка <br> Бесплатно</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="body1" style="display: inline-flex;">
+    <div class="filters">
+        <div class="filter-body">
+            <form action="">
+                <div class="kitchen">
+                    <h5>Кухня</h5>
+                    <div>
+                        <div class="Filters__filter"><label class="Checkbox Filters__label" for="Checkbox__1"
+                                                            style="display: -webkit-inline-box; font-size: 20px;">
+                            <div class="Checkbox__selection">
+                                <input type="checkbox" id="Checkbox__1" name="features"
+                                       class="Checkbox__selection__input " value="free_delivery">
+                                <i class="Checkbox__selection__check "></i></div>
+                            <p class="Checkbox__text" style="margin-left: 2%; font-size: 20px;"> Фастфуд (65)</p>
+                        </label></div>
+                    </div>
+
+                    <div>
+                        <div class="Filters__filter"><label class="Checkbox Filters__label" for="Checkbox__1"
+                                                            style="display: -webkit-inline-box; font-size: 20px;">
+                            <div class="Checkbox__selection">
+                                <input type="checkbox" id="Checkbox__1" name="features"
+                                       class="Checkbox__selection__input " value="free_delivery">
+                                <i class="Checkbox__selection__check "></i></div>
+                            <p class="Checkbox__text" style="margin-left: 2%; font-size: 20px;"> Азиатская (31)</p>
+                        </label></div>
+                    </div>
+                    <div>
+                        <div class="Filters__filter"><label class="Checkbox Filters__label" for="Checkbox__1"
+                                                            style="display: -webkit-inline-box; font-size: 20px;">
+                            <div class="Checkbox__selection">
+                                <input type="checkbox" id="Checkbox__1" name="features"
+                                       class="Checkbox__selection__input " value="free_delivery">
+                                <i class="Checkbox__selection__check "></i>
+                            </div>
+                            <p class="Checkbox__text" style="margin-left: 2%; font-size: 20px;"> Европейская (106)</p>
+                        </label>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="Filters__filter"><label class="Checkbox Filters__label" for="Checkbox__1"
+                                                            style="display: -webkit-inline-box; font-size: 20px;">
+                            <div class="Checkbox__selection">
+                                <input type="checkbox" id="Checkbox__1" name="features"
+                                       class="Checkbox__selection__input " value="free_delivery">
+                                <i class="Checkbox__selection__check "></i></div>
+                            <p class="Checkbox__text" style="margin-left: 2%; font-size: 20px;"> Восточная (250)</p>
+                        </label></div>
+                    </div>
+
+                    <div>
+                        <div class="Filters__filter"><label class="Checkbox Filters__label" for="Checkbox__1"
+                                                            style="display: -webkit-inline-box; font-size: 20px;">
+                            <div class="Checkbox__selection">
+                                <input type="checkbox" id="Checkbox__1" name="features"
+                                       class="Checkbox__selection__input " value="free_delivery">
+                                <i class="Checkbox__selection__check "></i></div>
+                            <p class="Checkbox__text" style="margin-left: 2%; font-size: 20px;"> Русская (50)</p>
+                        </label></div>
+                    </div>
+
+                    <div>
+                        <div class="Filters__filter"><label class="Checkbox Filters__label" for="Checkbox__1"
+                                                            style="display: -webkit-inline-box; font-size: 20px;">
+                            <div class="Checkbox__selection">
+                                <input type="checkbox" id="Checkbox__1" name="features"
+                                       class="Checkbox__selection__input " value="free_delivery">
+                                <i class="Checkbox__selection__check "></i></div>
+                            <p class="Checkbox__text" style="margin-left: 2%; font-size: 20px;"> Казахская (150)</p>
+                        </label></div>
+                    </div>
+                </div>
+
+                <!--            <select aria-label="Select order date"
+                        class="kitchen"
+                        name="OrderTimeSelector__Day"
+                        id="OrderTimeSelector__Day">
+                          <option value="Wed 07/08">Фастфуд</option>
+                          <option value="Thu 07/09">Азиатская</option>
+                          <option value="Fri 07/10">Европейская</option>
+                          <option value="Sat 07/11">Восточная</option>
+                          <option value="Sun 07/12">Русская</option>
+                          <option value="Mon 07/13">Казахская</option>
+                      </select> -->
+
+                <div class="ASAP">
+                    <h5>Время доставки</h5>
+                    <select aria-label="Select order date"
+                            class="kitchen"
+                            name="OrderTimeSelector__Day"
+                            id="OrderTimeSelector__Day">
+                        <option value="Wed 07/08">Сейчас</option>
+                        <option value="Thu 07/09">Через час</option>
+                        <option value="Fri 07/10">Через 2 часа</option>
+                        <option value="Sat 07/11">Через 3 часа</option>
+                        <option value="Sun 07/12">Через 4 часа</option>
+                        <option value="Mon 07/13">Через 5 часов</option>
+                    </select></div>
+        </div>
+
+        <div style="margin-top: 5%; padding-top: 10px; border-top: 1px solid; border-color: #c4c4c4;">
+            <h5>Дополнительно</h5>
+            <div class="Filters__filter"><label class="Checkbox Filters__label" for="Checkbox__1"
+                                                style="display: -webkit-inline-box; font-size: 20px;">
+                <div class="Checkbox__selection">
+                    <input type="checkbox" id="Checkbox__1" name="features" class="Checkbox__selection__input "
+                           value="free_delivery">
+                    <i class="Checkbox__selection__check "></i></div>
+                <p class="Checkbox__text" style="margin-left: 2%; font-size: 20px;"> Бесплатная доставка (105)</p>
+            </label></div>
+        </div>
+
+        <div>
+            <div class="Filters__filter"><label class="Checkbox Filters__label" for="Checkbox__1"
+                                                style="display: -webkit-inline-box; font-size: 20px;">
+                <div class="Checkbox__selection">
+                    <input type="checkbox" id="Checkbox__1" name="features" class="Checkbox__selection__input "
+                           value="free_delivery">
+                    <i class="Checkbox__selection__check "></i></div>
+                <p class="Checkbox__text" style="margin-left: 2%; font-size: 20px;"> Блюда на компанию</p></label></div>
+        </div>
+        <div>
+            <div class="Filters__filter"><label class="Checkbox Filters__label" for="Checkbox__1"
+                                                style="display: -webkit-inline-box; font-size: 20px;">
+                <div class="Checkbox__selection">
+                    <input type="checkbox" id="Checkbox__1" name="features" class="Checkbox__selection__input "
+                           value="free_delivery">
+                    <i class="Checkbox__selection__check "></i>
+                </div>
+                <p class="Checkbox__text" style="margin-left: 2%; font-size: 20px;"> Акции</p></label>
+            </div>
+        </div>
+        <div>
+            <div class="Filters__filter"><label class="Checkbox Filters__label" for="Checkbox__1"
+                                                style="display: -webkit-inline-box; font-size: 20px;">
+                <div class="Checkbox__selection">
+                    <input type="checkbox" id="Checkbox__1" name="features" class="Checkbox__selection__input "
+                           value="free_delivery">
+                    <i class="Checkbox__selection__check "></i></div>
+                <p class="Checkbox__text" style="margin-left: 2%; font-size: 20px;"> Новинки</p></label></div>
+        </div>
+
+        <div class="f-price">
+            <h5>Средний чек</h5>
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <label class="btn btn-secondary active">
+                    <input type="radio" name="options" id="option1" checked> $
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="option2"> $$
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="option3"> $$$
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="option3"> $$$$
+                </label>
+            </div>
+        </div>
+
+        <button class="fil-btn"> Применить фильтры</button>
+        </form>
+    </div>
+
+    <div class="list-body11"> <!-- Начало списка с результатами -->
+
+        <div>
+            <div class="pos" style="width: 700px; margin-top: 5%; border: 1px solid; border-color: #D8D8D8FF">
+                <div class="list_body" style="display: inline-flex; width: 100%">
+
+                    <div class="l-img" style="margin-top: 1%; margin-bottom: 1%; margin-left: 2%;">
+                        <div class="l-img1">
+                            <a href=""><img src="img/KFC_logo.png" alt="" style="width: 100px; height: 100px;"></a>
+                        </div>
+                    </div>
+
+                    <div style="margin-left: 2%; margin-top: 5%;">
+                        <h5 style="width: 220px;">KFC Dostyk Plaza</h5>
+                    </div>
+
+                    <div style="display: inline-flex; margin-top: 3%;">
+                        <div style="font-weight: bold; margin-top: 4%;">
+                            <p>Расстояние <br> 1 км</p>
+                        </div>
+
+                        <div style="font-weight: bold; margin-left: 10%; margin-top: 4%;">
+                            <p>Доставка <br> Бесплатно</p>
+                        </div>
+                    </div>
+
+                    <div class="l-info" style="display: inline-flex; margin-left: 5%; margin-top: 5%;">
+                        <a href="#" style="color: #000; text-decoration: none; margin-top: 5%; width: 100%;">
+                            <div class="i-body" style="display: inline-flex;">
+                                <div class="rate" style="display: inline-flex;">
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="pos" style="width: 700px; margin-top: 2%; border: 1px solid; border-color: #D8D8D8FF">
+                <div class="list_body" style="display: inline-flex; width: 100%">
+
+                    <div class="l-img" style="margin-top: 1%; margin-bottom: 1%; margin-left: 2%;">
+                        <div class="l-img1">
+                            <a href=""><img src="img/KFC_logo.png" alt="" style="width: 100px; height: 100px;"></a>
+                        </div>
+                    </div>
+
+                    <div style="margin-left: 2%; margin-top: 5%;">
+                        <h5 style="width: 220px;">KFC Dostyk Plaza</h5>
+                    </div>
+
+                    <div style="display: inline-flex; margin-top: 3%;">
+                        <div style="font-weight: bold; margin-top: 4%;">
+                            <p>Расстояние <br> 1 км</p>
+                        </div>
+
+                        <div style="font-weight: bold; margin-left: 10%; margin-top: 4%;">
+                            <p>Доставка <br> Бесплатно</p>
+                        </div>
+                    </div>
+
+                    <div class="l-info" style="display: inline-flex; margin-left: 5%; margin-top: 5%;">
+                        <a href="#" style="color: #000; text-decoration: none; margin-top: 5%; width: 100%;">
+                            <div class="i-body" style="display: inline-flex;">
+                                <div class="rate" style="display: inline-flex;">
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="pos" style="width: 700px; margin-top: 2%; border: 1px solid; border-color: #D8D8D8FF">
+                <div class="list_body" style="display: inline-flex; width: 100%">
+
+                    <div class="l-img" style="margin-top: 1%; margin-bottom: 1%; margin-left: 2%;">
+                        <div class="l-img1">
+                            <a href=""><img src="img/KFC_logo.png" alt="" style="width: 100px; height: 100px;"></a>
+                        </div>
+                    </div>
+
+                    <div style="margin-left: 2%; margin-top: 5%;">
+                        <h5 style="width: 220px;">KFC Dostyk Plaza</h5>
+                    </div>
+
+                    <div style="display: inline-flex; margin-top: 3%;">
+                        <div style="font-weight: bold; margin-top: 4%;">
+                            <p>Расстояние <br> 1 км</p>
+                        </div>
+
+                        <div style="font-weight: bold; margin-left: 10%; margin-top: 4%;">
+                            <p>Доставка <br> Бесплатно</p>
+                        </div>
+                    </div>
+
+                    <div class="l-info" style="display: inline-flex; margin-left: 5%; margin-top: 5%;">
+                        <a href="#" style="color: #000; text-decoration: none; margin-top: 5%; width: 100%;">
+                            <div class="i-body" style="display: inline-flex;">
+                                <div class="rate" style="display: inline-flex;">
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="pos" style="width: 700px; margin-top: 2%; border: 1px solid; border-color: #D8D8D8FF">
+                <div class="list_body" style="display: inline-flex; width: 100%">
+
+                    <div class="l-img" style="margin-top: 1%; margin-bottom: 1%; margin-left: 2%;">
+                        <div class="l-img1">
+                            <a href=""><img src="img/KFC_logo.png" alt="" style="width: 100px; height: 100px;"></a>
+                        </div>
+                    </div>
+
+                    <div style="margin-left: 2%; margin-top: 5%;">
+                        <h5 style="width: 220px;">KFC Dostyk Plaza</h5>
+                    </div>
+
+                    <div style="display: inline-flex; margin-top: 3%;">
+                        <div style="font-weight: bold; margin-top: 4%;">
+                            <p>Расстояние <br> 1 км</p>
+                        </div>
+
+                        <div style="font-weight: bold; margin-left: 10%; margin-top: 4%;">
+                            <p>Доставка <br> Бесплатно</p>
+                        </div>
+                    </div>
+
+                    <div class="l-info" style="display: inline-flex; margin-left: 5%; margin-top: 5%;">
+                        <a href="#" style="color: #000; text-decoration: none; margin-top: 5%; width: 100%;">
+                            <div class="i-body" style="display: inline-flex;">
+                                <div class="rate" style="display: inline-flex;">
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="pos" style="width: 700px; margin-top: 2%; border: 1px solid; border-color: #D8D8D8FF">
+                <div class="list_body" style="display: inline-flex; width: 100%">
+
+                    <div class="l-img" style="margin-top: 1%; margin-bottom: 1%; margin-left: 2%;">
+                        <div class="l-img1">
+                            <a href=""><img src="img/KFC_logo.png" alt="" style="width: 100px; height: 100px;"></a>
+                        </div>
+                    </div>
+
+                    <div style="margin-left: 2%; margin-top: 5%;">
+                        <h5 style="width: 220px;">KFC Dostyk Plaza</h5>
+                    </div>
+
+                    <div style="display: inline-flex; margin-top: 3%;">
+                        <div style="font-weight: bold; margin-top: 4%;">
+                            <p>Расстояние <br> 1 км</p>
+                        </div>
+
+                        <div style="font-weight: bold; margin-left: 10%; margin-top: 4%;">
+                            <p>Доставка <br> Бесплатно</p>
+                        </div>
+                    </div>
+
+                    <div class="l-info" style="display: inline-flex; margin-left: 5%; margin-top: 5%;">
+                        <a href="#" style="color: #000; text-decoration: none; margin-top: 5%; width: 100%;">
+                            <div class="i-body" style="display: inline-flex;">
+                                <div class="rate" style="display: inline-flex;">
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="pos" style="width: 700px; margin-top: 2%; border: 1px solid; border-color: #D8D8D8FF">
+                <div class="list_body" style="display: inline-flex; width: 100%">
+
+                    <div class="l-img" style="margin-top: 1%; margin-bottom: 1%; margin-left: 2%;">
+                        <div class="l-img1">
+                            <a href=""><img src="img/KFC_logo.png" alt="" style="width: 100px; height: 100px;"></a>
+                        </div>
+                    </div>
+
+                    <div style="margin-left: 2%; margin-top: 5%;">
+                        <h5 style="width: 220px;">KFC Dostyk Plaza</h5>
+                    </div>
+
+                    <div style="display: inline-flex; margin-top: 3%;">
+                        <div style="font-weight: bold; margin-top: 4%;">
+                            <p>Расстояние <br> 1 км</p>
+                        </div>
+
+                        <div style="font-weight: bold; margin-left: 10%; margin-top: 4%;">
+                            <p>Доставка <br> Бесплатно</p>
+                        </div>
+                    </div>
+
+                    <div class="l-info" style="display: inline-flex; margin-left: 5%; margin-top: 5%;">
+                        <a href="#" style="color: #000; text-decoration: none; margin-top: 5%; width: 100%;">
+                            <div class="i-body" style="display: inline-flex;">
+                                <div class="rate" style="display: inline-flex;">
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="pos" style="width: 700px; margin-top: 2%; border: 1px solid; border-color: #D8D8D8FF">
+                <div class="list_body" style="display: inline-flex; width: 100%">
+
+                    <div class="l-img" style="margin-top: 1%; margin-bottom: 1%; margin-left: 2%;">
+                        <div class="l-img1">
+                            <a href=""><img src="img/KFC_logo.png" alt="" style="width: 100px; height: 100px;"></a>
+                        </div>
+                    </div>
+
+                    <div style="margin-left: 2%; margin-top: 5%;">
+                        <h5 style="width: 220px;">KFC Dostyk Plaza</h5>
+                    </div>
+
+                    <div style="display: inline-flex; margin-top: 3%;">
+                        <div style="font-weight: bold; margin-top: 4%;">
+                            <p>Расстояние <br> 1 км</p>
+                        </div>
+
+                        <div style="font-weight: bold; margin-left: 10%; margin-top: 4%;">
+                            <p>Доставка <br> Бесплатно</p>
+                        </div>
+                    </div>
+
+                    <div class="l-info" style="display: inline-flex; margin-left: 5%; margin-top: 5%;">
+                        <a href="#" style="color: #000; text-decoration: none; margin-top: 5%; width: 100%;">
+                            <div class="i-body" style="display: inline-flex;">
+                                <div class="rate" style="display: inline-flex;">
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div> <!-- Конец списка с результатами -->
+</div>
+</body>
+
+
+<script type="text/javascript">
+    function changeButtonName() {
+        var x = document.getElementById('f-button').getAttribute('aria-expanded');
+        if (x === "true") {
+            document.getElementById("f-button").innerHTML = 'Показать фильтры';
+        } else {
+            document.getElementById("f-button").innerHTML = 'Скрыть фильтры';
+        }
+
+    }
+</script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+</html>

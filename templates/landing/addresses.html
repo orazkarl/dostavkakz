@@ -1,10 +1,51 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'landing/base.html' %}
+{% load static %}
+{% block content %}
 
-</body>
-</html>
+    <div id="addresses_list">
+        {% for address in request.user.address.all %}
+            Адрес {{ address.address_name }} {{ address.number_house }} {{ address.number_apartment }}
+            <button onclick="editAddress({{ address.id }})"> Edit</button>
+            <form action="{% url 'addresses' %}" method="post">
+            {% csrf_token %}
+                <input type="text" name="type" value="delete" style="display: none">
+                <input type="text" name="address_id" value="{{ address.id }}" style="display:none;">
+                <button type="submit">Delete</button>
+            </form>
+
+            <br>
+            <br>
+        {% endfor %}
+
+    </div>
+    {% for address in request.user.address.all %}
+        <form action="{% url 'addresses' %}" style="display: none" id="form_edit_address{{ address.id }}" method="post">
+            {% csrf_token %}
+            <input type="text" value="{{ address.id }}" style="display: none" name="address_id">
+            <input type="text" name="type" value="edit" style="display: none">
+            <input type="text" placeholder="адрес" value="{{ address.address_name }}" name="address_name">
+            <input type="text" placeholder="номер дома" value="{{ address.number_house }}" name="address_number_house">
+            <input type="text" placeholder="кв" value="{{ address.number_apartment }}"
+                   name="address_number_apartment">
+            <input type="submit">
+            <button onclick="editAddress()">cancel</button>
+        </form>
+    {% endfor %}
+
+    {#    <button>Add address</button>#}
+    <script>
+        function editAddress(id) {
+            addressesList = document.getElementById('addresses_list');
+            addressForm = document.getElementById('form_edit_address' + id);
+
+            if (addressForm.style.display == 'none') {
+                addressesList.style.display = 'none';
+                addressForm.style.display = 'block';
+            } else {
+                addressForm.style.display = 'none';
+                addressesList.style.display = 'block';
+            }
+
+        }
+    </script>
+{% endblock %}
