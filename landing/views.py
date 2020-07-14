@@ -11,7 +11,7 @@ from django.core import serializers
 from dostavkakz.settings import COURIER_TELEGRAM_BOT_TOKEN
 import requests
 from bs4 import BeautifulSoup
-
+import json
 
 class HomeView(TemplateView):
     template_name = 'landing/index.html'
@@ -30,17 +30,11 @@ class StoresList(ListView):
 
 def search_stores(request):
     query = request.GET['q']
-    if not query:
-        return HttpResponse('')
-
     results = Store.objects.filter(
         Q(description__icontains=query) | Q(name__icontains=query) | Q(address__icontains=query) | Q(
             tag__name__icontains=query)).distinct('name')
-    if results.count() == 0:
-        return HttpResponse('')
-    data = serializers.serialize('json', results)
 
-    return HttpResponse(data, content_type="application/json")
+    return render(request, 'landing/ajax_search.html', {'results': results})
 
 
 class StoreView(DetailView):

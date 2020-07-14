@@ -13,6 +13,145 @@
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap" rel="stylesheet">
+
+    <style>
+
+        .search {
+            position: relative;
+            margin: 0 auto;
+            width: 350px;
+        }
+
+        .search input {
+            height: 35px;
+            width: 100%;
+            padding: 0 12px 0 12px;
+            border-width: 1px;
+            border-style: solid;
+            border-color: #a8acbc #babdcc #c0c3d2;
+            border-radius: 5px;
+            background: white url('../static/   images/search-23.png') 320px 6px no-repeat;
+        }
+
+        .search input:focus {
+            outline: none;
+            border-color: #66b1ee;
+            -webkit-box-shadow: 0 0 2px rgba(85, 168, 236, 0.9);
+            -moz-box-shadow: 0 0 2px rgba(85, 168, 236, 0.9);
+            -ms-box-shadow: 0 0 2px rgba(85, 168, 236, 0.9);
+            -o-box-shadow: 0 0 2px rgba(85, 168, 236, 0.9);
+            box-shadow: 0 0 2px rgba(85, 168, 236, 0.9);
+        }
+
+        .search input:focus + .results {
+            display: block
+        }
+
+        .search .results {
+            {#display: none;#}
+            position: absolute;
+            top: 35px;
+            left: 0;
+            right: 0;
+            z-index: 10;
+            padding: 0;
+            margin: 0;
+            border-width: 0;
+            border-style: solid;
+            border-color: #cbcfe2 #c8cee7 #c4c7d7;
+            border-radius: 3px;
+            background-color: #fdfdfd;
+            {#-webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);#}
+            {#-moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);#}
+            {#-ms-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);#}
+            {#-o-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);#}
+            {#box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);#}
+        }
+
+        .search .results li {
+            display: block
+        }
+
+        .search .results li:first-child {
+            margin-top: -1px
+        }
+
+        .search .results li:first-child:before, .search .results li:first-child:after {
+            display: block;
+            content: '';
+            width: 0;
+            height: 0;
+            position: absolute;
+            left: 50%;
+            margin-left: -5px;
+            border: 5px outset transparent;
+        }
+
+        .search .results li:first-child:before {
+            border-bottom: 5px solid #c4c7d7;
+            top: -11px;
+        }
+
+        .search .results li:first-child:after {
+            border-bottom: 5px solid #fdfdfd;
+            top: -10px;
+        }
+
+        .search .results li:first-child:hover:before, .search .results li:first-child:hover:after {
+            display: none
+        }
+
+        .search .results li:last-child {
+            margin-bottom: -1px
+        }
+
+        .search .results a {
+            display: block;
+            position: relative;
+            margin: 0 -1px;
+            padding: 6px 40px 6px 10px;
+            color: #808394;
+            font-weight: 500;
+            text-shadow: 0 1px #fff;
+            border: 1px solid transparent;
+            border-radius: 3px;
+        }
+
+        .search .results a span {
+            font-weight: 200
+        }
+
+        {#.search .results a:before {#}
+        {#    content: '';#}
+        {#    width: 18px;#}
+        {#    height: 18px;#}
+        {#    position: absolute;#}
+        {#    top: 50%;#}
+        {#    right: 10px;#}
+        {#    margin-top: -9px;#}
+        {#    background: url("https://cssdeck.com/uploads/media/items/7/7BNkBjd.png") 0 0 no-repeat;#}
+        {#}#}
+
+        .search .results a:hover {
+            text-decoration: none;
+            color: #cbcfe2;
+        {#text-shadow: 0 -1px rgba(0, 0, 0, 0.3);#}{#border-color: #2380dd #2179d5 #1a60aa;#}{#background-color: #FFBB00;#}{#background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #59aaf4), color-stop(100%, #338cdf));#}{#background-image: -webkit-linear-gradient(top, #59aaf4, #338cdf);#}{#background-image: -moz-linear-gradient(top, #59aaf4, #338cdf);#}{#background-image: -ms-linear-gradient(top, #59aaf4, #338cdf);#}{#background-image: -o-linear-gradient(top, #59aaf4, #338cdf);#}{#background-image: linear-gradient(top, #59aaf4, #338cdf);#}{#-webkit-box-shadow: inset 0 1px rgba(255, 255, 255, 0.2), 0 1px rgba(0, 0, 0, 0.08);#}{#-moz-box-shadow: inset 0 1px rgba(255, 255, 255, 0.2), 0 1px rgba(0, 0, 0, 0.08);#}{#-ms-box-shadow: inset 0 1px rgba(255, 255, 255, 0.2), 0 1px rgba(0, 0, 0, 0.08);#}{#-o-box-shadow: inset 0 1px rgba(255, 255, 255, 0.2), 0 1px rgba(0, 0, 0, 0.08);#}{#box-shadow: inset 0 1px rgba(255, 255, 255, 0.2), 0 1px rgba(0, 0, 0, 0.08);#}
+        }
+
+        :-moz-placeholder {
+            color: #a7aabc;
+            font-weight: 200;
+        }
+
+        ::-webkit-input-placeholder {
+            color: #a7aabc;
+            font-weight: 200;
+        }
+
+        .lt-ie9 .search input {
+            line-height: 26px
+        }
+    </style>
 </head>
 
 <header style="display: inline-flex; background: #FB0; width: 100%; border-bottom: 2px solid; border-color: #c4c4c4;">
@@ -23,8 +162,36 @@
         </div>
     </a>
     <div class="mainsearch11" style="display: inline-flex;">
-        <input type="search" class="mainsearch1">
-        <button class="searchbtn1">Найти</button>
+        <form class="search">
+            <input id="search" class="search" placeholder="Поиск..."/ >
+                        <ul id="results" class="results">
+
+                        </ul>
+{#                        <ul class="results">#}
+{#                            <li><a href="index.html">Search Result #1<br/><span>Description...</span></a></li>#}
+{#                        </ul>#}
+        </form>
+
+
+
+        {#        <div id="results-search-store-name">#}
+        {#            {% for store in results %}#}
+        {#            asd: {{ store.name }}#}
+        {#        {% endfor %}#}
+        {#        </div>#}
+
+
+        {#        <form action="" class="search">#}
+        {#            <input type="search" class="mainsearch1" placeholder="Поиск">#}
+
+        {#            <ul class="results">#}
+        {#                <li><a href="index.html">Search Result #1<br/><span>Description...</span></a></li>#}
+        {#                <li><a href="index.html">Search Result #2<br/><span>Description...</span></a></li>#}
+        {#                <li><a href="index.html">Search Result #3<br/><span>Description...</span></a></li>#}
+        {#                <li><a href="index.html">Search Result #4</a></li>#}
+        {#            </ul>#}
+        {#        </form>#}
+
     </div>
     <div class="log-block1">
         {% if user.is_authenticated %}
@@ -285,30 +452,30 @@
 
 <div class="list-mob" style="display: none;">
     {% for store in stores %}
-    <div class="list1" style="margin-top: 5%; box-shadow: 0 0 8px rgba(0,0,0,0.5);">
-        <div class="list_body" style="display: inline-flex; width: 100%;">
-            <div class="l-img" style="margin-top: 5%;">
-                <div class="l-img1">
-                    <a href=""><img src="{{ store.image.url }}" alt="" style="width: 100px; height: 100px;"></a>
+        <div class="list1" style="margin-top: 5%; box-shadow: 0 0 8px rgba(0,0,0,0.5);">
+            <div class="list_body" style="display: inline-flex; width: 100%;">
+                <div class="l-img" style="margin-top: 5%;">
+                    <div class="l-img1">
+                        <a href=""><img src="{{ store.image.url }}" alt="" style="width: 100px; height: 100px;"></a>
+                    </div>
+                </div>
+
+                <div class="l-info" style="margin-left: 5%;">
+                    <a href="#" style="color: #000; text-decoration: none;">
+                        <h5 style="margin-top: 2%;">{{ store.name }}</h5>
+                        <p class="s-price1">$$</p>
+                        <div style="display: inline-flex;">
+                            <div>
+                                <p class="l-dets">Растояние <br> 2-км</p>
+                            </div>
+                            <div style="margin-left: 5%; border-left: 1px solid; padding-left: 10px; border-color: #c4c4c4;">
+                                <p class="l-status">Доставка <br> Бесплатно</p>
+                            </div>
+                        </div>
+                    </a>
                 </div>
             </div>
-
-            <div class="l-info" style="margin-left: 5%;">
-                <a href="#" style="color: #000; text-decoration: none;">
-                    <h5 style="margin-top: 2%;">{{ store.name }}</h5>
-                    <p class="s-price1">$$</p>
-                    <div style="display: inline-flex;">
-                        <div>
-                            <p class="l-dets">Растояние <br> 2-км</p>
-                        </div>
-                        <div style="margin-left: 5%; border-left: 1px solid; padding-left: 10px; border-color: #c4c4c4;">
-                            <p class="l-status">Доставка <br> Бесплатно</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
         </div>
-    </div>
     {% endfor %}
 
 
@@ -493,46 +660,47 @@
 
     <div class="list-body11"> <!-- Начало списка с результатами -->
         {% for store in stores %}
-        <div>
-            <div class="pos" style="width: 700px; margin-top: 5%; border: 1px solid; border-color: #D8D8D8FF">
-                <div class="list_body" style="display: inline-flex; width: 100%">
+            <div>
+                <div class="pos" style="width: 700px; margin-top: 5%; border: 1px solid; border-color: #D8D8D8FF">
+                    <div class="list_body" style="display: inline-flex; width: 100%">
 
-                    <div class="l-img" style="margin-top: 1%; margin-bottom: 1%; margin-left: 2%;">
-                        <div class="l-img1">
-                            <a href="{% url 'store_detail' store.slug %}"><img src="{{ store.image.url }}" alt="" style="width: 100px; height: 100px;"></a>
-                        </div>
-                    </div>
-
-                    <div style="margin-left: 2%; margin-top: 5%;">
-                        <h5 style="width: 220px;">{{store.name}}</h5>
-                    </div>
-
-                    <div style="display: inline-flex; margin-top: 3%;">
-                        <div style="font-weight: bold; margin-top: 4%;">
-                            <p>Расстояние <br> 1 км</p>
-                        </div>
-
-                        <div style="font-weight: bold; margin-left: 10%; margin-top: 4%;">
-                            <p>Доставка <br> Бесплатно</p>
-                        </div>
-                    </div>
-
-                    <div class="l-info" style="display: inline-flex; margin-left: 5%; margin-top: 5%;">
-                        <a href="#" style="color: #000; text-decoration: none; margin-top: 5%; width: 100%;">
-                            <div class="i-body" style="display: inline-flex;">
-                                <div class="rate" style="display: inline-flex;">
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star-half-o" aria-hidden="true"></i>
-                                </div>
+                        <div class="l-img" style="margin-top: 1%; margin-bottom: 1%; margin-left: 2%;">
+                            <div class="l-img1">
+                                <a href="{% url 'store_detail' store.slug %}"><img src="{{ store.image.url }}" alt=""
+                                                                                   style="width: 100px; height: 100px;"></a>
                             </div>
-                        </a>
+                        </div>
+
+                        <div style="margin-left: 2%; margin-top: 5%;">
+                            <h5 style="width: 220px;">{{ store.name }}</h5>
+                        </div>
+
+                        <div style="display: inline-flex; margin-top: 3%;">
+                            <div style="font-weight: bold; margin-top: 4%;">
+                                <p>Расстояние <br> 1 км</p>
+                            </div>
+
+                            <div style="font-weight: bold; margin-left: 10%; margin-top: 4%;">
+                                <p>Доставка <br> Бесплатно</p>
+                            </div>
+                        </div>
+
+                        <div class="l-info" style="display: inline-flex; margin-left: 5%; margin-top: 5%;">
+                            <a href="#" style="color: #000; text-decoration: none; margin-top: 5%; width: 100%;">
+                                <div class="i-body" style="display: inline-flex;">
+                                    <div class="rate" style="display: inline-flex;">
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
         {% endfor %}
 
 
@@ -552,13 +720,52 @@
 
     }
 </script>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-        crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
-        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
-        crossorigin="anonymous"></script>
+
+<!-- jQuery !-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<!-- jQuery UI !-->
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+
+
+<script>
+    $(function() {
+
+    $('#search').keyup(function() {
+
+        $.ajax({
+            type: "GET",
+            url: "/search/",
+            data: {
+                'q' : $('#search').val(),
+                'csrfmiddlewaretoken' : $("input[name=csrfmiddlewaretoken]").val()
+            },
+            success: searchSuccess,
+            dataType: 'html'
+        });
+    });
+});
+
+function searchSuccess(data, textStatus, jqXHR)
+{
+    $('#results').html(data)
+}
+
+
+</script>
+{#<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"#}
+{#        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"#}
+{#        crossorigin="anonymous"></script>#}
+
+
+
+{#<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"#}
+{#        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"#}
+{#        crossorigin="anonymous"></script>#}
+{#<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"#}
+{#        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"#}
+{#        crossorigin="anonymous"></script>#}
+
+
+
 </html>
