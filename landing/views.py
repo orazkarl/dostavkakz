@@ -45,7 +45,7 @@ def search_stores(request):
 
 class StoreView(DetailView):
     model = Store
-    template_name = 'landing/store_deatil.html'
+    template_name = 'landing/store_detile.html'
 
     def get(self, request, *args, **kwargs):
         store_slug = self.kwargs.get(self.slug_url_kwarg, None)
@@ -218,8 +218,10 @@ class MyAddressView(TemplateView):
     template_name = 'landing/addresses.html'
 
     def post(self, request, *args, **kwargs):
-        user = request.user
+
         if request.POST:
+            user = request.user
+            print(request.POST)
             if 'edit' in request.POST['type']:
                 id = request.POST['address_id']
                 new_address_name = request.POST['address_name']
@@ -236,4 +238,11 @@ class MyAddressView(TemplateView):
                 id = request.POST['address_id']
                 address = user.address.get(id=id)
                 address.delete()
-        return super().get(request, *args, **kwargs)
+            if 'add' in request.POST['type']:
+                new_address_name = request.POST['address_name']
+                new_address_number_house = request.POST['address_number_house']
+                new_address_number_apartment = request.POST['address_number_apartment']
+                if not Address.objects.filter(address_name=new_address_name, number_house=new_address_number_house, number_apartment=new_address_number_apartment, user=user):
+                    Address.objects.create(address_name=new_address_name, number_house=new_address_number_house, number_apartment=new_address_number_apartment, user=user)
+        return redirect('addresses')
+        # return super().get(request, *args, **kwargs)

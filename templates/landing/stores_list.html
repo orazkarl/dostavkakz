@@ -17,9 +17,9 @@
 
 <header style="display: inline-flex; background: #FB0; width: 100%; border-bottom: 2px solid; border-color: #c4c4c4;">
 
-    <a href="index.html">
+    <a href="{% url 'home' %}">
         <div class="s-logo1">
-            <img src="{% static 'images/logo1.png' %}" alt="">
+            <img src="{% static 'images/logo2.png' %}" alt="">
         </div>
     </a>
     <div class="mainsearch11" style="display: inline-flex;">
@@ -27,8 +27,13 @@
         <button class="searchbtn1">Найти</button>
     </div>
     <div class="log-block1">
-        <a href="" class="login1">Войти</a>
-        <a href="" class="reg1">Регистрация</a>
+        {% if user.is_authenticated %}
+            <a href="{% url 'profile' %}" class="login1">Профиль</a>
+            <a href="{% url 'logout_user' %}" class="reg1">Выйти</a>
+        {% else %}
+            <a href="{% url 'account_login' %}" class="login1">Войти</a>
+            <a href="{% url 'account_signup' %}" class="reg1">Регистрация</a>
+        {% endif %}
     </div>
 
     <div class="navbar1" style="display: none;">
@@ -49,12 +54,23 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Войти <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Регистрация</a>
-                    </li>
+                    {% if user.is_authenticated %}
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{% url 'profile' %}">Профиль <span
+                                    class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{% url 'logout_user' %}">Выйти</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{% url 'account_login' %}">Войти <span
+                                    class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{% url 'account_signup' %}">Регистрация</a>
+                        </li>
+                    {% endif %}
                     <li class="nav-item active">
                         <a class="nav-link" href="#">Избранное</a>
                     </li>
@@ -249,23 +265,37 @@
 
 
                 </form>
+                <div class="ASAP" style="margin-bottom: 3%;">
+                    <h5>Сортировать по:</h5>
+                    <select aria-label="Select order date"
+                            class="kitchen"
+                            name="OrderTimeSelector__Day"
+                            id="OrderTimeSelector__Day">
+                        <option value="Wed 07/08">Сначала дешевые</option>
+                        <option value="Thu 07/09">Сначала дорогие</option>
+                        <option value="Fri 07/10">Популярность</option>
+                        <option value="Sat 07/11">Быстрая доставка</option>
+                        <option value="Sun 07/12">Рейтинг</option>
+                        <option value="Mon 07/13">Алфавиту</option>
+                    </select></div>
             </div>
         </div>
     </div>
 </div>
 
 <div class="list-mob" style="display: none;">
+    {% for store in stores %}
     <div class="list1" style="margin-top: 5%; box-shadow: 0 0 8px rgba(0,0,0,0.5);">
         <div class="list_body" style="display: inline-flex; width: 100%;">
             <div class="l-img" style="margin-top: 5%;">
                 <div class="l-img1">
-                    <a href=""><img src="img/KFC_logo.png" alt="" style="width: 100px; height: 100px;"></a>
+                    <a href=""><img src="{{ store.image.url }}" alt="" style="width: 100px; height: 100px;"></a>
                 </div>
             </div>
 
             <div class="l-info" style="margin-left: 5%;">
                 <a href="#" style="color: #000; text-decoration: none;">
-                    <h5 style="margin-top: 2%;">KFC Dostyk Plaza</h5>
+                    <h5 style="margin-top: 2%;">{{ store.name }}</h5>
                     <p class="s-price1">$$</p>
                     <div style="display: inline-flex;">
                         <div>
@@ -279,56 +309,9 @@
             </div>
         </div>
     </div>
+    {% endfor %}
 
-    <div class="list1" style="margin-top: 5%; box-shadow: 0 0 8px rgba(0,0,0,0.5);">
-        <div class="list_body" style="display: inline-flex; width: 100%;">
-            <div class="l-img" style="margin-top: 5%;">
-                <div class="l-img1">
-                    <a href=""><img src="img/KFC_logo.png" alt="" style="width: 100px; height: 100px;"></a>
-                </div>
-            </div>
 
-            <div class="l-info" style="margin-left: 5%;">
-                <a href="#" style="color: #000; text-decoration: none;">
-                    <h5 style="margin-top: 2%;">KFC Dostyk Plaza</h5>
-                    <p class="s-price1">$$</p>
-                    <div style="display: inline-flex;">
-                        <div>
-                            <p class="l-dets">Растояние <br> 2-км</p>
-                        </div>
-                        <div style="margin-left: 5%; border-left: 1px solid; padding-left: 10px; border-color: #c4c4c4;">
-                            <p class="l-status">Доставка <br> Бесплатно</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <div class="list1" style="margin-top: 5%; box-shadow: 0 0 8px rgba(0,0,0,0.5);">
-        <div class="list_body" style="display: inline-flex; width: 100%;">
-            <div class="l-img" style="margin-top: 5%;">
-                <div class="l-img1">
-                    <a href=""><img src="img/KFC_logo.png" alt="" style="width: 100px; height: 100px;"></a>
-                </div>
-            </div>
-
-            <div class="l-info" style="margin-left: 5%;">
-                <a href="#" style="color: #000; text-decoration: none;">
-                    <h5 style="margin-top: 2%;">KFC Dostyk Plaza</h5>
-                    <p class="s-price1">$$</p>
-                    <div style="display: inline-flex;">
-                        <div>
-                            <p class="l-dets">Растояние <br> 2-км</p>
-                        </div>
-                        <div style="margin-left: 5%; border-left: 1px solid; padding-left: 10px; border-color: #c4c4c4;">
-                            <p class="l-status">Доставка <br> Бесплатно</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </div>
-    </div>
 </div>
 
 
@@ -431,7 +414,19 @@
                         <option value="Mon 07/13">Через 5 часов</option>
                     </select></div>
         </div>
-
+        <div class="ASAP" style="margin-bottom: 3%;">
+            <h5>Сортировать по:</h5>
+            <select aria-label="Select order date"
+                    class="kitchen"
+                    name="OrderTimeSelector__Day"
+                    id="OrderTimeSelector__Day">
+                <option value="Wed 07/08">Сначала дешевые</option>
+                <option value="Thu 07/09">Сначала дорогие</option>
+                <option value="Fri 07/10">Популярность</option>
+                <option value="Sat 07/11">Быстрая доставка</option>
+                <option value="Sun 07/12">Рейтинг</option>
+                <option value="Mon 07/13">Алфавиту</option>
+            </select></div>
         <div style="margin-top: 5%; padding-top: 10px; border-top: 1px solid; border-color: #c4c4c4;">
             <h5>Дополнительно</h5>
             <div class="Filters__filter"><label class="Checkbox Filters__label" for="Checkbox__1"
@@ -497,19 +492,19 @@
     </div>
 
     <div class="list-body11"> <!-- Начало списка с результатами -->
-
+        {% for store in stores %}
         <div>
             <div class="pos" style="width: 700px; margin-top: 5%; border: 1px solid; border-color: #D8D8D8FF">
                 <div class="list_body" style="display: inline-flex; width: 100%">
 
                     <div class="l-img" style="margin-top: 1%; margin-bottom: 1%; margin-left: 2%;">
                         <div class="l-img1">
-                            <a href=""><img src="img/KFC_logo.png" alt="" style="width: 100px; height: 100px;"></a>
+                            <a href="{% url 'store_detail' store.slug %}"><img src="{{ store.image.url }}" alt="" style="width: 100px; height: 100px;"></a>
                         </div>
                     </div>
 
                     <div style="margin-left: 2%; margin-top: 5%;">
-                        <h5 style="width: 220px;">KFC Dostyk Plaza</h5>
+                        <h5 style="width: 220px;">{{store.name}}</h5>
                     </div>
 
                     <div style="display: inline-flex; margin-top: 3%;">
@@ -538,252 +533,7 @@
                 </div>
             </div>
         </div>
-
-        <div>
-            <div class="pos" style="width: 700px; margin-top: 2%; border: 1px solid; border-color: #D8D8D8FF">
-                <div class="list_body" style="display: inline-flex; width: 100%">
-
-                    <div class="l-img" style="margin-top: 1%; margin-bottom: 1%; margin-left: 2%;">
-                        <div class="l-img1">
-                            <a href=""><img src="img/KFC_logo.png" alt="" style="width: 100px; height: 100px;"></a>
-                        </div>
-                    </div>
-
-                    <div style="margin-left: 2%; margin-top: 5%;">
-                        <h5 style="width: 220px;">KFC Dostyk Plaza</h5>
-                    </div>
-
-                    <div style="display: inline-flex; margin-top: 3%;">
-                        <div style="font-weight: bold; margin-top: 4%;">
-                            <p>Расстояние <br> 1 км</p>
-                        </div>
-
-                        <div style="font-weight: bold; margin-left: 10%; margin-top: 4%;">
-                            <p>Доставка <br> Бесплатно</p>
-                        </div>
-                    </div>
-
-                    <div class="l-info" style="display: inline-flex; margin-left: 5%; margin-top: 5%;">
-                        <a href="#" style="color: #000; text-decoration: none; margin-top: 5%; width: 100%;">
-                            <div class="i-body" style="display: inline-flex;">
-                                <div class="rate" style="display: inline-flex;">
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star-half-o" aria-hidden="true"></i>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div>
-            <div class="pos" style="width: 700px; margin-top: 2%; border: 1px solid; border-color: #D8D8D8FF">
-                <div class="list_body" style="display: inline-flex; width: 100%">
-
-                    <div class="l-img" style="margin-top: 1%; margin-bottom: 1%; margin-left: 2%;">
-                        <div class="l-img1">
-                            <a href=""><img src="img/KFC_logo.png" alt="" style="width: 100px; height: 100px;"></a>
-                        </div>
-                    </div>
-
-                    <div style="margin-left: 2%; margin-top: 5%;">
-                        <h5 style="width: 220px;">KFC Dostyk Plaza</h5>
-                    </div>
-
-                    <div style="display: inline-flex; margin-top: 3%;">
-                        <div style="font-weight: bold; margin-top: 4%;">
-                            <p>Расстояние <br> 1 км</p>
-                        </div>
-
-                        <div style="font-weight: bold; margin-left: 10%; margin-top: 4%;">
-                            <p>Доставка <br> Бесплатно</p>
-                        </div>
-                    </div>
-
-                    <div class="l-info" style="display: inline-flex; margin-left: 5%; margin-top: 5%;">
-                        <a href="#" style="color: #000; text-decoration: none; margin-top: 5%; width: 100%;">
-                            <div class="i-body" style="display: inline-flex;">
-                                <div class="rate" style="display: inline-flex;">
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star-half-o" aria-hidden="true"></i>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div>
-            <div class="pos" style="width: 700px; margin-top: 2%; border: 1px solid; border-color: #D8D8D8FF">
-                <div class="list_body" style="display: inline-flex; width: 100%">
-
-                    <div class="l-img" style="margin-top: 1%; margin-bottom: 1%; margin-left: 2%;">
-                        <div class="l-img1">
-                            <a href=""><img src="img/KFC_logo.png" alt="" style="width: 100px; height: 100px;"></a>
-                        </div>
-                    </div>
-
-                    <div style="margin-left: 2%; margin-top: 5%;">
-                        <h5 style="width: 220px;">KFC Dostyk Plaza</h5>
-                    </div>
-
-                    <div style="display: inline-flex; margin-top: 3%;">
-                        <div style="font-weight: bold; margin-top: 4%;">
-                            <p>Расстояние <br> 1 км</p>
-                        </div>
-
-                        <div style="font-weight: bold; margin-left: 10%; margin-top: 4%;">
-                            <p>Доставка <br> Бесплатно</p>
-                        </div>
-                    </div>
-
-                    <div class="l-info" style="display: inline-flex; margin-left: 5%; margin-top: 5%;">
-                        <a href="#" style="color: #000; text-decoration: none; margin-top: 5%; width: 100%;">
-                            <div class="i-body" style="display: inline-flex;">
-                                <div class="rate" style="display: inline-flex;">
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star-half-o" aria-hidden="true"></i>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div>
-            <div class="pos" style="width: 700px; margin-top: 2%; border: 1px solid; border-color: #D8D8D8FF">
-                <div class="list_body" style="display: inline-flex; width: 100%">
-
-                    <div class="l-img" style="margin-top: 1%; margin-bottom: 1%; margin-left: 2%;">
-                        <div class="l-img1">
-                            <a href=""><img src="img/KFC_logo.png" alt="" style="width: 100px; height: 100px;"></a>
-                        </div>
-                    </div>
-
-                    <div style="margin-left: 2%; margin-top: 5%;">
-                        <h5 style="width: 220px;">KFC Dostyk Plaza</h5>
-                    </div>
-
-                    <div style="display: inline-flex; margin-top: 3%;">
-                        <div style="font-weight: bold; margin-top: 4%;">
-                            <p>Расстояние <br> 1 км</p>
-                        </div>
-
-                        <div style="font-weight: bold; margin-left: 10%; margin-top: 4%;">
-                            <p>Доставка <br> Бесплатно</p>
-                        </div>
-                    </div>
-
-                    <div class="l-info" style="display: inline-flex; margin-left: 5%; margin-top: 5%;">
-                        <a href="#" style="color: #000; text-decoration: none; margin-top: 5%; width: 100%;">
-                            <div class="i-body" style="display: inline-flex;">
-                                <div class="rate" style="display: inline-flex;">
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star-half-o" aria-hidden="true"></i>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div>
-            <div class="pos" style="width: 700px; margin-top: 2%; border: 1px solid; border-color: #D8D8D8FF">
-                <div class="list_body" style="display: inline-flex; width: 100%">
-
-                    <div class="l-img" style="margin-top: 1%; margin-bottom: 1%; margin-left: 2%;">
-                        <div class="l-img1">
-                            <a href=""><img src="img/KFC_logo.png" alt="" style="width: 100px; height: 100px;"></a>
-                        </div>
-                    </div>
-
-                    <div style="margin-left: 2%; margin-top: 5%;">
-                        <h5 style="width: 220px;">KFC Dostyk Plaza</h5>
-                    </div>
-
-                    <div style="display: inline-flex; margin-top: 3%;">
-                        <div style="font-weight: bold; margin-top: 4%;">
-                            <p>Расстояние <br> 1 км</p>
-                        </div>
-
-                        <div style="font-weight: bold; margin-left: 10%; margin-top: 4%;">
-                            <p>Доставка <br> Бесплатно</p>
-                        </div>
-                    </div>
-
-                    <div class="l-info" style="display: inline-flex; margin-left: 5%; margin-top: 5%;">
-                        <a href="#" style="color: #000; text-decoration: none; margin-top: 5%; width: 100%;">
-                            <div class="i-body" style="display: inline-flex;">
-                                <div class="rate" style="display: inline-flex;">
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star-half-o" aria-hidden="true"></i>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div>
-            <div class="pos" style="width: 700px; margin-top: 2%; border: 1px solid; border-color: #D8D8D8FF">
-                <div class="list_body" style="display: inline-flex; width: 100%">
-
-                    <div class="l-img" style="margin-top: 1%; margin-bottom: 1%; margin-left: 2%;">
-                        <div class="l-img1">
-                            <a href=""><img src="img/KFC_logo.png" alt="" style="width: 100px; height: 100px;"></a>
-                        </div>
-                    </div>
-
-                    <div style="margin-left: 2%; margin-top: 5%;">
-                        <h5 style="width: 220px;">KFC Dostyk Plaza</h5>
-                    </div>
-
-                    <div style="display: inline-flex; margin-top: 3%;">
-                        <div style="font-weight: bold; margin-top: 4%;">
-                            <p>Расстояние <br> 1 км</p>
-                        </div>
-
-                        <div style="font-weight: bold; margin-left: 10%; margin-top: 4%;">
-                            <p>Доставка <br> Бесплатно</p>
-                        </div>
-                    </div>
-
-                    <div class="l-info" style="display: inline-flex; margin-left: 5%; margin-top: 5%;">
-                        <a href="#" style="color: #000; text-decoration: none; margin-top: 5%; width: 100%;">
-                            <div class="i-body" style="display: inline-flex;">
-                                <div class="rate" style="display: inline-flex;">
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star-half-o" aria-hidden="true"></i>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        {% endfor %}
 
 
     </div> <!-- Конец списка с результатами -->

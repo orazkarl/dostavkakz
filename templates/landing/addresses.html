@@ -1,51 +1,99 @@
-{% extends 'landing/base.html' %}
+{#{% extends 'landing/base.html' %}#}
 {% load static %}
-{% block content %}
+{#{% block content %}#}
 
-    <div id="addresses_list">
-        {% for address in request.user.address.all %}
-            Адрес {{ address.address_name }} {{ address.number_house }} {{ address.number_apartment }}
-            <button onclick="editAddress({{ address.id }})"> Edit</button>
-            <form action="{% url 'addresses' %}" method="post">
-            {% csrf_token %}
-                <input type="text" name="type" value="delete" style="display: none">
-                <input type="text" name="address_id" value="{{ address.id }}" style="display:none;">
-                <button type="submit">Delete</button>
-            </form>
-
-            <br>
-            <br>
-        {% endfor %}
-
-    </div>
+<div id="response"></div>
+<div id="addresses_list">
     {% for address in request.user.address.all %}
-        <form action="{% url 'addresses' %}" style="display: none" id="form_edit_address{{ address.id }}" method="post">
+        Адрес {{ address.address_name }} {{ address.number_house }} {{ address.number_apartment }}
+        <button onclick="editAddress({{ address.id }})"> Edit</button>
+        <form action="{% url 'addresses' %}" method="post">
             {% csrf_token %}
-            <input type="text" value="{{ address.id }}" style="display: none" name="address_id">
-            <input type="text" name="type" value="edit" style="display: none">
-            <input type="text" placeholder="адрес" value="{{ address.address_name }}" name="address_name">
-            <input type="text" placeholder="номер дома" value="{{ address.number_house }}" name="address_number_house">
-            <input type="text" placeholder="кв" value="{{ address.number_apartment }}"
-                   name="address_number_apartment">
-            <input type="submit">
-            <button onclick="editAddress()">cancel</button>
+            <input type="text" name="type" value="delete" style="display: none">
+            <input type="text" name="address_id" value="{{ address.id }}" style="display:none;">
+            <button type="submit">Delete</button>
         </form>
+
+        <br>
+        <br>
     {% endfor %}
 
-    {#    <button>Add address</button>#}
-    <script>
-        function editAddress(id) {
-            addressesList = document.getElementById('addresses_list');
-            addressForm = document.getElementById('form_edit_address' + id);
+</div>
+{% for address in request.user.address.all %}
+    <form action="{% url 'addresses' %}" style="display: none" id="form_edit_address{{ address.id }}" method="post" >
+        {% csrf_token %}
+        <input type="text" value="{{ address.id }}" style="display: none" name="address_id">
+        <input type="text" name="type" value="edit" style="display: none">
+        <input type="text" placeholder="адрес" value="{{ address.address_name }}" name="address_name">
+        <input type="text" placeholder="номер дома" value="{{ address.number_house }}" name="address_number_house">
+        <input type="number" placeholder="кв" value="{{ address.number_apartment }}"
+               name="address_number_apartment">
+        <input type="submit">
+<button onclick="editAddress()">cancel</button>
+    </form>
 
-            if (addressForm.style.display == 'none') {
-                addressesList.style.display = 'none';
-                addressForm.style.display = 'block';
-            } else {
-                addressForm.style.display = 'none';
-                addressesList.style.display = 'block';
-            }
+{% endfor %}
 
+<button onclick="newAddressForm()" id="btn_add_address">Add address</button>
+<form action="{% url 'addresses' %}" style="display: none" id="new_address_form" method="post">
+    {% csrf_token %}
+
+    <input type="text" name="type" value="add" style="display: none">
+    <input type="text" placeholder="адрес" name="address_name">
+    <input type="text" placeholder="номер дома" name="address_number_house">
+    <input type="number" placeholder="кв" name="address_number_apartment">
+    <input type="submit">
+<button onclick="newAddressForm()" type="button">cancel</button>
+</form>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+<script>
+    function myFunct(form) { // catch the form's submit event
+        event.preventDefault();
+        $.ajax({ // create an AJAX call...
+            data: $(form).serialize(), // get the form data
+            type: $(form).attr('method'), // GET or POST
+            url: $(form).attr('action'), // the file to call
+            success: function (response) { // on success..
+                $('#response').html(response);
+                console.log(response); // update the DIV
+            },
+        });
+        return false;
+    }
+</script>
+<script>
+    function editAddress(id) {
+        addressesList = document.getElementById('addresses_list');
+        addressForm = document.getElementById('form_edit_address' + id);
+        btn = document.getElementById('btn_add_address');
+        if (addressForm.style.display == 'none') {
+            addressesList.style.display = 'none';
+            addressForm.style.display = 'block';
+                btn.style.display = 'none';
+        } else {
+            addressForm.style.display = 'none';
+            addressesList.style.display = 'block';
+                btn.style.display = 'block';
         }
-    </script>
-{% endblock %}
+
+    }
+
+    function newAddressForm() {
+        addressForm = document.getElementById('new_address_form');
+        btn = document.getElementById('btn_add_address');
+        addressesList = document.getElementById('addresses_list');
+        if (addressForm.style.display == 'none') {
+            addressForm.style.display = 'block';
+            btn.style.display = 'none';
+            addressesList.style.display = 'none';
+        } else {
+            addressForm.style.display = 'none';
+            btn.style.display = 'block';
+            addressesList.style.display = 'block';
+        }
+    }
+</script>
+{#{% endblock %}#}
