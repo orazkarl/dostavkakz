@@ -503,20 +503,23 @@
                 </div>
                 <div class="kitchen">
                     <h5>Кухня</h5>
+
                     {#                    {% for i in request.GET|get_list:'foodcategory' %}#}
                     {#                        {{ i }}#}
                     {#                    {% endfor %}#}
                     {% for tag in tags %}
                         <div>
                             <div class="Filters__filter">
-                                <label class="Checkbox Filters__label" for="Checkbox__{{ tag.id }}" style="display: -webkit-inline-box; font-size: 20px;">
+                                <label class="Checkbox Filters__label" for="Checkbox__{{ tag.id }}"
+                                       style="display: -webkit-inline-box; font-size: 20px;">
                                     <div class="Checkbox__selection">
                                         <input type="checkbox" id="Checkbox__{{ tag.id }}" name="foodcategory"
                                                class="Checkbox__selection__input " value="{{ tag.id }}"
                                                {% if tag.id|stringformat:"s" in request.GET|get_list:'foodcategory' %}checked {% endif %}>
                                         <i class="Checkbox__selection__check "></i>
                                     </div>
-                                    <p class="Checkbox__text" style="margin-left: 2%; font-size: 20px;">  {{ tag.name }}</p>
+                                    <p class="Checkbox__text"
+                                       style="margin-left: 2%; font-size: 20px;">  {{ tag.name }}</p>
                                 </label>
                             </div>
                         </div>
@@ -619,7 +622,7 @@
 
                         <div style="margin-left: 2%; margin-top: 5%;">
                             <h5 style="width: 220px;">{{ store.name }}</h5>
-                            <p>средний чек {{ store.average_check }}</p>
+                            <p>{{ '$'|multiply:store.avg_check }}</p>
                         </div>
 
                         <div style="display: inline-flex; margin-top: 3%;">
@@ -636,12 +639,44 @@
                             <a href="#" style="color: #000; text-decoration: none; margin-top: 5%; width: 100%;">
                                 <div class="i-body" style="display: inline-flex;">
                                     <div class="rate" style="display: inline-flex;">
-                                        {{ store.average_rating }} из 5
-                                        {#                                        <i class="fa fa-star" aria-hidden="true"></i>#}
-                                        {#                                        <i class="fa fa-star" aria-hidden="true"></i>#}
-                                        {#                                        <i class="fa fa-star" aria-hidden="true"></i>#}
-                                        {#                                        <i class="fa fa-star" aria-hidden="true"></i>#}
-                                        {#                                        <i class="fa fa-star-half-o" aria-hidden="true"></i>#}
+                                        {#                                    {{ store.average_rating }}#}
+                                        {% if store.average_rating == 1 %}
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star-o" aria-hidden="true" style="color: #FFBB00"></i>
+                                            <i class="fa fa-star-o" aria-hidden="true" style="color: #FFBB00"></i>
+                                            <i class="fa fa-star-o" aria-hidden="true" style="color: #FFBB00"></i>
+                                            <i class="fa fa-star-o" aria-hidden="true" style="color: #FFBB00"></i>
+                                        {% elif store.average_rating == 2 %}
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star-o" aria-hidden="true" style="color: #FFBB00"></i>
+                                            <i class="fa fa-star-o" aria-hidden="true" style="color: #FFBB00"></i>
+                                            <i class="fa fa-star-o" aria-hidden="true" style="color: #FFBB00"></i>
+                                        {% elif store.average_rating == 3 %}
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star-o" aria-hidden="true" style="color: #FFBB00"></i>
+                                            <i class="fa fa-star-o" aria-hidden="true" style="color: #FFBB00"></i>
+                                        {% elif store.average_rating == 4 %}
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star-o" aria-hidden="true" style="color: #FFBB00"></i>
+                                        {% elif store.average_rating == 5 %}
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                        {% elif store.average_rating == 0 %}
+                                            <i class="fa fa-star-o" aria-hidden="true" style="color: #FFBB00"></i>
+                                            <i class="fa fa-star-o" aria-hidden="true" style="color: #FFBB00"></i>
+                                            <i class="fa fa-star-o" aria-hidden="true" style="color: #FFBB00"></i>
+                                            <i class="fa fa-star-o" aria-hidden="true" style="color: #FFBB00"></i>
+                                            <i class="fa fa-star-o" aria-hidden="true" style="color: #FFBB00"></i>
+                                        {% endif %}
                                     </div>
                                 </div>
                             </a>

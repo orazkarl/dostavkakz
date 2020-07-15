@@ -41,7 +41,10 @@ class Store(models.Model):
 
     def average_rating(self):
         all_ratings = map(lambda x: x.rating, self.review_set.all())
-        return np.mean(list(all_ratings))
+        avg_rating = np.mean(list(all_ratings))
+        if str(avg_rating) == 'nan':
+            return 0
+        return round(avg_rating)
 
     def average_check(self):
         all_prices = map(lambda x: x.price, self.product_set.all())
