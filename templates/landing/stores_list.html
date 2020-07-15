@@ -1,758 +1,443 @@
+{% extends 'landing/base.html' %}
 {% load static %}
 {% load template_filters %}
-<!DOCTYPE html>
-<html lang="ru-RU">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Jetkizu.me | Доставим всё!</title>
-    <link rel="shortcut icon" type="image/png" href="/images/favicon.png">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <link rel="stylesheet" href="{% static 'css/media.css' %}">
-    <link rel="stylesheet" href="{% static 'font-awesome/css/font-awesome.min.css' %}">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap" rel="stylesheet">
-
-    <style>
-        .radio-toolbar input[type="radio"] {
-            opacity: 0;
-            position: fixed;
-            width: 0;
-        }
-
-        .radio-toolbar label {
-            display: inline-block;
-            background-color: #FFBB00;
-            padding: 7px 14px;
-        {#font-family: sans-serif, Arial;#} font-size: 16px;
-            border: 1px solid #c4c4c4;
-            margin-right: -5px;
-        {#border-radius: 4px;#}
-        }
-
-        .radio-toolbar input[type="radio"]:hover + label {
-        {#background-color: #ffdd00;#} cursor: pointer;
-        {#border-color: #c4c4c4;#}
-        }
-
-        .radio-toolbar input[type="radio"]:checked + label {
-            background-color: #fff;
-            cursor: pointer;
-            border-color: #c4c4c4;
-        }
-
-        .radio-toolbar input[type="radio"]:focus + label {
-        {#border: 2px dashed #444;#}
-        }
-
-        .search {
-            position: relative;
-            margin: 0 auto;
-            width: 350px;
-        }
-
-        .search input {
-            height: 35px;
-            width: 100%;
-            padding: 0 12px 0 12px;
-            border-width: 1px;
-            border-style: solid;
-            border-color: #a8acbc #babdcc #c0c3d2;
-            border-radius: 5px;
-            background: white url("../static/images/search-23.png") 320px 6px no-repeat;
-        }
-
-        .search input:focus {
-            outline: none;
-            border-color: #66b1ee;
-            -webkit-box-shadow: 0 0 2px rgba(85, 168, 236, 0.9);
-            -moz-box-shadow: 0 0 2px rgba(85, 168, 236, 0.9);
-            -ms-box-shadow: 0 0 2px rgba(85, 168, 236, 0.9);
-            -o-box-shadow: 0 0 2px rgba(85, 168, 236, 0.9);
-            box-shadow: 0 0 2px rgba(85, 168, 236, 0.9);
-        }
-
-        .search input:focus + .results {
-            display: block
-        }
-
-        .search .results {
-        {#display: none;#} position: absolute;
-            top: 35px;
-            left: 0;
-            right: 0;
-            z-index: 10;
-            padding: 0;
-            margin: 0;
-            border-width: 0;
-            border-style: solid;
-            border-color: #cbcfe2 #c8cee7 #c4c7d7;
-            border-radius: 3px;
-            background-color: #fdfdfd;
-        {#-webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);#}{#-moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);#}{#-ms-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);#}{#-o-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);#}{#box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);#}
-        }
-
-        .search .results li {
-            display: block
-        }
-
-        .search .results li:first-child {
-            margin-top: -1px
-        }
-
-        .search .results li:first-child:before, .search .results li:first-child:after {
-            display: block;
-            content: '';
-            width: 0;
-            height: 0;
-            position: absolute;
-            left: 50%;
-            margin-left: -5px;
-            border: 5px outset transparent;
-        }
-
-        .search .results li:first-child:before {
-            border-bottom: 5px solid #c4c7d7;
-            top: -11px;
-        }
-
-        .search .results li:first-child:after {
-            border-bottom: 5px solid #fdfdfd;
-            top: -10px;
-        }
-
-        .search .results li:first-child:hover:before, .search .results li:first-child:hover:after {
-            display: none
-        }
-
-        .search .results li:last-child {
-            margin-bottom: -1px
-        }
-
-        .search .results a {
-            display: block;
-            position: relative;
-            margin: 0 -1px;
-            padding: 6px 40px 6px 10px;
-            color: #808394;
-            font-weight: 500;
-            text-shadow: 0 1px #fff;
-            border: 1px solid transparent;
-            border-radius: 3px;
-        }
-
-        .search .results a span {
-            font-weight: 200
-        }
-
-        {#.search .results a:before {#}
-        {#    content: '';#}
-        {#    width: 18px;#}
-        {#    height: 18px;#}
-        {#    position: absolute;#}
-        {#    top: 50%;#}
-        {#    right: 10px;#}
-        {#    margin-top: -9px;#}
-        {#    background: url("https://cssdeck.com/uploads/media/items/7/7BNkBjd.png") 0 0 no-repeat;#}
-        {##}
-        {# } #}
-
-        .search .results a:hover {
-            text-decoration: none;
-            color: #cbcfe2;
-        {#text-shadow: 0 -1px rgba(0, 0, 0, 0.3);#}{#border-color: #2380dd #2179d5 #1a60aa;#}{#background-color: #FFBB00;#}{#background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #59aaf4), color-stop(100%, #338cdf));#}{#background-image: -webkit-linear-gradient(top, #59aaf4, #338cdf);#}{#background-image: -moz-linear-gradient(top, #59aaf4, #338cdf);#}{#background-image: -ms-linear-gradient(top, #59aaf4, #338cdf);#}{#background-image: -o-linear-gradient(top, #59aaf4, #338cdf);#}{#background-image: linear-gradient(top, #59aaf4, #338cdf);#}{#-webkit-box-shadow: inset 0 1px rgba(255, 255, 255, 0.2), 0 1px rgba(0, 0, 0, 0.08);#}{#-moz-box-shadow: inset 0 1px rgba(255, 255, 255, 0.2), 0 1px rgba(0, 0, 0, 0.08);#}{#-ms-box-shadow: inset 0 1px rgba(255, 255, 255, 0.2), 0 1px rgba(0, 0, 0, 0.08);#}{#-o-box-shadow: inset 0 1px rgba(255, 255, 255, 0.2), 0 1px rgba(0, 0, 0, 0.08);#}{#box-shadow: inset 0 1px rgba(255, 255, 255, 0.2), 0 1px rgba(0, 0, 0, 0.08);#}
-        }
-
-        :-moz-placeholder {
-            color: #a7aabc;
-            font-weight: 200;
-        }
-
-        ::-webkit-input-placeholder {
-            color: #a7aabc;
-            font-weight: 200;
-        }
-
-        .lt-ie9 .search input {
-            line-height: 26px
-        }
-    </style>
-</head>
-<header style="display: inline-flex; background: #FB0; width: 100%; border-bottom: 2px solid; border-color: #c4c4c4;">
-
-    <a href="{% url 'home' %}">
-        <div class="s-logo1">
-            <img src="{% static 'images/logo2.png' %}" alt="">
-        </div>
-    </a>
-    <div class="mainsearch11" style="display: inline-flex;">
-        <form class="search">
-            <input id="search" class="search" placeholder="Поиск...">
-            <ul id="results" class="results"></ul>
-        </form>
-    </div>
-    <div class="log-block1">
-        {% if user.is_authenticated %}
-            <a href="{% url 'profile' %}" class="login1">Профиль</a>
-            <a href="{% url 'logout_user' %}" class="reg1">Выйти</a>
-        {% else %}
-            <a href="{% url 'account_login' %}" class="login1">Войти</a>
-            <a href="{% url 'account_signup' %}" class="reg1">Регистрация</a>
-        {% endif %}
-    </div>
-
-    {#    <div class="navbar1" style="display: none;">#}
-    {#        <nav class="navbar navbar2 navbar-expand-lg navbar-light bg-light" style="background: #FB0 !important;">#}
+{% block content %}
+    <h5 class="selectcat">Пожалуйста, выберите категорию</h5>
+    {#<div class="categories">#}
     {##}
-    {#            <input name="AutocompleteInput-0"#}
-    {#                   class="searchpage_search"#}
-    {#                   placeholder="Поиск..."#}
-    {#                   aria-haspopup="false"#}
-    {#                   aria-autocomplete="list"#}
-    {#                   aria-owns="AutocompleteResultsList-0"#}
-    {#                   aria-activedescendant="false"#}
-    {#                   maxlength="100" autocomplete="off"#}
-    {#                   value="">#}
+    {#    <div class="categ_s_body">#}
+    {#        <div class="s-food categ_s">#}
+    {#            <a href="#" class="s-food1">Еда</a>#}
+    {#        </div>#}
     {##}
-    {#            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"#}
-    {#                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">#}
-    {#                <span class="navbar-toggler-icon"></span>#}
-    {#            </button>#}
+    {#        <div class="s-drinks categ_s">#}
+    {#            <a href="#" class="s-drinks1">Напитки</a>#}
+    {#        </div>#}
     {##}
-    {#            <div class="collapse navbar-collapse" id="navbarSupportedContent">#}
-    {#                <ul class="navbar-nav mr-auto">#}
-    {#                    {% if user.is_authenticated %}#}
-    {#                        <li class="nav-item active">#}
-    {#                            <a class="nav-link" href="{% url 'profile' %}">Профиль <span#}
-    {#                                    class="sr-only">(current)</span></a>#}
-    {#                        </li>#}
-    {#                        <li class="nav-item active">#}
-    {#                            <a class="nav-link" href="{% url 'logout_user' %}">Выйти</a>#}
-    {#                        </li>#}
-    {#                    {% else %}#}
-    {#                        <li class="nav-item active">#}
-    {#                            <a class="nav-link" href="{% url 'account_login' %}">Войти <span#}
-    {#                                    class="sr-only">(current)</span></a>#}
-    {#                        </li>#}
-    {#                        <li class="nav-item active">#}
-    {#                            <a class="nav-link" href="{% url 'account_signup' %}">Регистрация</a>#}
-    {#                        </li>#}
-    {#                    {% endif %}#}
-    {#                    <li class="nav-item active">#}
-    {#                        <a class="nav-link" href="#">Избранное</a>#}
-    {#                    </li>#}
-    {#                </ul>#}
-    {#            </div>#}
-    {#        </nav>#}
+    {#        <div class="s-pharmacy categ_s">#}
+    {#            <a href="#" class="s-pharmacy1">Аптеки</a>#}
+    {#        </div>#}
+    {##}
     {#    </div>#}
     {##}
-    {#    <a href="#" class="s-cart" style="margin-top: 2%; color: #000; display: none;"><i class="fa fa-shopping-cart"#}
-    {#                                                                                      aria-hidden="true"#}
-    {#                                                                                      style="font-size: 35px;"></i></a>#}
-
-</header>
-<body style="background: none;">
-
-<h5 class="selectcat">Пожалуйста, выберите категорию</h5>
-
-{#<div class="categories">#}
-{##}
-{#    <div class="categ_s_body">#}
-{#        <div class="s-food categ_s">#}
-{#            <a href="#" class="s-food1">Еда</a>#}
-{#        </div>#}
-{##}
-{#        <div class="s-drinks categ_s">#}
-{#            <a href="#" class="s-drinks1">Напитки</a>#}
-{#        </div>#}
-{##}
-{#        <div class="s-pharmacy categ_s">#}
-{#            <a href="#" class="s-pharmacy1">Аптеки</a>#}
-{#        </div>#}
-{##}
-{#    </div>#}
-{##}
-{#    <div class="categ_s_body">#}
-{#        <div class="s-shops categ_s">#}
-{#            <a href="#" class="s-shops1">Магазины</a>#}
-{#        </div>#}
-{##}
-{#        <div class="s-laundry categ_s">#}
-{#            <a href="#" class="s-laundry1">Прачечные</a>#}
-{#        </div>#}
-{##}
-{#        <div class="s-auto categ_s">#}
-{#            <a href="#" class="s-auto1">Автозапчасти</a>#}
-{#        </div>#}
-{##}
-{#    </div>#}
-{##}
-{#</div>#}
+    {#    <div class="categ_s_body">#}
+    {#        <div class="s-shops categ_s">#}
+    {#            <a href="#" class="s-shops1">Магазины</a>#}
+    {#        </div>#}
+    {##}
+    {#        <div class="s-laundry categ_s">#}
+    {#            <a href="#" class="s-laundry1">Прачечные</a>#}
+    {#        </div>#}
+    {##}
+    {#        <div class="s-auto categ_s">#}
+    {#            <a href="#" class="s-auto1">Автозапчасти</a>#}
+    {#        </div>#}
+    {##}
+    {#    </div>#}
+    {##}
+    {#</div>#}
 
 
-<div class="categories-pc">
-    <div class="categ_s_body">
-        <div class="s-food categ_s1">
-            <a href="#" class="s-food1">Еда</a>
-        </div>
-        <div class="s-drinks categ_s1">
-            <a href="#" class="s-drinks1">Напитки</a>
-        </div>
-        <div class="s-pharmacy categ_s1">
-            <a href="#" class="s-pharmacy1">Аптеки</a>
-        </div>
-    </div>
-    <div class="categ_s_body">
-        <div class="s-shops categ_s1">
-            <a href="#" class="s-shops1">Магазины</a>
-        </div>
-        <div class="s-laundry categ_s1">
-            <a href="#" class="s-laundry1">Прачечные</a>
-        </div>
-        <div class="s-auto categ_s1">
-            <a href="#" class="s-auto1">Автозапчасти</a>
-        </div>
-    </div>
-</div>
-
-{#<div class="accordion" id="accordionExample">#}
-{#    <div class="card">#}
-{#        <div class="card-header" id="headingOne">#}
-{#            <h2 class="mb-0">#}
-{#                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse"#}
-{#                        data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" id="f-button"#}
-{#                        onclick="changeButtonName()">#}
-{#                    Скрыть фильтры#}
-{#                </button>#}
-{#            </h2>#}
-{#        </div>#}
-{##}
-{#        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">#}
-{#            <div class="card-body">#}
-{#                <form action="">#}
-{#                    <div style="display: inline-flex; width: 100%;">#}
-{#                        <div class="kitchen">#}
-{#                            <h5>Кухня</h5>#}
-{#                            <select aria-label="Select order date"#}
-{#                                    class="kitchen"#}
-{#                                    name="OrderTimeSelector__Day"#}
-{#                                    id="OrderTimeSelector__Day">#}
-{#                                <option value="Wed 07/08">Фастфуд</option>#}
-{#                                <option value="Thu 07/09">Азиатская</option>#}
-{#                                <option value="Fri 07/10">Европейская</option>#}
-{#                                <option value="Sat 07/11">Восточная</option>#}
-{#                                <option value="Sun 07/12">Русская</option>#}
-{#                                <option value="Mon 07/13">Казахская</option>#}
-{#                            </select></div>#}
-{##}
-{#                        <div class="ASAP">#}
-{#                            <h5>Время доставки</h5>#}
-{#                            <select aria-label="Select order date"#}
-{#                                    class="kitchen"#}
-{#                                    name="OrderTimeSelector__Day"#}
-{#                                    id="OrderTimeSelector__Day">#}
-{#                                <option value="Wed 07/08">Сейчас</option>#}
-{#                                <option value="Thu 07/09">Через час</option>#}
-{#                                <option value="Fri 07/10">Через 2 часа</option>#}
-{#                                <option value="Sat 07/11">Через 3 часа</option>#}
-{#                                <option value="Sun 07/12">Через 4 часа</option>#}
-{#                                <option value="Mon 07/13">Через 5 часов</option>#}
-{#                            </select></div>#}
-{#                    </div>#}
-{##}
-{#                    <div style="margin-top: 5%;">#}
-{#                        <div class="Filters__filter"><label class="Checkbox Filters__label" for="Checkbox__1"#}
-{#                                                            style="display: -webkit-inline-box; font-size: 20px;">#}
-{#                            <div class="Checkbox__selection">#}
-{#                                <input type="checkbox" id="Checkbox__1" name="features"#}
-{#                                       class="Checkbox__selection__input " value="free_delivery">#}
-{#                                <i class="Checkbox__selection__check "></i></div>#}
-{#                            <p class="Checkbox__text" style="margin-left: 2%; font-size: 20px;"> Бесплатная доставка#}
-{#                                (105)</p></label></div>#}
-{#                    </div>#}
-{##}
-{#                    <div>#}
-{#                        <div class="Filters__filter"><label class="Checkbox Filters__label" for="Checkbox__1"#}
-{#                                                            style="display: -webkit-inline-box; font-size: 20px;">#}
-{#                            <div class="Checkbox__selection">#}
-{#                                <input type="checkbox" id="Checkbox__1" name="features"#}
-{#                                       class="Checkbox__selection__input " value="free_delivery">#}
-{#                                <i class="Checkbox__selection__check "></i></div>#}
-{#                            <p class="Checkbox__text" style="margin-left: 2%; font-size: 20px;"> Блюда на компанию</p>#}
-{#                        </label></div>#}
-{#                    </div>#}
-{#                    <div>#}
-{#                        <div class="Filters__filter"><label class="Checkbox Filters__label" for="Checkbox__1"#}
-{#                                                            style="display: -webkit-inline-box; font-size: 20px;">#}
-{#                            <div class="Checkbox__selection">#}
-{#                                <input type="checkbox" id="Checkbox__1" name="features"#}
-{#                                       class="Checkbox__selection__input " value="free_delivery">#}
-{#                                <i class="Checkbox__selection__check "></i></div>#}
-{#                            <p class="Checkbox__text" style="margin-left: 2%; font-size: 20px;"> Акции</p></label></div>#}
-{#                    </div>#}
-{#                    <div>#}
-{#                        <div class="Filters__filter"><label class="Checkbox Filters__label" for="Checkbox__1"#}
-{#                                                            style="display: -webkit-inline-box; font-size: 20px;">#}
-{#                            <div class="Checkbox__selection">#}
-{#                                <input type="checkbox" id="Checkbox__1" name="features"#}
-{#                                       class="Checkbox__selection__input " value="free_delivery">#}
-{#                                <i class="Checkbox__selection__check "></i></div>#}
-{#                            <p class="Checkbox__text" style="margin-left: 2%; font-size: 20px;"> Новинки</p></label>#}
-{#                        </div>#}
-{#                    </div>#}
-{##}
-{#                    <div class="f-price">#}
-{#                        <h5>Средний чек</h5>#}
-{#                        <div class="btn-group btn-group-toggle" data-toggle="buttons">#}
-{#                            <label class="btn btn-secondary active">#}
-{#                                <input type="radio" name="options" id="option1" checked> $#}
-{#                            </label>#}
-{#                            <label class="btn btn-secondary">#}
-{#                                <input type="radio" name="options" id="option2"> $$#}
-{#                            </label>#}
-{#                            <label class="btn btn-secondary">#}
-{#                                <input type="radio" name="options" id="option3"> $$$#}
-{#                            </label>#}
-{#                            <label class="btn btn-secondary">#}
-{#                                <input type="radio" name="options" id="option3"> $$$$#}
-{#                            </label>#}
-{#                        </div>#}
-{##}
-{#                    </div>#}
-{##}
-{##}
-{#                </form>#}
-{#                <div class="ASAP" style="margin-bottom: 3%;">#}
-{#                    <h5>Сортировать по:</h5>#}
-{#                    <select aria-label="Select order date"#}
-{#                            class="kitchen"#}
-{#                            name="OrderTimeSelector__Day"#}
-{#                            id="OrderTimeSelector__Day">#}
-{#                        <option value="Wed 07/08">Сначала дешевые</option>#}
-{#                        <option value="Thu 07/09">Сначала дорогие</option>#}
-{#                        <option value="Fri 07/10">Популярность</option>#}
-{#                        <option value="Sat 07/11">Быстрая доставка</option>#}
-{#                        <option value="Sun 07/12">Рейтинг</option>#}
-{#                        <option value="Mon 07/13">Алфавиту</option>#}
-{#                    </select></div>#}
-{#            </div>#}
-{#        </div>#}
-{#    </div>#}
-{#</div>#}
-
-{#<div class="list-mob" style="display: none;">#}
-{#    {% for store in stores %}#}
-{#        <div class="list1" style="margin-top: 5%; box-shadow: 0 0 8px rgba(0,0,0,0.5);">#}
-{#            <div class="list_body" style="display: inline-flex; width: 100%;">#}
-{#                <div class="l-img" style="margin-top: 5%;">#}
-{#                    <div class="l-img1">#}
-{#                        <a href=""><img src="{{ store.image.url }}" alt="" style="width: 100px; height: 100px;"></a>#}
-{#                    </div>#}
-{#                </div>#}
-{##}
-{#                <div class="l-info" style="margin-left: 5%;">#}
-{#                    <a href="#" style="color: #000; text-decoration: none;">#}
-{#                        <h5 style="margin-top: 2%;">{{ store.name }}</h5>#}
-{#                        <p class="s-price1">$$</p>#}
-{#                        <div style="display: inline-flex;">#}
-{#                            <div>#}
-{#                                <p class="l-dets">Растояние <br> 2-км</p>#}
-{#                            </div>#}
-{#                            <div style="margin-left: 5%; border-left: 1px solid; padding-left: 10px; border-color: #c4c4c4;">#}
-{#                                <p class="l-status">Доставка <br> Бесплатно</p>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                    </a>#}
-{#                </div>#}
-{#            </div>#}
-{#        </div>#}
-{#    {% endfor %}#}
-{##}
-{##}
-{#</div>#}
-
-
-<div class="body1" style="display: inline-flex;">
-    <div class="filters">
-        <div class="filter-body">
-            <form action="{% url 'stores_list' %}" method="get">
-                {% csrf_token %}
-                <div class="ASAP" style="margin-bottom: 3%;">
-                    <h5>Сортировать по:</h5>
-
-                    <select aria-label="Select order date" class="kitchen" name="sortby" id="OrderTimeSelector__Day">
-                        <option value="alphabet" {% if request.GET.sortby == 'alphabet' %}selected{% endif %}>Алфавиту
-                        </option>
-                        <option value="inexpensive" {% if request.GET.sortby == 'inexpensive' %}selected{% endif %}>
-                            Сначала дешевые
-                        </option>
-                        <option value="expensive" {% if request.GET.sortby == 'expensive' %}selected{% endif %}>Сначала
-                            дорогие
-                        </option>
-                        <option value="popular" {% if request.GET.sortby == 'popular' %}selected{% endif %}>
-                            Популярность
-                        </option>
-                        <option value="fastdelivery" {% if request.GET.sortby == 'fastdelivery' %}selected{% endif %}>
-                            Быстрая доставка
-                        </option>
-                        <option value="rating" {% if request.GET.sortby == 'rating' %}selected{% endif %}>Рейтинг
-                        </option>
-                    </select>
-                </div>
-                <div class="kitchen">
-                    <h5>Кухня</h5>
-
-                    {#                    {% for i in request.GET|get_list:'foodcategory' %}#}
-                    {#                        {{ i }}#}
-                    {#                    {% endfor %}#}
-                    {% for tag in tags %}
-                        <div>
-                            <div class="Filters__filter">
-                                <label class="Checkbox Filters__label" for="Checkbox__{{ tag.id }}"
-                                       style="display: -webkit-inline-box; font-size: 20px;">
-                                    <div class="Checkbox__selection">
-                                        <input type="checkbox" id="Checkbox__{{ tag.id }}" name="foodcategory"
-                                               class="Checkbox__selection__input " value="{{ tag.id }}"
-                                               {% if tag.id|stringformat:"s" in request.GET|get_list:'foodcategory' %}checked {% endif %}>
-                                        <i class="Checkbox__selection__check "></i>
-                                    </div>
-                                    <p class="Checkbox__text"
-                                       style="margin-left: 2%; font-size: 20px;">  {{ tag.name }}</p>
-                                </label>
-                            </div>
-                        </div>
-                    {% endfor %}
-
-                </div>
-                {#                <div style="margin-top: 5%; padding-top: 10px; border-top: 1px solid; border-color: #c4c4c4;">#}
-                {#                    <h5>Дополнительно</h5>#}
-                {#                    <div class="Filters__filter"><label class="Checkbox Filters__label" for="Checkbox__1"#}
-                {#                                                        style="display: -webkit-inline-box; font-size: 20px;">#}
-                {#                        <div class="Checkbox__selection">#}
-                {#                            <input type="checkbox" id="Checkbox__1" name="features" class="Checkbox__selection__input "#}
-                {#                                   value="free_delivery">#}
-                {#                            <i class="Checkbox__selection__check "></i></div>#}
-                {#                        <p class="Checkbox__text" style="margin-left: 2%; font-size: 20px;"> Бесплатная доставка#}
-                {#                            (105)</p>#}
-                {#                    </label></div>#}
-                {#                </div>#}
-                {#                <div>#}
-                {#                    <div class="Filters__filter"><label class="Checkbox Filters__label" for="Checkbox__1"#}
-                {#                                                        style="display: -webkit-inline-box; font-size: 20px;">#}
-                {#                        <div class="Checkbox__selection">#}
-                {#                            <input type="checkbox" id="Checkbox__1" name="features" class="Checkbox__selection__input "#}
-                {#                                   value="free_delivery">#}
-                {#                            <i class="Checkbox__selection__check "></i></div>#}
-                {#                        <p class="Checkbox__text" style="margin-left: 2%; font-size: 20px;"> Блюда на компанию</p>#}
-                {#                    </label></div>#}
-                {#                </div>#}
-                {#                <div>#}
-                {#                    <div class="Filters__filter"><label class="Checkbox Filters__label" for="Checkbox__1"#}
-                {#                                                        style="display: -webkit-inline-box; font-size: 20px;">#}
-                {#                        <div class="Checkbox__selection">#}
-                {#                            <input type="checkbox" id="Checkbox__1" name="features" class="Checkbox__selection__input "#}
-                {#                                   value="free_delivery">#}
-                {#                            <i class="Checkbox__selection__check "></i>#}
-                {#                        </div>#}
-                {#                        <p class="Checkbox__text" style="margin-left: 2%; font-size: 20px;"> Акции</p></label>#}
-                {#                    </div>#}
-                {#                </div>#}
-                {#                <div>#}
-                {#                    <div class="Filters__filter"><label class="Checkbox Filters__label" for="Checkbox__1"#}
-                {#                                                        style="display: -webkit-inline-box; font-size: 20px;">#}
-                {#                        <div class="Checkbox__selection">#}
-                {#                            <input type="checkbox" id="Checkbox__1" name="features" class="Checkbox__selection__input "#}
-                {#                                   value="free_delivery">#}
-                {#                            <i class="Checkbox__selection__check "></i></div>#}
-                {#                        <p class="Checkbox__text" style="margin-left: 2%; font-size: 20px;"> Новинки</p></label></div>#}
-                {#                </div>#}
-
-                <div class="f-price">
-                    <h5>Средний чек</h5>
-                    <div class="radio-toolbar">
-                        <input type="radio" id="radio1" name="avgcheck" value="1"
-                               {% if request.GET.avgcheck == '1' %}checked{% endif %}>
-                        <label for="radio1">$</label>
-                        <input type="radio" id="radio2" name="avgcheck" value="2"
-                               {% if request.GET.avgcheck == '2' %}checked{% endif %}>
-                        <label for="radio2">$$</label>
-                        <input type="radio" id="radio3" name="avgcheck" value="3"
-                               {% if request.GET.avgcheck == '3' %}checked{% endif %}>
-                        <label for="radio3">$$$</label>
-                        <input type="radio" id="radio4" name="avgcheck" value="4"
-                               {% if request.GET.avgcheck == '4' %}checked{% endif %}>
-                        <label for="radio4">$$$$</label>
-                    </div>
-                    {#                    <div class="btn-group btn-group-toggle" data-toggle="buttons">#}
-                    {#                        <input type="radio" style="display: none">#}
-                    {#                        <label class="btn btn-secondary active">$#}
-                    {#                        </label>#}
-                    {#                        <input type="radio" name="options" value="option1" class="avg-check-checkbox" style="display: none">#}
-                    {#                        <label class="btn btn-secondary">#}
-                    {#                        <input type="radio" name="options" value id="option2"> $$#}
-                    {#                        </label>#}
-                    {#                        <label class="btn btn-secondary">#}
-                    {#                        <input type="radio" name="options" value id="option3"> $$$#}
-                    {#                        </label>#}
-                    {#                        <label class="btn btn-secondary">#}
-                    {#                        <input type="radio" name="options" value id="option3"> $$$$#}
-                    {#                        </label>#}
-                    {#                    </div>#}
-                </div>
-
-                <button class="fil-btn"> Применить фильтры</button>
-            </form>
-        </div>
-    </div>
-    <div class="list-body11"> <!-- Начало списка с результатами -->
-        {% for store in stores %}
-            <div>
-                <div class="pos" style="width: 700px; margin-top: 5%; border: 1px solid; border-color: #D8D8D8FF">
-                    <div class="list_body" style="display: inline-flex; width: 100%">
-
-                        <div class="l-img" style="margin-top: 1%; margin-bottom: 1%; margin-left: 2%;">
-                            <div class="l-img1">
-                                <a href="{% url 'store_detail' store.slug %}"><img src="{{ store.image.url }}"
-                                                                                   alt=""
-                                                                                   style="width: 100px; height: 100px;"></a>
-                            </div>
-                        </div>
-
-                        <div style="margin-left: 2%; margin-top: 5%;">
-                            <h5 style="width: 220px;">{{ store.name }}</h5>
-                            <p>{{ '$'|multiply:store.avg_check }}</p>
-                        </div>
-
-                        <div style="display: inline-flex; margin-top: 3%;">
-                            <div style="font-weight: bold; margin-top: 4%;">
-                                <p>Расстояние <br> 1 км</p>
-                            </div>
-
-                            <div style="font-weight: bold; margin-left: 10%; margin-top: 4%;">
-                                <p>Доставка <br> Бесплатно</p>
-                            </div>
-                        </div>
-
-                        <div class="l-info" style="display: inline-flex; margin-left: 5%; margin-top: 5%;">
-                            <a href="#" style="color: #000; text-decoration: none; margin-top: 5%; width: 100%;">
-                                <div class="i-body" style="display: inline-flex;">
-                                    <div class="rate" style="display: inline-flex;">
-                                        {#                                    {{ store.average_rating }}#}
-                                        {% if store.average_rating == 1 %}
-                                            <i class="fa fa-star" aria-hidden="true"></i>
-                                            <i class="fa fa-star-o" aria-hidden="true" style="color: #FFBB00"></i>
-                                            <i class="fa fa-star-o" aria-hidden="true" style="color: #FFBB00"></i>
-                                            <i class="fa fa-star-o" aria-hidden="true" style="color: #FFBB00"></i>
-                                            <i class="fa fa-star-o" aria-hidden="true" style="color: #FFBB00"></i>
-                                        {% elif store.average_rating == 2 %}
-                                            <i class="fa fa-star" aria-hidden="true"></i>
-                                            <i class="fa fa-star" aria-hidden="true"></i>
-                                            <i class="fa fa-star-o" aria-hidden="true" style="color: #FFBB00"></i>
-                                            <i class="fa fa-star-o" aria-hidden="true" style="color: #FFBB00"></i>
-                                            <i class="fa fa-star-o" aria-hidden="true" style="color: #FFBB00"></i>
-                                        {% elif store.average_rating == 3 %}
-                                            <i class="fa fa-star" aria-hidden="true"></i>
-                                            <i class="fa fa-star" aria-hidden="true"></i>
-                                            <i class="fa fa-star" aria-hidden="true"></i>
-                                            <i class="fa fa-star-o" aria-hidden="true" style="color: #FFBB00"></i>
-                                            <i class="fa fa-star-o" aria-hidden="true" style="color: #FFBB00"></i>
-                                        {% elif store.average_rating == 4 %}
-                                            <i class="fa fa-star" aria-hidden="true"></i>
-                                            <i class="fa fa-star" aria-hidden="true"></i>
-                                            <i class="fa fa-star" aria-hidden="true"></i>
-                                            <i class="fa fa-star" aria-hidden="true"></i>
-                                            <i class="fa fa-star-o" aria-hidden="true" style="color: #FFBB00"></i>
-                                        {% elif store.average_rating == 5 %}
-                                            <i class="fa fa-star" aria-hidden="true"></i>
-                                            <i class="fa fa-star" aria-hidden="true"></i>
-                                            <i class="fa fa-star" aria-hidden="true"></i>
-                                            <i class="fa fa-star" aria-hidden="true"></i>
-                                            <i class="fa fa-star" aria-hidden="true"></i>
-                                        {% elif store.average_rating == 0 %}
-                                            <i class="fa fa-star-o" aria-hidden="true" style="color: #FFBB00"></i>
-                                            <i class="fa fa-star-o" aria-hidden="true" style="color: #FFBB00"></i>
-                                            <i class="fa fa-star-o" aria-hidden="true" style="color: #FFBB00"></i>
-                                            <i class="fa fa-star-o" aria-hidden="true" style="color: #FFBB00"></i>
-                                            <i class="fa fa-star-o" aria-hidden="true" style="color: #FFBB00"></i>
-                                        {% endif %}
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
+    <div class="categories-pc">
+        <div class="categ_s_body">
+            <div class="s-food categ_s1">
+                <a href="#" class="s-food1">Еда</a>
             </div>
-        {% endfor %}
+            <div class="s-drinks categ_s1">
+                <a href="#" class="s-drinks1">Напитки</a>
+            </div>
+            <div class="s-pharmacy categ_s1">
+                <a href="#" class="s-pharmacy1">Аптеки</a>
+            </div>
+        </div>
+        <div class="categ_s_body">
+            <div class="s-shops categ_s1">
+                <a href="#" class="s-shops1">Магазины</a>
+            </div>
+            <div class="s-laundry categ_s1">
+                <a href="#" class="s-laundry1">Прачечные</a>
+            </div>
+            <div class="s-auto categ_s1">
+                <a href="#" class="s-auto1">Автозапчасти</a>
+            </div>
+        </div>
+    </div>
+
+    {#<div class="accordion" id="accordionExample">#}
+    {#    <div class="card">#}
+    {#        <div class="card-header" id="headingOne">#}
+    {#            <h2 class="mb-0">#}
+    {#                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse"#}
+    {#                        data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" id="f-button"#}
+    {#                        onclick="changeButtonName()">#}
+    {#                    Скрыть фильтры#}
+    {#                </button>#}
+    {#            </h2>#}
+    {#        </div>#}
+    {##}
+    {#        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">#}
+    {#            <div class="card-body">#}
+    {#                <form action="">#}
+    {#                    <div style="display: inline-flex; width: 100%;">#}
+    {#                        <div class="kitchen">#}
+    {#                            <h5>Кухня</h5>#}
+    {#                            <select aria-label="Select order date"#}
+    {#                                    class="kitchen"#}
+    {#                                    name="OrderTimeSelector__Day"#}
+    {#                                    id="OrderTimeSelector__Day">#}
+    {#                                <option value="Wed 07/08">Фастфуд</option>#}
+    {#                                <option value="Thu 07/09">Азиатская</option>#}
+    {#                                <option value="Fri 07/10">Европейская</option>#}
+    {#                                <option value="Sat 07/11">Восточная</option>#}
+    {#                                <option value="Sun 07/12">Русская</option>#}
+    {#                                <option value="Mon 07/13">Казахская</option>#}
+    {#                            </select></div>#}
+    {##}
+    {#                        <div class="ASAP">#}
+    {#                            <h5>Время доставки</h5>#}
+    {#                            <select aria-label="Select order date"#}
+    {#                                    class="kitchen"#}
+    {#                                    name="OrderTimeSelector__Day"#}
+    {#                                    id="OrderTimeSelector__Day">#}
+    {#                                <option value="Wed 07/08">Сейчас</option>#}
+    {#                                <option value="Thu 07/09">Через час</option>#}
+    {#                                <option value="Fri 07/10">Через 2 часа</option>#}
+    {#                                <option value="Sat 07/11">Через 3 часа</option>#}
+    {#                                <option value="Sun 07/12">Через 4 часа</option>#}
+    {#                                <option value="Mon 07/13">Через 5 часов</option>#}
+    {#                            </select></div>#}
+    {#                    </div>#}
+    {##}
+    {#                    <div style="margin-top: 5%;">#}
+    {#                        <div class="Filters__filter"><label class="Checkbox Filters__label" for="Checkbox__1"#}
+    {#                                                            style="display: -webkit-inline-box; font-size: 20px;">#}
+    {#                            <div class="Checkbox__selection">#}
+    {#                                <input type="checkbox" id="Checkbox__1" name="features"#}
+    {#                                       class="Checkbox__selection__input " value="free_delivery">#}
+    {#                                <i class="Checkbox__selection__check "></i></div>#}
+    {#                            <p class="Checkbox__text" style="margin-left: 2%; font-size: 20px;"> Бесплатная доставка#}
+    {#                                (105)</p></label></div>#}
+    {#                    </div>#}
+    {##}
+    {#                    <div>#}
+    {#                        <div class="Filters__filter"><label class="Checkbox Filters__label" for="Checkbox__1"#}
+    {#                                                            style="display: -webkit-inline-box; font-size: 20px;">#}
+    {#                            <div class="Checkbox__selection">#}
+    {#                                <input type="checkbox" id="Checkbox__1" name="features"#}
+    {#                                       class="Checkbox__selection__input " value="free_delivery">#}
+    {#                                <i class="Checkbox__selection__check "></i></div>#}
+    {#                            <p class="Checkbox__text" style="margin-left: 2%; font-size: 20px;"> Блюда на компанию</p>#}
+    {#                        </label></div>#}
+    {#                    </div>#}
+    {#                    <div>#}
+    {#                        <div class="Filters__filter"><label class="Checkbox Filters__label" for="Checkbox__1"#}
+    {#                                                            style="display: -webkit-inline-box; font-size: 20px;">#}
+    {#                            <div class="Checkbox__selection">#}
+    {#                                <input type="checkbox" id="Checkbox__1" name="features"#}
+    {#                                       class="Checkbox__selection__input " value="free_delivery">#}
+    {#                                <i class="Checkbox__selection__check "></i></div>#}
+    {#                            <p class="Checkbox__text" style="margin-left: 2%; font-size: 20px;"> Акции</p></label></div>#}
+    {#                    </div>#}
+    {#                    <div>#}
+    {#                        <div class="Filters__filter"><label class="Checkbox Filters__label" for="Checkbox__1"#}
+    {#                                                            style="display: -webkit-inline-box; font-size: 20px;">#}
+    {#                            <div class="Checkbox__selection">#}
+    {#                                <input type="checkbox" id="Checkbox__1" name="features"#}
+    {#                                       class="Checkbox__selection__input " value="free_delivery">#}
+    {#                                <i class="Checkbox__selection__check "></i></div>#}
+    {#                            <p class="Checkbox__text" style="margin-left: 2%; font-size: 20px;"> Новинки</p></label>#}
+    {#                        </div>#}
+    {#                    </div>#}
+    {##}
+    {#                    <div class="f-price">#}
+    {#                        <h5>Средний чек</h5>#}
+    {#                        <div class="btn-group btn-group-toggle" data-toggle="buttons">#}
+    {#                            <label class="btn btn-secondary active">#}
+    {#                                <input type="radio" name="options" id="option1" checked> $#}
+    {#                            </label>#}
+    {#                            <label class="btn btn-secondary">#}
+    {#                                <input type="radio" name="options" id="option2"> $$#}
+    {#                            </label>#}
+    {#                            <label class="btn btn-secondary">#}
+    {#                                <input type="radio" name="options" id="option3"> $$$#}
+    {#                            </label>#}
+    {#                            <label class="btn btn-secondary">#}
+    {#                                <input type="radio" name="options" id="option3"> $$$$#}
+    {#                            </label>#}
+    {#                        </div>#}
+    {##}
+    {#                    </div>#}
+    {##}
+    {##}
+    {#                </form>#}
+    {#                <div class="ASAP" style="margin-bottom: 3%;">#}
+    {#                    <h5>Сортировать по:</h5>#}
+    {#                    <select aria-label="Select order date"#}
+    {#                            class="kitchen"#}
+    {#                            name="OrderTimeSelector__Day"#}
+    {#                            id="OrderTimeSelector__Day">#}
+    {#                        <option value="Wed 07/08">Сначала дешевые</option>#}
+    {#                        <option value="Thu 07/09">Сначала дорогие</option>#}
+    {#                        <option value="Fri 07/10">Популярность</option>#}
+    {#                        <option value="Sat 07/11">Быстрая доставка</option>#}
+    {#                        <option value="Sun 07/12">Рейтинг</option>#}
+    {#                        <option value="Mon 07/13">Алфавиту</option>#}
+    {#                    </select></div>#}
+    {#            </div>#}
+    {#        </div>#}
+    {#    </div>#}
+    {#</div>#}
+
+    {#<div class="list-mob" style="display: none;">#}
+    {#    {% for store in stores %}#}
+    {#        <div class="list1" style="margin-top: 5%; box-shadow: 0 0 8px rgba(0,0,0,0.5);">#}
+    {#            <div class="list_body" style="display: inline-flex; width: 100%;">#}
+    {#                <div class="l-img" style="margin-top: 5%;">#}
+    {#                    <div class="l-img1">#}
+    {#                        <a href=""><img src="{{ store.image.url }}" alt="" style="width: 100px; height: 100px;"></a>#}
+    {#                    </div>#}
+    {#                </div>#}
+    {##}
+    {#                <div class="l-info" style="margin-left: 5%;">#}
+    {#                    <a href="#" style="color: #000; text-decoration: none;">#}
+    {#                        <h5 style="margin-top: 2%;">{{ store.name }}</h5>#}
+    {#                        <p class="s-price1">$$</p>#}
+    {#                        <div style="display: inline-flex;">#}
+    {#                            <div>#}
+    {#                                <p class="l-dets">Растояние <br> 2-км</p>#}
+    {#                            </div>#}
+    {#                            <div style="margin-left: 5%; border-left: 1px solid; padding-left: 10px; border-color: #c4c4c4;">#}
+    {#                                <p class="l-status">Доставка <br> Бесплатно</p>#}
+    {#                            </div>#}
+    {#                        </div>#}
+    {#                    </a>#}
+    {#                </div>#}
+    {#            </div>#}
+    {#        </div>#}
+    {#    {% endfor %}#}
+    {##}
+    {##}
+    {#</div>#}
 
 
-    </div> <!-- Конец списка с результатами -->
-</div>
-</body>
-<script type="text/javascript">
-    function changeButtonName() {
-        var x = document.getElementById('f-button').getAttribute('aria-expanded');
-        if (x === "true") {
-            document.getElementById("f-button").innerHTML = 'Показать фильтры';
-        } else {
-            document.getElementById("f-button").innerHTML = 'Скрыть фильтры';
-        }
+    <div class="body1" style="display: inline-flex;">
+        <div class="filters">
+            <div class="filter-body">
+                <form action="{% url 'stores_list' %}" method="get">
+                    {% csrf_token %}
+                    <div class="ASAP" style="margin-bottom: 3%;">
+                        <h5>Сортировать по:</h5>
 
-    }
-</script>
-<!-- jQuery !-->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-<!-- jQuery UI !-->
-<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-<script>
-    $(function () {
+                        <select aria-label="Select order date" class="kitchen" name="sortby"
+                                id="OrderTimeSelector__Day">
+                            <option value="alphabet" {% if request.GET.sortby == 'alphabet' %}selected{% endif %}>
+                                Алфавиту
+                            </option>
+                            <option value="inexpensive" {% if request.GET.sortby == 'inexpensive' %}selected{% endif %}>
+                                Сначала дешевые
+                            </option>
+                            <option value="expensive" {% if request.GET.sortby == 'expensive' %}selected{% endif %}>
+                                Сначала
+                                дорогие
+                            </option>
+                            <option value="popular" {% if request.GET.sortby == 'popular' %}selected{% endif %}>
+                                Популярность
+                            </option>
+                            <option value="fastdelivery"
+                                    {% if request.GET.sortby == 'fastdelivery' %}selected{% endif %}>
+                                Быстрая доставка
+                            </option>
+                            <option value="rating" {% if request.GET.sortby == 'rating' %}selected{% endif %}>Рейтинг
+                            </option>
+                        </select>
+                    </div>
+                    <div class="kitchen">
+                        <h5>Кухня</h5>
 
-        $('#search').keyup(function () {
-            console.log($('#search').val());
-            $.ajax({
-                type: "GET",
-                url: "/search/",
-                data: {
-                    'q': $('#search').val(),
-                    'csrfmiddlewaretoken': $("input[name=csrfmiddlewaretoken]").val()
-                },
-                success: searchSuccess,
-                dataType: 'html'
+                        {#                    {% for i in request.GET|get_list:'foodcategory' %}#}
+                        {#                        {{ i }}#}
+                        {#                    {% endfor %}#}
+                        {% for tag in tags %}
+                            <div>
+                                <div class="Filters__filter">
+                                    <label class="Checkbox Filters__label" for="Checkbox__{{ tag.id }}"
+                                           style="display: -webkit-inline-box; font-size: 20px;">
+                                        <div class="Checkbox__selection">
+                                            <input type="checkbox" id="Checkbox__{{ tag.id }}" name="foodcategory"
+                                                   class="Checkbox__selection__input " value="{{ tag.id }}"
+                                                   {% if tag.id|stringformat:"s" in request.GET|get_list:'foodcategory' %}checked {% endif %}>
+                                            <i class="Checkbox__selection__check "></i>
+                                        </div>
+                                        <p class="Checkbox__text"
+                                           style="margin-left: 2%; font-size: 20px;">  {{ tag.name }}</p>
+                                    </label>
+                                </div>
+                            </div>
+                        {% endfor %}
 
-            });
-        });
-    });
+                    </div>
+                    {#                <div style="margin-top: 5%; padding-top: 10px; border-top: 1px solid; border-color: #c4c4c4;">#}
+                    {#                    <h5>Дополнительно</h5>#}
+                    {#                    <div class="Filters__filter"><label class="Checkbox Filters__label" for="Checkbox__1"#}
+                    {#                                                        style="display: -webkit-inline-box; font-size: 20px;">#}
+                    {#                        <div class="Checkbox__selection">#}
+                    {#                            <input type="checkbox" id="Checkbox__1" name="features" class="Checkbox__selection__input "#}
+                    {#                                   value="free_delivery">#}
+                    {#                            <i class="Checkbox__selection__check "></i></div>#}
+                    {#                        <p class="Checkbox__text" style="margin-left: 2%; font-size: 20px;"> Бесплатная доставка#}
+                    {#                            (105)</p>#}
+                    {#                    </label></div>#}
+                    {#                </div>#}
+                    {#                <div>#}
+                    {#                    <div class="Filters__filter"><label class="Checkbox Filters__label" for="Checkbox__1"#}
+                    {#                                                        style="display: -webkit-inline-box; font-size: 20px;">#}
+                    {#                        <div class="Checkbox__selection">#}
+                    {#                            <input type="checkbox" id="Checkbox__1" name="features" class="Checkbox__selection__input "#}
+                    {#                                   value="free_delivery">#}
+                    {#                            <i class="Checkbox__selection__check "></i></div>#}
+                    {#                        <p class="Checkbox__text" style="margin-left: 2%; font-size: 20px;"> Блюда на компанию</p>#}
+                    {#                    </label></div>#}
+                    {#                </div>#}
+                    {#                <div>#}
+                    {#                    <div class="Filters__filter"><label class="Checkbox Filters__label" for="Checkbox__1"#}
+                    {#                                                        style="display: -webkit-inline-box; font-size: 20px;">#}
+                    {#                        <div class="Checkbox__selection">#}
+                    {#                            <input type="checkbox" id="Checkbox__1" name="features" class="Checkbox__selection__input "#}
+                    {#                                   value="free_delivery">#}
+                    {#                            <i class="Checkbox__selection__check "></i>#}
+                    {#                        </div>#}
+                    {#                        <p class="Checkbox__text" style="margin-left: 2%; font-size: 20px;"> Акции</p></label>#}
+                    {#                    </div>#}
+                    {#                </div>#}
+                    {#                <div>#}
+                    {#                    <div class="Filters__filter"><label class="Checkbox Filters__label" for="Checkbox__1"#}
+                    {#                                                        style="display: -webkit-inline-box; font-size: 20px;">#}
+                    {#                        <div class="Checkbox__selection">#}
+                    {#                            <input type="checkbox" id="Checkbox__1" name="features" class="Checkbox__selection__input "#}
+                    {#                                   value="free_delivery">#}
+                    {#                            <i class="Checkbox__selection__check "></i></div>#}
+                    {#                        <p class="Checkbox__text" style="margin-left: 2%; font-size: 20px;"> Новинки</p></label></div>#}
+                    {#                </div>#}
 
-    function searchSuccess(data, textStatus, jqXHR) {
-        $('#results').html(data)
-    }
+                    <div class="f-price">
+                        <h5>Средний чек</h5>
+                        <div class="radio-toolbar">
+                            <input type="radio" id="radio1" name="avgcheck" value="1"
+                                   {% if request.GET.avgcheck == '1' %}checked{% endif %}>
+                            <label for="radio1">$</label>
+                            <input type="radio" id="radio2" name="avgcheck" value="2"
+                                   {% if request.GET.avgcheck == '2' %}checked{% endif %}>
+                            <label for="radio2">$$</label>
+                            <input type="radio" id="radio3" name="avgcheck" value="3"
+                                   {% if request.GET.avgcheck == '3' %}checked{% endif %}>
+                            <label for="radio3">$$$</label>
+                            <input type="radio" id="radio4" name="avgcheck" value="4"
+                                   {% if request.GET.avgcheck == '4' %}checked{% endif %}>
+                            <label for="radio4">$$$$</label>
+                        </div>
+                        {#                    <div class="btn-group btn-group-toggle" data-toggle="buttons">#}
+                        {#                        <input type="radio" style="display: none">#}
+                        {#                        <label class="btn btn-secondary active">$#}
+                        {#                        </label>#}
+                        {#                        <input type="radio" name="options" value="option1" class="avg-check-checkbox" style="display: none">#}
+                        {#                        <label class="btn btn-secondary">#}
+                        {#                        <input type="radio" name="options" value id="option2"> $$#}
+                        {#                        </label>#}
+                        {#                        <label class="btn btn-secondary">#}
+                        {#                        <input type="radio" name="options" value id="option3"> $$$#}
+                        {#                        </label>#}
+                        {#                        <label class="btn btn-secondary">#}
+                        {#                        <input type="radio" name="options" value id="option3"> $$$$#}
+                        {#                        </label>#}
+                        {#                    </div>#}
+                    </div>
+
+                    <button class="fil-btn"> Применить фильтры</button>
+                </form>
+            </div>
+        </div>
+        <div class="list-body11"> <!-- Начало списка с результатами -->
+            {% for store in stores %}
+                <div>
+                    <div class="pos" style="width: 700px; margin-top: 5%; border: 1px solid; border-color: #D8D8D8FF">
+                        <div class="list_body" style="display: inline-flex; width: 100%">
+
+                            <div class="l-img" style="margin-top: 1%; margin-bottom: 1%; margin-left: 2%;">
+                                <div class="l-img1">
+                                    <a href="{% url 'store_detail' store.slug %}"><img src="{{ store.image.url }}"
+                                                                                       alt=""
+                                                                                       style="width: 100px; height: 100px;"></a>
+                                </div>
+                            </div>
+
+                            <div style="margin-left: 2%; margin-top: 5%;">
+                                <h5 style="width: 220px;">{{ store.name }}</h5>
+                                <p>{{ '$'|multiply:store.avg_check }}</p>
+                            </div>
+
+                            <div style="display: inline-flex; margin-top: 3%;">
+                                <div style="font-weight: bold; margin-top: 4%;">
+                                    <p>Расстояние <br> 1 км</p>
+                                </div>
+
+                                <div style="font-weight: bold; margin-left: 10%; margin-top: 4%;">
+                                    <p>Доставка <br> Бесплатно</p>
+                                </div>
+                            </div>
+
+                            <div class="l-info" style="display: inline-flex; margin-left: 5%; margin-top: 5%;">
+                                <a href="#" style="color: #000; text-decoration: none; margin-top: 5%; width: 100%;">
+                                    <div class="i-body" style="display: inline-flex;">
+                                        <div class="rate" style="display: inline-flex;">
+                                            {#                                    {{ store.average_rating }}#}
+                                            {% if store.average_rating == 1 %}
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true" style="color: #FFBB00"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true" style="color: #FFBB00"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true" style="color: #FFBB00"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true" style="color: #FFBB00"></i>
+                                            {% elif store.average_rating == 2 %}
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true" style="color: #FFBB00"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true" style="color: #FFBB00"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true" style="color: #FFBB00"></i>
+                                            {% elif store.average_rating == 3 %}
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true" style="color: #FFBB00"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true" style="color: #FFBB00"></i>
+                                            {% elif store.average_rating == 4 %}
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true" style="color: #FFBB00"></i>
+                                            {% elif store.average_rating == 5 %}
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                            {% elif store.average_rating == 0 %}
+                                                <i class="fa fa-star-o" aria-hidden="true" style="color: #FFBB00"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true" style="color: #FFBB00"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true" style="color: #FFBB00"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true" style="color: #FFBB00"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true" style="color: #FFBB00"></i>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
 
 
-</script>
-{#<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"#}
-{#        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"#}
-{#        crossorigin="anonymous"></script>#}
+        </div> <!-- Конец списка с результатами -->
+    </div>
 
-<script>
-    var check;
-
-    $('input[type="radio"]').hover(function () {
-        check = $(this).is(':checked');
-    });
-
-    $('input[type="radio"]').click(function () {
-        check = !check;
-        $(this).attr("checked", check);
-    });
-</script>
-{#<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"#}
-{#        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"#}
-{#        crossorigin="anonymous"></script>#}
-{#<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"#}
-{#        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"#}
-{#        crossorigin="anonymous"></script>#}
-
-
-</html>
+{% endblock %}

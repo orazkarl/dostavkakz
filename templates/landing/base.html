@@ -1,67 +1,326 @@
-{# {% load static %}#}
-{#<!DOCTYPE html>#}
-{#<html lang="ru-RU">#}
-{#<head>#}
-{#    <meta charset="UTF-8">#}
-{#    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">#}
-{#    <title>Jetkizu.me | Доставим всё!</title>#}
-{#    <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.png' %}">#}
-{#    <link rel="stylesheet" href="{% static 'css/style.css' %}">#}
-{#    <link rel="stylesheet" href="{% static 'css/media.css' %}">#}
-{#    <link rel="stylesheet" href="{% static 'font-awesome/css/font-awesome.min.css' %}">#}
-{#    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"#}
-{#          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">#}
-{#    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">#}
-{#    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap" rel="stylesheet">#}
-{#</head>#}
-{##}
-{#<header>#}
-{#    <div class="log-block">#}
-{#        <a href="" class="login">Войти</a>#}
-{#        <a href="" class="reg">Регистрация</a>#}
-{#    </div>#}
-{##}
-{#    <div class="navbar1" style="display: none;">#}
-{#        <nav class="navbar navbar-expand-lg navbar-light bg-light">#}
-{#            <a class="navbar-brand" href="#">Главное меню</a>#}
-{#            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"#}
-{#                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">#}
-{#                <span class="navbar-toggler-icon"></span>#}
-{#            </button>#}
-{##}
-{#            <div class="collapse navbar-collapse" id="navbarSupportedContent">#}
-{#                <ul class="navbar-nav mr-auto">#}
-{#                    <li class="nav-item active">#}
-{#                        <a class="nav-link" href="#">Войти <span class="sr-only">(current)</span></a>#}
-{#                    </li>#}
-{#                    <li class="nav-item active">#}
-{#                        <a class="nav-link" href="#">Регистрация</a>#}
-{#                    </li>#}
-{#                    <li class="nav-item active">#}
-{#                        <a class="nav-link" href="#">Избранное</a>#}
-{#                    </li>#}
-{#                </ul>#}
-{#            </div>#}
-{#        </nav>#}
-{#    </div>#}
-{##}
-{#</header>#}
-{##}
-{#<body>#}
-{##}
-{#{% block content %}#}
-{#{% endblock %}#}
-{##}
-{#</body>#}
-{##}
-{##}
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru-RU">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Jetkizu.me | Доставим всё!</title>
+    <link rel="shortcut icon" type="image/png" href="/images/favicon.png">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/media.css' %}">
+    <link rel="stylesheet" href="{% static 'font-awesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap" rel="stylesheet">
+
+    <style>
+        .radio-toolbar input[type="radio"] {
+            opacity: 0;
+            position: fixed;
+            width: 0;
+        }
+
+        .radio-toolbar label {
+            display: inline-block;
+            background-color: #FFBB00;
+            padding: 7px 14px;
+        {#font-family: sans-serif, Arial;#} font-size: 16px;
+            border: 1px solid #c4c4c4;
+            margin-right: -5px;
+        {#border-radius: 4px;#}
+        }
+
+        .radio-toolbar input[type="radio"]:hover + label {
+        {#background-color: #ffdd00;#} cursor: pointer;
+        {#border-color: #c4c4c4;#}
+        }
+
+        .radio-toolbar input[type="radio"]:checked + label {
+            background-color: #fff;
+            cursor: pointer;
+            border-color: #c4c4c4;
+        }
+
+        .radio-toolbar input[type="radio"]:focus + label {
+        {#border: 2px dashed #444;#}
+        }
+
+        .search {
+            position: relative;
+            margin: 0 auto;
+            width: 350px;
+        }
+
+        .search input {
+            height: 35px;
+            width: 100%;
+            padding: 0 12px 0 12px;
+            border-width: 1px;
+            border-style: solid;
+            border-color: #a8acbc #babdcc #c0c3d2;
+            border-radius: 5px;
+            background: white url("../static/images/search-23.png") 320px 6px no-repeat;
+        }
+
+        .search input:focus {
+            outline: none;
+            border-color: #66b1ee;
+            -webkit-box-shadow: 0 0 2px rgba(85, 168, 236, 0.9);
+            -moz-box-shadow: 0 0 2px rgba(85, 168, 236, 0.9);
+            -ms-box-shadow: 0 0 2px rgba(85, 168, 236, 0.9);
+            -o-box-shadow: 0 0 2px rgba(85, 168, 236, 0.9);
+            box-shadow: 0 0 2px rgba(85, 168, 236, 0.9);
+        }
+
+        .search input:focus + .results {
+            display: block
+        }
+
+        .search .results {
+        {#display: none;#} position: absolute;
+            top: 35px;
+            left: 0;
+            right: 0;
+            z-index: 10;
+            padding: 0;
+            margin: 0;
+            border-width: 0;
+            border-style: solid;
+            border-color: #cbcfe2 #c8cee7 #c4c7d7;
+            border-radius: 3px;
+            background-color: #fdfdfd;
+        {#-webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);#}{#-moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);#}{#-ms-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);#}{#-o-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);#}{#box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);#}
+        }
+
+        .search .results li {
+            display: block
+        }
+
+        .search .results li:first-child {
+            margin-top: -1px
+        }
+
+        .search .results li:first-child:before, .search .results li:first-child:after {
+            display: block;
+            content: '';
+            width: 0;
+            height: 0;
+            position: absolute;
+            left: 50%;
+            margin-left: -5px;
+            border: 5px outset transparent;
+        }
+
+        .search .results li:first-child:before {
+            border-bottom: 5px solid #c4c7d7;
+            top: -11px;
+        }
+
+        .search .results li:first-child:after {
+            border-bottom: 5px solid #fdfdfd;
+            top: -10px;
+        }
+
+        .search .results li:first-child:hover:before, .search .results li:first-child:hover:after {
+            display: none
+        }
+
+        .search .results li:last-child {
+            margin-bottom: -1px
+        }
+
+        .search .results a {
+            display: block;
+            position: relative;
+            margin: 0 -1px;
+            padding: 6px 40px 6px 10px;
+            color: #808394;
+            font-weight: 500;
+            text-shadow: 0 1px #fff;
+            border: 1px solid transparent;
+            border-radius: 3px;
+        }
+
+        .search .results a span {
+            font-weight: 200
+        }
+
+        {#.search .results a:before {#}
+        {#    content: '';#}
+        {#    width: 18px;#}
+        {#    height: 18px;#}
+        {#    position: absolute;#}
+        {#    top: 50%;#}
+        {#    right: 10px;#}
+        {#    margin-top: -9px;#}
+        {#    background: url("https://cssdeck.com/uploads/media/items/7/7BNkBjd.png") 0 0 no-repeat;#}
+        {##}
+        {# } #}
+
+        .search .results a:hover {
+            text-decoration: none;
+            color: #cbcfe2;
+        {#text-shadow: 0 -1px rgba(0, 0, 0, 0.3);#}{#border-color: #2380dd #2179d5 #1a60aa;#}{#background-color: #FFBB00;#}{#background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #59aaf4), color-stop(100%, #338cdf));#}{#background-image: -webkit-linear-gradient(top, #59aaf4, #338cdf);#}{#background-image: -moz-linear-gradient(top, #59aaf4, #338cdf);#}{#background-image: -ms-linear-gradient(top, #59aaf4, #338cdf);#}{#background-image: -o-linear-gradient(top, #59aaf4, #338cdf);#}{#background-image: linear-gradient(top, #59aaf4, #338cdf);#}{#-webkit-box-shadow: inset 0 1px rgba(255, 255, 255, 0.2), 0 1px rgba(0, 0, 0, 0.08);#}{#-moz-box-shadow: inset 0 1px rgba(255, 255, 255, 0.2), 0 1px rgba(0, 0, 0, 0.08);#}{#-ms-box-shadow: inset 0 1px rgba(255, 255, 255, 0.2), 0 1px rgba(0, 0, 0, 0.08);#}{#-o-box-shadow: inset 0 1px rgba(255, 255, 255, 0.2), 0 1px rgba(0, 0, 0, 0.08);#}{#box-shadow: inset 0 1px rgba(255, 255, 255, 0.2), 0 1px rgba(0, 0, 0, 0.08);#}
+        }
+
+        :-moz-placeholder {
+            color: #a7aabc;
+            font-weight: 200;
+        }
+
+        ::-webkit-input-placeholder {
+            color: #a7aabc;
+            font-weight: 200;
+        }
+
+        .lt-ie9 .search input {
+            line-height: 26px
+        }
+    </style>
+</head>
+
+<header style="display: inline-flex; background: #FB0; width: 100%; border-bottom: 2px solid; border-color: #c4c4c4;">
+
+    <a href="{% url 'home' %}">
+        <div class="s-logo1">
+            <img src="{% static 'images/logo2.png' %}" alt="">
+        </div>
+    </a>
+    <div class="mainsearch11" style="display: inline-flex;">
+        <form class="search">
+            <input id="search" class="search" placeholder="Поиск...">
+            <ul id="results" class="results"></ul>
+        </form>
+    </div>
+    <div class="log-block1">
+        {% if user.is_authenticated %}
+            <a href="{% url 'profile' %}" class="login1">Профиль</a>
+            <a href="{% url 'logout_user' %}" class="reg1">Выйти</a>
+        {% else %}
+            <a href="{% url 'account_login' %}" class="login1">Войти</a>
+            <a href="{% url 'account_signup' %}" class="reg1">Регистрация</a>
+        {% endif %}
+    </div>
+
+    {#    <div class="navbar1" style="display: none;">#}
+    {#        <nav class="navbar navbar2 navbar-expand-lg navbar-light bg-light" style="background: #FB0 !important;">#}
+    {##}
+    {#            <input name="AutocompleteInput-0"#}
+    {#                   class="searchpage_search"#}
+    {#                   placeholder="Поиск..."#}
+    {#                   aria-haspopup="false"#}
+    {#                   aria-autocomplete="list"#}
+    {#                   aria-owns="AutocompleteResultsList-0"#}
+    {#                   aria-activedescendant="false"#}
+    {#                   maxlength="100" autocomplete="off"#}
+    {#                   value="">#}
+    {##}
+    {#            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"#}
+    {#                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">#}
+    {#                <span class="navbar-toggler-icon"></span>#}
+    {#            </button>#}
+    {##}
+    {#            <div class="collapse navbar-collapse" id="navbarSupportedContent">#}
+    {#                <ul class="navbar-nav mr-auto">#}
+    {#                    {% if user.is_authenticated %}#}
+    {#                        <li class="nav-item active">#}
+    {#                            <a class="nav-link" href="{% url 'profile' %}">Профиль <span#}
+    {#                                    class="sr-only">(current)</span></a>#}
+    {#                        </li>#}
+    {#                        <li class="nav-item active">#}
+    {#                            <a class="nav-link" href="{% url 'logout_user' %}">Выйти</a>#}
+    {#                        </li>#}
+    {#                    {% else %}#}
+    {#                        <li class="nav-item active">#}
+    {#                            <a class="nav-link" href="{% url 'account_login' %}">Войти <span#}
+    {#                                    class="sr-only">(current)</span></a>#}
+    {#                        </li>#}
+    {#                        <li class="nav-item active">#}
+    {#                            <a class="nav-link" href="{% url 'account_signup' %}">Регистрация</a>#}
+    {#                        </li>#}
+    {#                    {% endif %}#}
+    {#                    <li class="nav-item active">#}
+    {#                        <a class="nav-link" href="#">Избранное</a>#}
+    {#                    </li>#}
+    {#                </ul>#}
+    {#            </div>#}
+    {#        </nav>#}
+    {#    </div>#}
+    {##}
+    {#    <a href="#" class="s-cart" style="margin-top: 2%; color: #000; display: none;"><i class="fa fa-shopping-cart"#}
+    {#                                                                                      aria-hidden="true"#}
+    {#                                                                                      style="font-size: 35px;"></i></a>#}
+
+</header>
+<body style="background: none;">
+
+{% block content %}
+{% endblock %}
+</body>
+
+
+<script type="text/javascript">
+    function changeButtonName() {
+        var x = document.getElementById('f-button').getAttribute('aria-expanded');
+        if (x === "true") {
+            document.getElementById("f-button").innerHTML = 'Показать фильтры';
+        } else {
+            document.getElementById("f-button").innerHTML = 'Скрыть фильтры';
+        }
+
+    }
+</script>
+<!-- jQuery !-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<!-- jQuery UI !-->
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+<script>
+    $(function () {
+
+        $('#search').keyup(function () {
+            console.log($('#search').val());
+            $.ajax({
+                type: "GET",
+                url: "/search/",
+                data: {
+                    'q': $('#search').val(),
+                    'csrfmiddlewaretoken': $("input[name=csrfmiddlewaretoken]").val()
+                },
+                success: searchSuccess,
+                dataType: 'html'
+
+            });
+        });
+    });
+
+    function searchSuccess(data, textStatus, jqXHR) {
+        $('#results').html(data)
+    }
+
+
+</script>
 {#<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"#}
 {#        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"#}
 {#        crossorigin="anonymous"></script>#}
+
+<script>
+    var check;
+
+    $('input[type="radio"]').hover(function () {
+        check = $(this).is(':checked');
+    });
+
+    $('input[type="radio"]').click(function () {
+        check = !check;
+        $(this).attr("checked", check);
+    });
+</script>
 {#<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"#}
 {#        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"#}
 {#        crossorigin="anonymous"></script>#}
 {#<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"#}
 {#        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"#}
 {#        crossorigin="anonymous"></script>#}
-{#</html>#}
+</html>
