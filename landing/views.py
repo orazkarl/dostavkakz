@@ -25,14 +25,14 @@ class StoresList(ListView):
         stores = Store.objects.all()
         foodcategory = FoodCategory.objects.all().values_list('id', flat=True)
 
-
         if request.GET:
             if 'foodcategory' in request.GET:
                 foodcategory = request.GET.getlist('foodcategory')
             stores = Store.objects.filter(tag__id__in=foodcategory).distinct('name')
+            if 'avgcheck' in request.GET:
+                avgcheck = request.GET['avgcheck']
+                stores = stores.filter(avg_check=avgcheck)
             sort = request.GET['sortby']
-
-
             if sort == 'alphabet':
                 stores = stores.order_by('name')
             if sort == 'inexpensive':

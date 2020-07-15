@@ -31,7 +31,7 @@ class Store(models.Model):
     time_closed = models.TimeField('Закрывается', null=True, blank=True)
     latitude = models.CharField('Широота', max_length=50, null=True, blank=True)
     longitude = models.CharField('Высота', max_length=50, null=True, blank=True)
-
+    avg_check = models.PositiveIntegerField(null=True, blank=True)
     class Meta:
         verbose_name = 'Заведение'
         verbose_name_plural = 'Заведении'
@@ -45,7 +45,24 @@ class Store(models.Model):
 
     def average_check(self):
         all_prices = map(lambda x: x.price, self.product_set.all())
-        return np.mean(list(all_prices))
+        avg_check = int(np.mean(list(all_prices)))
+        if avg_check <= 1500:
+            self.avg_check = 1
+            self.save()
+            return 1
+        elif avg_check > 1500 and avg_check <= 4000:
+            self.avg_check = 2
+            self.save()
+            return 2
+        elif avg_check > 4000 and avg_check <= 8000:
+            self.avg_check = 3
+            self.save()
+            return 3
+        else:
+            self.avg_check = 4
+            self.save()
+            return 4
+
 
 class Product(models.Model):
     store = models.ForeignKey(Store, on_delete=models.DO_NOTHING, verbose_name='Заведение')

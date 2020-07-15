@@ -16,6 +16,37 @@
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap" rel="stylesheet">
 
     <style>
+        .radio-toolbar input[type="radio"] {
+            opacity: 0;
+            position: fixed;
+            width: 0;
+        }
+
+        .radio-toolbar label {
+            display: inline-block;
+            background-color: #FFBB00;
+            padding: 7px 14px;
+        {#font-family: sans-serif, Arial;#} font-size: 16px;
+            border: 1px solid #c4c4c4;
+            margin-right: -5px;
+        {#border-radius: 4px;#}
+        }
+
+        .radio-toolbar input[type="radio"]:hover + label {
+        {#background-color: #ffdd00;#} cursor: pointer;
+        {#border-color: #c4c4c4;#}
+        }
+
+        .radio-toolbar input[type="radio"]:checked + label {
+            background-color: #fff;
+            cursor: pointer;
+            border-color: #c4c4c4;
+        }
+
+        .radio-toolbar input[type="radio"]:focus + label {
+        {#border: 2px dashed #444;#}
+        }
+
         .search {
             position: relative;
             margin: 0 auto;
@@ -450,32 +481,44 @@
                 {% csrf_token %}
                 <div class="ASAP" style="margin-bottom: 3%;">
                     <h5>Сортировать по:</h5>
+
                     <select aria-label="Select order date" class="kitchen" name="sortby" id="OrderTimeSelector__Day">
-                        <option value="alphabet">Алфавиту</option>
-                        <option value="inexpensive">Сначала дешевые</option>
-                        <option value="expensive">Сначала дорогие</option>
-                        <option value="popular">Популярность</option>
-                        <option value="fastdelivery">Быстрая доставка</option>
-                        <option value="rating">Рейтинг</option>
+                        <option value="alphabet" {% if request.GET.sortby == 'alphabet' %}selected{% endif %}>Алфавиту
+                        </option>
+                        <option value="inexpensive" {% if request.GET.sortby == 'inexpensive' %}selected{% endif %}>
+                            Сначала дешевые
+                        </option>
+                        <option value="expensive" {% if request.GET.sortby == 'expensive' %}selected{% endif %}>Сначала
+                            дорогие
+                        </option>
+                        <option value="popular" {% if request.GET.sortby == 'popular' %}selected{% endif %}>
+                            Популярность
+                        </option>
+                        <option value="fastdelivery" {% if request.GET.sortby == 'fastdelivery' %}selected{% endif %}>
+                            Быстрая доставка
+                        </option>
+                        <option value="rating" {% if request.GET.sortby == 'rating' %}selected{% endif %}>Рейтинг
+                        </option>
                     </select>
                 </div>
                 <div class="kitchen">
                     <h5>Кухня</h5>
-{#                    {% for i in request.GET|get_list:'foodcategory' %}#}
-{#                        {{ i }}#}
-{#                    {% endfor %}#}
+                    {#                    {% for i in request.GET|get_list:'foodcategory' %}#}
+                    {#                        {{ i }}#}
+                    {#                    {% endfor %}#}
                     {% for tag in tags %}
-
                         <div>
-                            <div class="Filters__filter"><label class="Checkbox Filters__label" for="Checkbox__1"
-                                                                style="display: -webkit-inline-box; font-size: 20px;">
-                                <div class="Checkbox__selection">
-                                    <input type="checkbox" id="Checkbox__1" name="foodcategory"
-                                           class="Checkbox__selection__input " value="{{ tag.id }}"  {% if tag.id|stringformat:"s" in request.GET|get_list:'foodcategory' %}checked {% endif %}>
-                                    <i class="Checkbox__selection__check "></i>
-                                </div>
-                                <p class="Checkbox__text" style="margin-left: 2%; font-size: 20px;">  {{ tag.name }}</p>
-                            </label></div>
+                            <div class="Filters__filter">
+                                <label class="Checkbox Filters__label" for="Checkbox__{{ tag.id }}" style="display: -webkit-inline-box; font-size: 20px;">
+                                    <div class="Checkbox__selection">
+                                        <input type="checkbox" id="Checkbox__{{ tag.id }}" name="foodcategory"
+                                               class="Checkbox__selection__input " value="{{ tag.id }}"
+                                               {% if tag.id|stringformat:"s" in request.GET|get_list:'foodcategory' %}checked {% endif %}>
+                                        <i class="Checkbox__selection__check "></i>
+                                    </div>
+                                    <p class="Checkbox__text" style="margin-left: 2%; font-size: 20px;">  {{ tag.name }}</p>
+                                </label>
+                            </div>
                         </div>
                     {% endfor %}
 
@@ -525,20 +568,35 @@
 
                 <div class="f-price">
                     <h5>Средний чек</h5>
-                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                        <label class="btn btn-secondary active">
-                            <input type="radio" name="options" id="option1" checked> $
-                        </label>
-                        <label class="btn btn-secondary">
-                            <input type="radio" name="options" id="option2"> $$
-                        </label>
-                        <label class="btn btn-secondary">
-                            <input type="radio" name="options" id="option3"> $$$
-                        </label>
-                        <label class="btn btn-secondary">
-                            <input type="radio" name="options" id="option3"> $$$$
-                        </label>
+                    <div class="radio-toolbar">
+                        <input type="radio" id="radio1" name="avgcheck" value="1"
+                               {% if request.GET.avgcheck == '1' %}checked{% endif %}>
+                        <label for="radio1">$</label>
+                        <input type="radio" id="radio2" name="avgcheck" value="2"
+                               {% if request.GET.avgcheck == '2' %}checked{% endif %}>
+                        <label for="radio2">$$</label>
+                        <input type="radio" id="radio3" name="avgcheck" value="3"
+                               {% if request.GET.avgcheck == '3' %}checked{% endif %}>
+                        <label for="radio3">$$$</label>
+                        <input type="radio" id="radio4" name="avgcheck" value="4"
+                               {% if request.GET.avgcheck == '4' %}checked{% endif %}>
+                        <label for="radio4">$$$$</label>
                     </div>
+                    {#                    <div class="btn-group btn-group-toggle" data-toggle="buttons">#}
+                    {#                        <input type="radio" style="display: none">#}
+                    {#                        <label class="btn btn-secondary active">$#}
+                    {#                        </label>#}
+                    {#                        <input type="radio" name="options" value="option1" class="avg-check-checkbox" style="display: none">#}
+                    {#                        <label class="btn btn-secondary">#}
+                    {#                        <input type="radio" name="options" value id="option2"> $$#}
+                    {#                        </label>#}
+                    {#                        <label class="btn btn-secondary">#}
+                    {#                        <input type="radio" name="options" value id="option3"> $$$#}
+                    {#                        </label>#}
+                    {#                        <label class="btn btn-secondary">#}
+                    {#                        <input type="radio" name="options" value id="option3"> $$$$#}
+                    {#                        </label>#}
+                    {#                    </div>#}
                 </div>
 
                 <button class="fil-btn"> Применить фильтры</button>
@@ -579,11 +637,11 @@
                                 <div class="i-body" style="display: inline-flex;">
                                     <div class="rate" style="display: inline-flex;">
                                         {{ store.average_rating }} из 5
-{#                                        <i class="fa fa-star" aria-hidden="true"></i>#}
-{#                                        <i class="fa fa-star" aria-hidden="true"></i>#}
-{#                                        <i class="fa fa-star" aria-hidden="true"></i>#}
-{#                                        <i class="fa fa-star" aria-hidden="true"></i>#}
-{#                                        <i class="fa fa-star-half-o" aria-hidden="true"></i>#}
+                                        {#                                        <i class="fa fa-star" aria-hidden="true"></i>#}
+                                        {#                                        <i class="fa fa-star" aria-hidden="true"></i>#}
+                                        {#                                        <i class="fa fa-star" aria-hidden="true"></i>#}
+                                        {#                                        <i class="fa fa-star" aria-hidden="true"></i>#}
+                                        {#                                        <i class="fa fa-star-half-o" aria-hidden="true"></i>#}
                                     </div>
                                 </div>
                             </a>
@@ -642,7 +700,18 @@
 {#        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"#}
 {#        crossorigin="anonymous"></script>#}
 
+<script>
+    var check;
 
+    $('input[type="radio"]').hover(function () {
+        check = $(this).is(':checked');
+    });
+
+    $('input[type="radio"]').click(function () {
+        check = !check;
+        $(this).attr("checked", check);
+    });
+</script>
 {#<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"#}
 {#        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"#}
 {#        crossorigin="anonymous"></script>#}
