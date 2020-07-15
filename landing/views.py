@@ -5,13 +5,13 @@ from .models import FoodCategory, Store, Product, Review, Wishlist, Order
 from user_auth.models import User, Address
 from django.contrib.auth.decorators import login_required
 from cart.cart import Cart
-
 from django.db.models import Q
 from django.core import serializers
 from dostavkakz.settings import COURIER_TELEGRAM_BOT_TOKEN
 import requests
 from bs4 import BeautifulSoup
 import json
+
 
 class HomeView(TemplateView):
     template_name = 'landing/index.html'
@@ -22,10 +22,35 @@ class StoresList(ListView):
     queryset = Store.objects.all()
 
     def get(self, request, *args, **kwargs):
+        stores = Store.objects.all()
+        foodcategory = FoodCategory.objects.all().values_list('id', flat=True)
+
+
+        if request.GET:
+            if 'foodcategory' in request.GET:
+                foodcategory = request.GET.getlist('foodcategory')
+            stores = Store.objects.filter(tag__id__in=foodcategory).distinct('name')
+            sort = request.GET['sortby']
+
+
+            if sort == 'alphabet':
+                stores = stores.order_by('name')
+            if sort == 'inexpensive':
+                stores = sorted(stores, key=lambda s: s.average_check())
+                print(stores)
+            if sort == 'expemsive':
+                stores = reversed(sorted(stores, key=lambda s: s.average_check()))
+            if sort == 'rating':
+                stores = reversed(sorted(stores, key=lambda s: s.average_rating()))
         self.extra_context = {
-            'stores': Store.objects.all(),
+            'stores': stores,
+            'tags': FoodCategory.objects.all(),
         }
         return super().get(request, *args, **kwargs)
+
+    # def post(self, request, *args, **kwargs):
+    #     print(request.POST)
+    #     return super().get(request, *args, **kwargs)
 
 
 def search_stores(request):
@@ -33,7 +58,8 @@ def search_stores(request):
     results = Store.objects.filter(
         Q(description__icontains=query) | Q(name__icontains=query) | Q(address__icontains=query) | Q(
             tag__name__icontains=query)).distinct('name')
-
+    if not query:
+        results = ''
     return render(request, 'landing/ajax_search.html', {'results': results})
 
 
@@ -215,7 +241,6 @@ class MyAddressView(TemplateView):
 
         if request.POST:
             user = request.user
-            print(request.POST)
             if 'edit' in request.POST['type']:
                 id = request.POST['address_id']
                 new_address_name = request.POST['address_name']
@@ -226,7 +251,6 @@ class MyAddressView(TemplateView):
                 address.address_name = new_address_name
                 address.number_house = new_address_number_house
                 address.number_apartment = new_address_number_apartment
-                print(address.number_house)
                 address.save()
             if 'delete' in request.POST['type']:
                 id = request.POST['address_id']
@@ -236,7 +260,9 @@ class MyAddressView(TemplateView):
                 new_address_name = request.POST['address_name']
                 new_address_number_house = request.POST['address_number_house']
                 new_address_number_apartment = request.POST['address_number_apartment']
-                if not Address.objects.filter(address_name=new_address_name, number_house=new_address_number_house, number_apartment=new_address_number_apartment, user=user):
-                    Address.objects.create(address_name=new_address_name, number_house=new_address_number_house, number_apartment=new_address_number_apartment, user=user)
+                if not Address.objects.filter(address_name=new_address_name, number_house=new_address_number_house,
+                                              number_apartment=new_address_number_apartment, user=user):
+                    Address.objects.create(address_name=new_address_name, number_house=new_address_number_house,
+                                           number_apartment=new_address_number_apartment, user=user)
         return redirect('addresses')
         # return super().get(request, *args, **kwargs)

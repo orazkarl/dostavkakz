@@ -15,7 +15,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
@@ -38,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
 
-    'landing.apps.LandingConfig',
+    'landing',
+    # 'landing.apps.LandingConfig',
     'user_auth.apps.UserAuthConfig',
 
     'allauth',
@@ -78,6 +78,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+
         },
     },
 ]
@@ -189,7 +190,3 @@ CART_SESSION_ID = 'cart'
 
 
 COURIER_TELEGRAM_BOT_TOKEN = '1307138365:AAGtwTSrMWlXIGtrEqbzRnIelXHA1IE0EWY'
-
-
-
-

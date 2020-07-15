@@ -43,6 +43,9 @@ class Store(models.Model):
         all_ratings = map(lambda x: x.rating, self.review_set.all())
         return np.mean(list(all_ratings))
 
+    def average_check(self):
+        all_prices = map(lambda x: x.price, self.product_set.all())
+        return np.mean(list(all_prices))
 
 class Product(models.Model):
     store = models.ForeignKey(Store, on_delete=models.DO_NOTHING, verbose_name='Заведение')

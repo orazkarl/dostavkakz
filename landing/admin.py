@@ -9,7 +9,7 @@ class FoodCategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Store)
 class StoreAdmin(admin.ModelAdmin):
-    list_display = ['name', 'average_rating']
+    list_display = ['name', 'average_rating', 'average_check']
     prepopulated_fields = {'slug': ('name',)}
     filter_horizontal = ('tag',)
 
