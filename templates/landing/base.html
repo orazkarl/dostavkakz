@@ -182,11 +182,8 @@
 
 <header style="display: inline-flex; background: #FB0; width: 100%; border-bottom: 2px solid; border-color: #c4c4c4;">
 
-    <a href="{% url 'home' %}">
-        <div class="s-logo1">
-            <img src="{% static 'images/logo2.png' %}" alt="">
-        </div>
-    </a>
+    {% block logo %}
+{% endblock %}
     <div class="mainsearch11" style="display: inline-flex;">
         <form class="search">
             <input id="search" class="search" placeholder="Поиск...">
@@ -256,7 +253,9 @@
 <body style="background: none;">
 
 {% block content %}
+
 {% endblock %}
+
 </body>
 
 

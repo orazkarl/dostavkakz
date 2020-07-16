@@ -48,7 +48,11 @@ class Store(models.Model):
 
     def average_check(self):
         all_prices = map(lambda x: x.price, self.product_set.all())
-        avg_check = int(np.mean(list(all_prices)))
+        avg_check = np.mean(list(all_prices))
+        if str(avg_check) == 'nan':
+            self.avg_check = 0
+            return 0
+        avg_check = int(avg_check)
         if avg_check <= 1500:
             self.avg_check = 1
             self.save()
