@@ -80,6 +80,7 @@ class StoreView(DetailView):
             product_id = item['product_id']
             product = Product.objects.get(id=product_id)
             if store_slug == product.store.slug:
+                item['description'] = product.description
                 items.append(item)
                 total_price.append(item['quantity'] * float(item['price']))
         total_price = sum(total_price)
@@ -148,6 +149,7 @@ def cart_detail(request, slug):
         product_id = item['product_id']
         product = Product.objects.get(id=product_id)
         if slug == product.store.slug:
+            item['description'] = product.description
             items.append(item)
             total_price.append(item['quantity'] * float(item['price']))
     total_price = sum(total_price)
