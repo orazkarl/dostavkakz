@@ -200,55 +200,39 @@
         {% endif %}
     </div>
 
-    {#    <div class="navbar1" style="display: none;">#}
-    {#        <nav class="navbar navbar2 navbar-expand-lg navbar-light bg-light" style="background: #FB0 !important;">#}
-    {##}
-    {#            <input name="AutocompleteInput-0"#}
-    {#                   class="searchpage_search"#}
-    {#                   placeholder="Поиск..."#}
-    {#                   aria-haspopup="false"#}
-    {#                   aria-autocomplete="list"#}
-    {#                   aria-owns="AutocompleteResultsList-0"#}
-    {#                   aria-activedescendant="false"#}
-    {#                   maxlength="100" autocomplete="off"#}
-    {#                   value="">#}
-    {##}
-    {#            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"#}
-    {#                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">#}
-    {#                <span class="navbar-toggler-icon"></span>#}
-    {#            </button>#}
-    {##}
-    {#            <div class="collapse navbar-collapse" id="navbarSupportedContent">#}
-    {#                <ul class="navbar-nav mr-auto">#}
-    {#                    {% if user.is_authenticated %}#}
-    {#                        <li class="nav-item active">#}
-    {#                            <a class="nav-link" href="{% url 'profile' %}">Профиль <span#}
-    {#                                    class="sr-only">(current)</span></a>#}
-    {#                        </li>#}
-    {#                        <li class="nav-item active">#}
-    {#                            <a class="nav-link" href="{% url 'logout_user' %}">Выйти</a>#}
-    {#                        </li>#}
-    {#                    {% else %}#}
-    {#                        <li class="nav-item active">#}
-    {#                            <a class="nav-link" href="{% url 'account_login' %}">Войти <span#}
-    {#                                    class="sr-only">(current)</span></a>#}
-    {#                        </li>#}
-    {#                        <li class="nav-item active">#}
-    {#                            <a class="nav-link" href="{% url 'account_signup' %}">Регистрация</a>#}
-    {#                        </li>#}
-    {#                    {% endif %}#}
-    {#                    <li class="nav-item active">#}
-    {#                        <a class="nav-link" href="#">Избранное</a>#}
-    {#                    </li>#}
-    {#                </ul>#}
-    {#            </div>#}
-    {#        </nav>#}
-    {#    </div>#}
-    {##}
-    {#    <a href="#" class="s-cart" style="margin-top: 2%; color: #000; display: none;"><i class="fa fa-shopping-cart"#}
-    {#                                                                                      aria-hidden="true"#}
-    {#                                                                                      style="font-size: 35px;"></i></a>#}
+        <div class="navbar1" style="display: none;">
+            <nav class="navbar navbar2 navbar-expand-lg navbar-light bg-light" style="background: #FB0 !important;">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        {% if user.is_authenticated %}
+                            <li class="nav-item active">
+                                <a class="nav-link" href="{% url 'profile' %}">Профиль <span
+                                        class="sr-only">(current)</span></a>
+                            </li>
+                            <li class="nav-item active">
+                                <a class="nav-link" href="{% url 'logout_user' %}">Выйти</a>
+                            </li>
+                        {% else %}
+                            <li class="nav-item active">
+                                <a class="nav-link" href="{% url 'account_login' %}">Войти <span
+                                        class="sr-only">(current)</span></a>
+                            </li>
+                            <li class="nav-item active">
+                                <a class="nav-link" href="{% url 'account_signup' %}">Регистрация</a>
+                            </li>
+                        {% endif %}
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#">Избранное</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
 </header>
 <body style="background: none;">
 
