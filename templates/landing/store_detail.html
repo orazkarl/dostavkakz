@@ -1,5 +1,6 @@
 {% extends 'landing/base.html' %}
 {% load static %}
+{% load cart_tag %}
 {% block logo %}
     <a href="{% url 'home' %}">
         <div class="s-logo1">
@@ -14,30 +15,84 @@
             <img src="{% static 'images/kfc2.jpg' %}" alt="">
         </div>
         <div class="phlogo">
-            <img src="{% static 'images/KFC_logo.png' %}" alt="">
+            <img src="{{ store.image.url }}" alt="">
         </div>
         <div class="phinfo">
-            <h4>KFC Dostyk Plaza</h4>
+            <h4>{{ store.name }}</h4>
             <div class="rate" style="display: inline-flex;">
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                {% if store.average_rating == 1 %}
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star-o" aria-hidden="true"
+                       style="color: #FFBB00"></i>
+                    <i class="fa fa-star-o" aria-hidden="true"
+                       style="color: #FFBB00"></i>
+                    <i class="fa fa-star-o" aria-hidden="true"
+                       style="color: #FFBB00"></i>
+                    <i class="fa fa-star-o" aria-hidden="true"
+                       style="color: #FFBB00"></i>
+                {% elif store.average_rating == 2 %}
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star-o" aria-hidden="true"
+                       style="color: #FFBB00"></i>
+                    <i class="fa fa-star-o" aria-hidden="true"
+                       style="color: #FFBB00"></i>
+                    <i class="fa fa-star-o" aria-hidden="true"
+                       style="color: #FFBB00"></i>
+                {% elif store.average_rating == 3 %}
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star-o" aria-hidden="true"
+                       style="color: #FFBB00"></i>
+                    <i class="fa fa-star-o" aria-hidden="true"
+                       style="color: #FFBB00"></i>
+                {% elif store.average_rating == 4 %}
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star-o" aria-hidden="true"
+                       style="color: #FFBB00"></i>
+                {% elif store.average_rating == 5 %}
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                {% elif store.average_rating == 0 %}
+                    <i class="fa fa-star-o" aria-hidden="true"
+                       style="color: #FFBB00"></i>
+                    <i class="fa fa-star-o" aria-hidden="true"
+                       style="color: #FFBB00"></i>
+                    <i class="fa fa-star-o" aria-hidden="true"
+                       style="color: #FFBB00"></i>
+                    <i class="fa fa-star-o" aria-hidden="true"
+                       style="color: #FFBB00"></i>
+                    <i class="fa fa-star-o" aria-hidden="true"
+                       style="color: #FFBB00"></i>
+                {% endif %}
             </div>
-            <p>г.Алматы, пр. Достык 111, ТРЦ "Dostyk Plaza"</p>
+            <p>{{ store.address }}</p>
             <p>Бесплатная доставка | Минимальный заказ от: 1500тг.</p>
             <p>Среднее время приготовления: 15 минут</p>
         </div>
         <div class="izbr1">
-            <button class="izbr">
-                Добавить в избранное
-            </button>
+            <a href="{% url 'add_wishlist' %}?store_id={{ store.id }}" class="btn btn-secondary "
+               style="width: 200px; border: 0; border-radius: 0; padding: 10px">Добавить в избранное</a>
+            {#            <button class="izbr">#}
+            {#                Добавить в избранное#}
+            {#            </button>#}
             <br>
             <br>
-            <button class="cart">
+            <a type="button" href="{% url 'cart_detail' store.slug %}" class="btn btn-secondary "
+               style="width: 200px; border: 0; border-radius: 0; padding: 10px">
                 Корзина
-            </button>
+            </a>
+
+            {#            <button class="cart">#}
+            {#                Корзина#}
+            {#            </button>#}
         </div>
     </div>
     <br>
@@ -46,68 +101,73 @@
         <div class="plbody">
             <input type="search" class="prodsrch" placeholder="Поиск по меню">
             <h4 style="padding-top: 10px;">Выгодные предложения</h4>
-
-            <div class="pos">
-                <div class="pos-body">
-                    <div class="pos-info">
-                        <h5 class="name"><i>+</i> Сандерс Баскет "Комбо"</h5>
-                        <p class="info1">Pepsi 500 мл, средний фри, сырный соус</p>
-                        <p class="price">2 000 ₸</p>
-                    </div>
-                    <div class="pos-img">
-                        <img src="static/images/banners/1.jpg" alt="">
+            {% for product in products %}
+                <div class="pos">
+                    <div class="pos-body">
+                        <div class="pos-info">
+                            <h5 class="name">
+                                <a href="{% url 'cart_add' product.id %}"
+                                   style="text-decoration: none; color: black"><i>+</i></a> {{ product.name }}</h5>
+                            <p class="info1">{{ product.description }}</p>
+                            <p class="price">{{ product.price }}₸</p>
+                        </div>
+                        <div class="pos-img">
+                            <img src="{{ product.image.url }}" alt="">
+                        </div>
                     </div>
                 </div>
-            </div>
+            {% endfor %}
 
         </div>
         <div class="orderbox">
-            <h5 style="padding: 10px; margin-left: 2%;">Доставка:</h5>
-            <div class="obbody">
-                <select aria-label="Select order date"
-                        class="ord_sel"
-                        name="OrderTimeSelector__Day"
-                        id="OrderTimeSelector__Day">
-                    <option value="Wed 07/08">Сегодня</option>
-                    <option value="Thu 07/09">Завтра</option>
-                    <option value="Fri 07/10">Через два дня</option>
-                    <option value="Sat 07/11">Через три дня</option>
-                </select>
+{#            <h5 style="padding: 10px; margin-left: 2%;" class="mob-cart">Доставка:</h5>#}
+{#            <div class="obbody">#}
+{#                <select aria-label="Select order date"#}
+{#                        class="ord_sel"#}
+{#                        name="OrderTimeSelector__Day"#}
+{#                        id="OrderTimeSelector__Day">#}
+{#                    <option value="Wed 07/08">Сегодня</option>#}
+{#                    <option value="Thu 07/09">Завтра</option>#}
+{#                    <option value="Fri 07/10">Через два дня</option>#}
+{#                    <option value="Sat 07/11">Через три дня</option>#}
+{#                </select>#}
+{##}
+{#                <select aria-label="Select order date"#}
+{#                        class="ord_sel"#}
+{#                        name="OrderTimeSelector__Day"#}
+{#                        id="OrderTimeSelector__Day">#}
+{#                    <option value="Wed 07/08">Сейчас</option>#}
+{#                    <option value="Thu 07/09">Через час</option>#}
+{#                    <option value="Fri 07/10">Через два часа</option>#}
+{#                    <option value="Sat 07/11">Через три часа</option>#}
+{#                </select>#}
+{#                <div class="obbtns">#}
+{#                    <input type="search" class="obadres" placeholder="Введите адрес">#}
+{#                    <br>#}
+{#                    <button class="mappick">Указать на карте</button>#}
+{#                </div>#}
+{#            </div>#}
 
-                <select aria-label="Select order date"
-                        class="ord_sel"
-                        name="OrderTimeSelector__Day"
-                        id="OrderTimeSelector__Day">
-                    <option value="Wed 07/08">Сейчас</option>
-                    <option value="Thu 07/09">Через час</option>
-                    <option value="Fri 07/10">Через два часа</option>
-                    <option value="Sat 07/11">Через три часа</option>
-                </select>
-                <div class="obbtns">
-                    <input type="search" class="obadres" placeholder="Введите адрес">
-                    <br>
-                    <button class="mappick">Указать на карте</button>
-                </div>
-            </div>
-
-            <h5 style="padding: 10px; margin-left: 2%;">Ваша корзина</h5>
+            <h5 style="padding: 10px; margin-left: 2%;" class="mob-cart">Ваша корзина</h5>
 
             <div class="bag">
-                <h5 style="color: #c4c4c4;">KFC Dostyk Plaza:</h5>
-                <div class="y_ord">
-                    <p>Сандерс баскет "Комбо"</p>
-                    <p style="margin-left: 5px;">x 2 =</p> <h4 style="margin-left: 1%; margin-top: -4px;">4000 тг.</h4>
-                </div>
+                <h5 style="color: #c4c4c4;" class="mob-cart">{{ store.name }}</h5>
+                {% for item in items %}
+                    <div class="y_ord">
+                        <p>{{ item.name }}</p>
+                        <p style="margin-left: 5px;">x {{ item.quantity }} =</p> <h4 style="margin-left: 1%; margin-top: -4px;">{{ item.price|multiply:item.quantity }}тг.</h4>
+                    </div>
+                {% endfor %}
                 <div class="y_ord">
                     <p>Доставка:</p>
                     <p style="margin-left: 1%; font-weight: bold;">Бесплатно</p>
                 </div>
-                <a href="order.html" style="text-decoration: none; color: #000;">
+                <a href="{% url 'cart_detail' store.slug %}" style="text-decoration: none; color: #000;">
                     <div class="go-ord">
                         <p style="background: #FB0; font-weight: bold; font-size: 18px; padding: 3px; border-radius: 3px 0 0 3px;">
                             Перейти к оплате</p>
                         <p style="background: #666; color: #FB0; font-weight: bold; font-size: 18px; padding: 3px; border-radius: 0 3px 3px 0;">
-                            4000 тг.</p>
+                            {{total_price}} тг.</p>
                     </div>
                 </a>
 
@@ -115,7 +175,7 @@
         </div>
     </div>
 
-    <div class="obmob obmob1">
+    <div class="obmob obmob1" style="display: none">
         <div style="width: 80%; display: inline-flex;">
             <p>1 позиция</p>
             <p>на сумму:</p>

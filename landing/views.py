@@ -72,14 +72,25 @@ class StoreView(DetailView):
         store = Store.objects.get(slug=store_slug)
         products = Product.objects.filter(store=store)
         reviews = Review.objects.filter(store=store)
-        # if self.request.GET.get('q'):
-        #     query = self.request.GET.get('q')
-        #     if not query:
-        #         return super().get(request, *args, **kwargs)
-        #     products  = Product.objects.filter(store=store, name__icontains=query)
+
+        cart = Cart(request)
+        items = []
+        total_price = []
+        for item in cart.cart.values():
+            product_id = item['product_id']
+            product = Product.objects.get(id=product_id)
+            if store_slug == product.store.slug:
+                items.append(item)
+                total_price.append(item['quantity'] * float(item['price']))
+        total_price = sum(total_price)
+
         self.extra_context = {
             'products': products,
             'reviews': reviews,
+            'items': items,
+            # 'slug': slug,
+            'total_price': total_price,
+
         }
 
         return super().get(request, *args, **kwargs)
