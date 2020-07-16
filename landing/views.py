@@ -65,7 +65,7 @@ def search_stores(request):
 
 class StoreView(DetailView):
     model = Store
-    template_name = 'landing/store_detile.html'
+    template_name = 'landing/store_detail.html'
 
     def get(self, request, *args, **kwargs):
         store_slug = self.kwargs.get(self.slug_url_kwarg, None)
