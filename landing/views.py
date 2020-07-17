@@ -65,21 +65,43 @@ def search_stores(request):
 
 class StoreView(DetailView):
     model = Store
-    template_name = 'landing/store_detile.html'
+    template_name = 'landing/store_detail.html'
 
     def get(self, request, *args, **kwargs):
         store_slug = self.kwargs.get(self.slug_url_kwarg, None)
         store = Store.objects.get(slug=store_slug)
+        if 'q' in request.GET:
+            query = request.GET['q']
+            if not query:
+                products = Product.objects.filter(store=store)
+            else:
+                products = Product.objects.filter(Q(name__icontains=query) | Q(description__icontains=query) | Q(
+                    category__tags__name__icontains=query)).filter(store=store).distinct('name')
+            print(products)
+            return render(request, 'landing/ajax_search_products.html', {'products': products, 'query': query})
+
         products = Product.objects.filter(store=store)
         reviews = Review.objects.filter(store=store)
-        # if self.request.GET.get('q'):
-        #     query = self.request.GET.get('q')
-        #     if not query:
-        #         return super().get(request, *args, **kwargs)
-        #     products  = Product.objects.filter(store=store, name__icontains=query)
+
+        cart = Cart(request)
+        items = []
+        total_price = []
+        for item in cart.cart.values():
+            product_id = item['product_id']
+            product = Product.objects.get(id=product_id)
+            if store_slug == product.store.slug:
+                item['description'] = product.description
+                items.append(item)
+                total_price.append(item['quantity'] * float(item['price']))
+        total_price = sum(total_price)
+
         self.extra_context = {
             'products': products,
             'reviews': reviews,
+            'items': items,
+            # 'slug': slug,
+            'total_price': total_price,
+
         }
 
         return super().get(request, *args, **kwargs)
@@ -100,9 +122,14 @@ def cart_add(request, id):
 def item_clear(request, id):
     cart = Cart(request)
     product = Product.objects.get(id=id)
-
     cart.remove(product)
-    return redirect("cart_detail")
+    slug = request.GET['slug']
+    red = ''
+    if request.GET['cart'] == 'true':
+        red = '/stores/' + slug + '/cart'
+    elif request.GET['cart'] == 'false':
+        red = '/stores/' + slug
+    return redirect(red)
 
 
 @login_required(login_url="/accounts/login")
@@ -110,7 +137,13 @@ def item_increment(request, id):
     cart = Cart(request)
     product = Product.objects.get(id=id)
     cart.add(product=product)
-    return redirect("cart_detail")
+    slug = request.GET['slug']
+    red = ''
+    if request.GET['cart'] == 'true':
+        red = '/stores/' + slug + '/cart'
+    elif request.GET['cart'] == 'false':
+        red = '/stores/' + slug
+    return redirect(red)
 
 
 @login_required(login_url="/accounts/login")
@@ -118,7 +151,13 @@ def item_decrement(request, id):
     cart = Cart(request)
     product = Product.objects.get(id=id)
     cart.decrement(product=product)
-    return redirect("cart_detail")
+    slug = request.GET['slug']
+    red = ''
+    if request.GET['cart'] == 'true':
+        red = '/stores/' + slug + '/cart'
+    elif request.GET['cart'] == 'false':
+        red = '/stores/' + slug
+    return redirect(red)
 
 
 @login_required(login_url="/accounts/login")
@@ -137,6 +176,7 @@ def cart_detail(request, slug):
         product_id = item['product_id']
         product = Product.objects.get(id=product_id)
         if slug == product.store.slug:
+            item['description'] = product.description
             items.append(item)
             total_price.append(item['quantity'] * float(item['price']))
     total_price = sum(total_price)
@@ -154,7 +194,7 @@ def checkout(request, slug):
     total_price = []
     # message = """Новый заказ:\n"""
     message = ''
-
+    order_comment = request.GET['order_comment']
     for value in cart.cart.values():
         product_id = value['product_id']
         product = Product.objects.get(id=product_id)
@@ -168,8 +208,10 @@ def checkout(request, slug):
             total_price.append(quantity * float(price))
 
     total_price = sum(total_price)
-    Order.objects.create(user=request.user, order_item=message, address='Адрес', total_price=total_price, status='1')
-    message += 'Адрес: ' + "\n"
+    Order.objects.create(user=request.user, order_item=message, address='Адрес', total_price=total_price, status='1',
+                         comment=order_comment)
+    message += 'Комментария: ' + str(order_comment) + "\n" + str(request.user.first_name) + ' ' + str(
+        request.user.last_name) + "\n" + str(request.user.phone) + 'Адрес: ' + 'алматы' + "\n"
     message += 'ИТОГО: ' + str(total_price)
 
     requests.get("https://api.telegram.org/bot%s/sendMessage" % COURIER_TELEGRAM_BOT_TOKEN,

@@ -10,84 +10,136 @@
 {% endblock %}
 {% block content %}
     <style>
-    header{
-        background-color: #fff !important;
-    }
+        header {
+            background-color: #fff !important;
+        }
     </style>
-    <iframe frameborder="no" style="width: 100%;border: 1px solid #a3a3a3;box-sizing: border-box;" width="640" height="600" src="http://widgets.2gis.com/widget?type=firmsonmap&amp;options=%7B%22pos%22%3A%7B%22lat%22%3A43.23455750575289%2C%22lon%22%3A76.95727586746217%2C%22zoom%22%3A16%7D%2C%22opt%22%3A%7B%22city%22%3A%22almaty%22%7D%2C%22org%22%3A%229429940001617972%22%7D"></iframe>
-
-	    <div class="orderbody">
-
-	    	<div class="ord1">
-	    	<h4>Способ и время доставки</h4>
-	    	<br class="brord">
-	    	<p>Доставка в течении 20-30 минут к <p class="adres1" style="font-weight: bold; padding-left: 7px;"> Аль-Фараби 19</p> <a href="">изменить адрес</a></p>
+    <iframe frameborder="no" style="width: 100%;border: 1px solid #a3a3a3;box-sizing: border-box;" width="640"
+            height="600"
+            src="http://widgets.2gis.com/widget?type=firmsonmap&amp;options=%7B%22pos%22%3A%7B%22lat%22%3A43.23455750575289%2C%22lon%22%3A76.95727586746217%2C%22zoom%22%3A16%7D%2C%22opt%22%3A%7B%22city%22%3A%22almaty%22%7D%2C%22org%22%3A%229429940001617972%22%7D"></iframe>
+    <form action="{% url 'checkout' slug %}">
+        <div class="orderbody">
 
 
-		    <div class="ord2">
-		    	<h4>Выбранные позиции</h4>
-		            <div class="pos" style="margin-top: 2%; height: auto;">
-		            <div class="pos-body">
-		            <div class="pos-info">
-		                <h5 class="name" style="display: inline-flex;"><p style="font-size: 20px; font-weight: bold; color: #FFB500FF; padding-right: 5px;">2x</p> Сандерс Баскет "Комбо" 2000тг</h5>
-		                <p class="info1">Pepsi 500 мл, средний фри, сырный соус</p>
-		            </div>
-<!-- 		            <div class="pos-img pos-img1">
-    <img src="img/banners/1.jpg" alt="" style="height: 70%; margin-top: 10%;">
-</div> -->
-		            </div>
-		        </div>
-		        	<div class="plus" style="font-size: 20px;">
-				    <a href="#" onclick="history.back();"style="text-decoration: none; width: 300px;"><p><i class="fa fa-plus" aria-hidden="true" style="padding-right: 5px;"></i> Добавить больше позиций</p></a>
-				    <br>
-				    <p><i class="fa fa-commenting-o" aria-hidden="true" style="padding-right: 5px;"></i> Комментарий для ресторана</p>
-				    <br>
-				    <textarea rows="3" maxlength="400" placeholder="Добавьте комментарий (например об аллергии, специальной диете)..." class="comment" style="resize: none; width: 450px;" autocomplete="off"></textarea>
-				    </div>
-
-				    <div class="order">
-				    <h4>Детали оплаты</h4>
-				    <br>
-				    <a href="" style="text-decoration: none;"><p class="credit"><i class="fa fa-credit-card" aria-hidden="true" style="padding-right: 5px;"></i> Онлайн оплата</p></a>
-				    <br>
-				    <p class="cash"><i class="fa fa-money" aria-hidden="true" style="padding-right: 5px;"></i> Наличными</p>
-				    </div>
-			</div>
-		</div>
-
-		<div class="ord3">
-			<div class="ord4">
-			<h3>Цены указаны в тенге и включают НДС</h3>
-			</div>
-
-			<div style="display: inline-flex; width: 100%; margin-top: 8%;">
-			<div style="width: 100%">
-			<p style="font-weight: bold; font-size: 18px; border-bottom: 1px dashed;">Сумма заказа:    4000тг</p>
-			<p style="font-weight: bold; font-size: 18px; border-bottom: 1px dashed;">Доставка:    Бесплатно</p>
-			<div style="display: inline-flex; width: 100%">
-			<p style="font-weight: bold; font-size: 30px;">Итого:</p><p style="font-size: 30px; font-weight: bold; margin-left: 5%">4 000тг</p>
-			</div>
-			</div>
-
-<!-- 			<div style="margin-left: 20%; font-size: 18px;">
-	<p>4 000 ₸</p>
-	<br>
-	<br>
-	<p>Бесплатно</p>
-	<br>
-	<br>
-	<p style="font-size: 35px; font-weight: bold;">4 000 ₸</p>
-<br>
-</div> -->
-			</div>
-
-			<button class="pay">Заказать</button>
-
-		</div>
+            <div class="ord1">
+                <h4>Способ и время доставки</h4>
+                <br class="brord">
+                <p>Доставка в течении 20-30 минут к
+                <p class="adres1" style="font-weight: bold; padding-left: 7px;"> Аль-Фараби 19</p> <a href="">изменить
+                адрес</a></p>
 
 
-	    </div>
+                <div class="ord2">
+                    <h4>Выбранные позиции</h4>
+                    {% for item in items %}
+                        <div class="pos" style="margin-top: 2%; height: auto;">
+                            <div class="pos-body">
+                                <div class="pos-info">
+                                    <h5 class="name" style="display: inline-flex;">
+                                        "{{ item.name }}"
+                                        {% if item.quantity > 1 %}
+                                            <span>
+                                                <a href="{% url 'item_decrement' item.product_id %}?slug={{ slug }}&cart=true">
+                                                    <i class="fa fa-minus" style="color: #666666; margin-left: 20px;font-size: 18px"></i>
+                                                </a></span>
+                                        {% else %}
+                                            <span><a
+                                                    href="{% url 'item_clear' item.product_id %}?slug={{ slug }}&cart=true"><i
+                                                    class="fa fa-minus"
+                                                    style="color: #666666; margin-left: 20px;font-size: 18px"></i></a>
+                                            </span>
+                                        {% endif %}
+                                        <span style="font-size: 20px; font-weight: bold; color: #FFB500FF; padding-right: 5px;">
+                                            x{{ item.quantity }}
+                                        </span>
+                                        <span>
+                                            <a href="{% url 'item_increment' item.product_id %}?slug={{ slug }}&cart=true"><i
+                                                    class="fa fa-plus"
+                                                    style="color: #666666; margin-left: 5px;font-size: 18px"></i></a>
+                                        </span>
+                                        <span style="margin-left: 15px">{{ item.price|multiply:item.quantity }}тг</span>
 
+                                    </h5>
+                                    <p>
+                                        <a href="{% url 'item_clear' item.product_id %}?slug={{ slug }}&cart=true"><i
+                                                class="fa fa-close"
+                                                style="color: #666666; margin-left: 5px;font-size: 18px"></i></a>
+                                    </p>
+                                    <p class="info1">{{ item.description }}</p>
+                                </div>
+                                <br>
+                                <!-- 		            <div class="pos-img pos-img1">
+                                    <img src="img/banners/1.jpg" alt="" style="height: 70%; margin-top: 10%;">
+                                </div> -->
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                    <div class="plus" style="font-size: 20px;">
+                        <a href="{% url 'store_detail' slug %}" style="text-decoration: none; width: 300px;"><p><i
+                                class="fa fa-plus" aria-hidden="true" style="padding-right: 5px;"></i> Добавить больше
+                            позиций</p></a>
+                        <br>
+                        <p><i class="fa fa-commenting-o" aria-hidden="true" style="padding-right: 5px;"></i> Комментарий
+                            для
+                            ресторана</p>
+                        <br>
+                        <textarea name="order_comment" rows="3" maxlength="400"
+                                  placeholder="Добавьте комментарий (например об аллергии, специальной диете)..."
+                                  class="comment" style="resize: none; width: 450px;" autocomplete="off"></textarea>
+                    </div>
+
+                    <div class="order">
+                        <h4>Детали оплаты</h4>
+                        <br>
+                        <a href="" style="text-decoration: none;"><p class="credit"><i class="fa fa-credit-card"
+                                                                                       aria-hidden="true"
+                                                                                       style="padding-right: 5px;"></i>
+                            Онлайн оплата</p></a>
+                        <br>
+                        <p class="cash"><i class="fa fa-money" aria-hidden="true" style="padding-right: 5px;"></i>
+                            Наличными
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ord3">
+                <div class="ord4">
+                    <h3>Цены указаны в тенге и включают НДС</h3>
+                </div>
+
+                <div style="display: inline-flex; width: 100%; margin-top: 8%;">
+                    <div style="width: 100%">
+                        <p style="font-weight: bold; font-size: 18px; border-bottom: 1px dashed;">Сумма
+                            заказа: {{ total_price }}тг</p>
+                        <p style="font-weight: bold; font-size: 18px; border-bottom: 1px dashed;">Доставка:
+                            Бесплатно</p>
+                        <div style="display: inline-flex; width: 100%">
+                            <p style="font-weight: bold; font-size: 30px;">Итого:</p>
+                            <p style="font-size: 30px; font-weight: bold; margin-left: 5%">{{ total_price }}тг</p>
+                        </div>
+                    </div>
+
+                    <!-- 			<div style="margin-left: 20%; font-size: 18px;">
+                        <p>4 000 ₸</p>
+                        <br>
+                        <br>
+                        <p>Бесплатно</p>
+                        <br>
+                        <br>
+                        <p style="font-size: 35px; font-weight: bold;">4 000 ₸</p>
+                    <br>
+                    </div> -->
+                </div>
+
+                <button class="pay" type="submit">Заказать</button>
+
+            </div>
+
+
+        </div>
+    </form>
 
 
 {% endblock %}
