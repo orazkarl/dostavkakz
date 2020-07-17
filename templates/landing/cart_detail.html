@@ -32,20 +32,20 @@
                 <h4>Выбранные позиции</h4>
                 {% for item in items %}
                     <div class="pos" style="margin-top: 2%; height: auto;">
-                    <div class="pos-body">
-                        <div class="pos-info">
-                            <h5 class="name" style="display: inline-flex;"><p
-                                    style="font-size: 20px; font-weight: bold; color: #FFB500FF; padding-right: 5px;">
-                                {{ item.quantity }}x</p>{{ item.name }} = {{ item.price|multiply:item.quantity }}тг
-                            </h5>
-                            <p class="info1">{{ item.description }}</p>
+                        <div class="pos-body">
+                            <div class="pos-info">
+                                <h5 class="name" style="display: inline-flex;"><p
+                                        style="font-size: 20px; font-weight: bold; color: #FFB500FF; padding-right: 5px;">
+                                    {{ item.quantity }}x</p>{{ item.name }} = {{ item.price|multiply:item.quantity }}тг
+                                </h5>
+                                <p class="info1">{{ item.description }}</p>
+                            </div>
+                            <br>
+                            <!-- 		            <div class="pos-img pos-img1">
+                                <img src="img/banners/1.jpg" alt="" style="height: 70%; margin-top: 10%;">
+                            </div> -->
                         </div>
-                        <br>
-                        <!-- 		            <div class="pos-img pos-img1">
-                            <img src="img/banners/1.jpg" alt="" style="height: 70%; margin-top: 10%;">
-                        </div> -->
                     </div>
-                </div>
                 {% endfor %}
 
                 <div class="plus" style="font-size: 20px;">
@@ -82,7 +82,8 @@
 
             <div style="display: inline-flex; width: 100%; margin-top: 8%;">
                 <div style="width: 100%">
-                    <p style="font-weight: bold; font-size: 18px; border-bottom: 1px dashed;">Сумма заказа: {{ total_price }}тг</p>
+                    <p style="font-weight: bold; font-size: 18px; border-bottom: 1px dashed;">Сумма
+                        заказа: {{ total_price }}тг</p>
                     <p style="font-weight: bold; font-size: 18px; border-bottom: 1px dashed;">Доставка: Бесплатно</p>
                     <div style="display: inline-flex; width: 100%">
                         <p style="font-weight: bold; font-size: 30px;">Итого:</p>

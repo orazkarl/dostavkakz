@@ -99,54 +99,65 @@
 
     <div class="prodlist">
         <div class="plbody">
-            <input type="search" class="prodsrch" placeholder="Поиск по меню">
+            <form class="" method="get">
+                <input id="search_prod" class="prodsrch" placeholder="Поиск по меню">
+                {#                <ul id="results_prod" class="results_prod">#}
+                {##}
+                {#                </ul>#}
+            </form>
+            {#            <input type="search" class="prodsrch" placeholder="Поиск по меню">#}
             <h4 style="padding-top: 10px;">Выгодные предложения</h4>
-            {% for product in products %}
-                <div class="pos">
-                    <div class="pos-body">
-                        <div class="pos-info">
-                            <h5 class="name">
-                                <a href="{% url 'cart_add' product.id %}"
-                                   style="text-decoration: none; color: black"><i>+</i></a> {{ product.name }}</h5>
-                            <p class="info1">{{ product.description }}</p>
-                            <p class="price">{{ product.price }}₸</p>
-                        </div>
-                        <div class="pos-img">
-                            <img src="{{ product.image.url }}" alt="">
+            <div id="results_prod" class="results_prod">
+
+            </div>
+            <div id="products_list">
+                {% for product in products %}
+                    <div class="pos">
+                        <div class="pos-body">
+                            <div class="pos-info">
+                                <h5 class="name">
+                                    <a href="{% url 'cart_add' product.id %}"
+                                       style="text-decoration: none; color: black"><i>+</i></a> {{ product.name }}</h5>
+                                <p class="info1">{{ product.description }}</p>
+                                <p class="price">{{ product.price }}₸</p>
+                            </div>
+                            <div class="pos-img">
+                                <img src="{{ product.image.url }}" alt="">
+                            </div>
                         </div>
                     </div>
-                </div>
-            {% endfor %}
+                {% endfor %}
 
+            </div>
         </div>
         <div class="orderbox">
-{#            <h5 style="padding: 10px; margin-left: 2%;" class="mob-cart">Доставка:</h5>#}
-{#            <div class="obbody">#}
-{#                <select aria-label="Select order date"#}
-{#                        class="ord_sel"#}
-{#                        name="OrderTimeSelector__Day"#}
-{#                        id="OrderTimeSelector__Day">#}
-{#                    <option value="Wed 07/08">Сегодня</option>#}
-{#                    <option value="Thu 07/09">Завтра</option>#}
-{#                    <option value="Fri 07/10">Через два дня</option>#}
-{#                    <option value="Sat 07/11">Через три дня</option>#}
-{#                </select>#}
-{##}
-{#                <select aria-label="Select order date"#}
-{#                        class="ord_sel"#}
-{#                        name="OrderTimeSelector__Day"#}
-{#                        id="OrderTimeSelector__Day">#}
-{#                    <option value="Wed 07/08">Сейчас</option>#}
-{#                    <option value="Thu 07/09">Через час</option>#}
-{#                    <option value="Fri 07/10">Через два часа</option>#}
-{#                    <option value="Sat 07/11">Через три часа</option>#}
-{#                </select>#}
-{#                <div class="obbtns">#}
-{#                    <input type="search" class="obadres" placeholder="Введите адрес">#}
-{#                    <br>#}
-{#                    <button class="mappick">Указать на карте</button>#}
-{#                </div>#}
-{#            </div>#}
+            {#            <h5 style="padding: 10px; margin-left: 2%;" class="mob-cart">Доставка:</h5>#}
+            {#            <div class="obbody">#}
+            {#                <select aria-label="Select order date"#}
+            {#                        class="ord_sel"#}
+            {#                        name="OrderTimeSelector__Day"#}
+            {#                        id="OrderTimeSelector__Day">#}
+            {#                    <option value="Wed 07/08">Сегодня</option>#}
+            {#                    <option value="Thu 07/09">Завтра</option>#}
+            {#                    <option value="Fri 07/10">Через два дня</option>#}
+            {#                    <option value="Sat 07/11">Через три дня</option>#}
+            {#                </select>#}
+            {##}
+            {#                <select aria-label="Select order date"#}
+            {#                        class="ord_sel"#}
+            {#                        name="OrderTimeSelector__Day"#}
+            {#                        id="OrderTimeSelector__Day">#}
+            {#                    <option value="Wed 07/08">Сейчас</option>#}
+            {#                    <option value="Thu 07/09">Через час</option>#}
+            {#                    <option value="Fri 07/10">Через два часа</option>#}
+            {#                    <option value="Sat 07/11">Через три часа</option>#}
+            {#                </select>#}
+            {#                <div class="obbtns">#}
+            {#                    <input type="search" class="obadres" placeholder="Введите адрес">#}
+            {#                    <br>#}
+            {#                    <button class="mappick">Указать на карте</button>#}
+            {#                </div>#}
+            {#            </div>#}
 
             <h5 style="padding: 10px; margin-left: 2%;" class="mob-cart">Ваша корзина</h5>
 
@@ -155,7 +166,8 @@
                 {% for item in items %}
                     <div class="y_ord">
                         <p>{{ item.name }}</p>
-                        <p style="margin-left: 5px;">x {{ item.quantity }} =</p> <h4 style="margin-left: 1%; margin-top: -4px;">{{ item.price|multiply:item.quantity }}тг.</h4>
+                        <p style="margin-left: 5px;">x {{ item.quantity }} =</p> <h4
+                            style="margin-left: 1%; margin-top: -4px;">{{ item.price|multiply:item.quantity }}тг.</h4>
                     </div>
                 {% endfor %}
                 <div class="y_ord">
@@ -167,7 +179,7 @@
                         <p style="background: #FB0; font-weight: bold; font-size: 18px; padding: 3px; border-radius: 3px 0 0 3px;">
                             Перейти к оплате</p>
                         <p style="background: #666; color: #FB0; font-weight: bold; font-size: 18px; padding: 3px; border-radius: 0 3px 3px 0;">
-                            {{total_price}} тг.</p>
+                            {{ total_price }} тг.</p>
                     </div>
                 </a>
 
@@ -175,19 +187,50 @@
         </div>
     </div>
 
-{#    <div class="obmob obmob1" style="display: none">#}
-{#        <div style="width: 80%; display: inline-flex;">#}
-{#            <p>1 позиция</p>#}
-{#            <p>на сумму:</p>#}
-{#            <p style="font-weight: bold;">4000 тг.</p>#}
-{#        </div>#}
-{#        <div style="width: 20%;">#}
-{#            <a href="order.html" style="width: 100%;">#}
-{#                <button class="ord-mob">#}
-{#                    Заказать#}
-{#                </button>#}
-{#            </a>#}
-{#        </div>#}
-{#    </div>#}
+    {#    <div class="obmob obmob1" style="display: none">#}
+    {#        <div style="width: 80%; display: inline-flex;">#}
+    {#            <p>1 позиция</p>#}
+    {#            <p>на сумму:</p>#}
+    {#            <p style="font-weight: bold;">4000 тг.</p>#}
+    {#        </div>#}
+    {#        <div style="width: 20%;">#}
+    {#            <a href="order.html" style="width: 100%;">#}
+    {#                <button class="ord-mob">#}
+    {#                    Заказать#}
+    {#                </button>#}
+    {#            </a>#}
+    {#        </div>#}
+    {#    </div>#}
+    <!-- jQuery !-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <!-- jQuery UI !-->
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+    <script>
+        $(function () {
 
+            $('#search_prod').keyup(function () {
+                console.log($('#search_prod').val());
+                var productList = document.getElementById('products_list').style.display = 'none';
+                $.ajax({
+                    type: "GET",
+                    url: "/stores/{{ store.slug }}",
+                    data: {
+                        'q': $('#search_prod').val(),
+                        'csrfmiddlewaretoken': $("input[name=csrfmiddlewaretoken]").val()
+                    },
+                    success: searchProdSuccess,
+                    dataType: 'html'
+
+                });
+            });
+        });
+
+        function searchProdSuccess(data, textStatus, jqXHR) {
+            console.log(data);
+            $('#results_prod').html(data)
+        }
+
+
+    </script>
 {% endblock %}

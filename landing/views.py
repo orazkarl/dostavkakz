@@ -70,6 +70,15 @@ class StoreView(DetailView):
     def get(self, request, *args, **kwargs):
         store_slug = self.kwargs.get(self.slug_url_kwarg, None)
         store = Store.objects.get(slug=store_slug)
+        if 'q' in request.GET:
+            query = request.GET['q']
+            if not query:
+                products = Product.objects.filter(store=store)
+            else:
+                products = Product.objects.filter(Q(name__icontains=query) | Q(description__icontains=query) | Q(category__tags__name__icontains=query)).filter(store=store).distinct('name')
+            print(products)
+            return render(request, 'landing/ajax_search_products.html', {'products': products, 'query': query})
+
         products = Product.objects.filter(store=store)
         reviews = Review.objects.filter(store=store)
 
