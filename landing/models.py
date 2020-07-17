@@ -134,7 +134,7 @@ class Order(models.Model):
     address = models.CharField('Адрес', null=True, blank=True, max_length=250)
     total_price = models.DecimalField('Цена', max_digits=8, decimal_places=2)
     status = models.CharField('Статус', choices=ORDER_STATUS_CHOICES, max_length=25, null=True, blank=True)
-
+    comment = models.CharField('Комментарии', max_length=250, null=True, blank=True)
     class Meta:
         verbose_name = 'Заказ'
         verbose_name_plural = 'Заказы'

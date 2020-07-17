@@ -164,10 +164,29 @@
             <div class="bag">
                 <h5 style="color: #c4c4c4;" class="mob-cart">{{ store.name }}</h5>
                 {% for item in items %}
-                    <div class="y_ord">
-                        <p>{{ item.name }}</p>
-                        <p style="margin-left: 5px;">x {{ item.quantity }} =</p> <h4
-                            style="margin-left: 1%; margin-top: -4px;">{{ item.price|multiply:item.quantity }}тг.</h4>
+                    <div class="y_ord" style="font-size: 20px ">
+                        <p>"{{ item.name }}"</p>
+                        {% if item.quantity > 1 %}
+                            <p><a href="{% url 'item_decrement' item.product_id %}?slug={{ store.slug }}&cart=false"> <i
+                                    class="fa fa-minus" style="color: #666666; margin-left: 20px;font-size: 18px"></i>
+                            </a></p>
+                        {% else %}
+                            <p><a href="{% url 'item_clear' item.product_id %}?slug={{ store.slug }}&cart=false"><i
+                                    class="fa fa-minus"
+                                    style="color: #666666; margin-left: 20px;font-size: 18px"></i></a></p>
+                        {% endif %}
+                        <p style="margin-left: 5px;"> x{{ item.quantity }}</p>
+                        <p>
+                            <a href="{% url 'item_increment' item.product_id %}?slug={{ store.slug }}&cart=false"><i
+                                    class="fa fa-plus" style="color: #666666; margin-left: 5px;font-size: 18px"></i>
+                            </a>
+                        </p>
+                        <h4 style="margin-left: 5%; margin-top: 0px;">{{ item.price|multiply:item.quantity }}тг.</h4>
+                        <p>
+                            <a href="{% url 'item_clear' item.product_id %}?slug={{ store.slug }}&cart=false"><i
+                                    class="fa fa-close"
+                                    style="color: #666666; margin-left: 5px;font-size: 18px"></i></a>
+                        </p>
                     </div>
                 {% endfor %}
                 <div class="y_ord">
@@ -182,6 +201,8 @@
                             {{ total_price }} тг.</p>
                     </div>
                 </a>
+
+
 
             </div>
         </div>

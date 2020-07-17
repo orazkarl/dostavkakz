@@ -75,7 +75,8 @@ class StoreView(DetailView):
             if not query:
                 products = Product.objects.filter(store=store)
             else:
-                products = Product.objects.filter(Q(name__icontains=query) | Q(description__icontains=query) | Q(category__tags__name__icontains=query)).filter(store=store).distinct('name')
+                products = Product.objects.filter(Q(name__icontains=query) | Q(description__icontains=query) | Q(
+                    category__tags__name__icontains=query)).filter(store=store).distinct('name')
             print(products)
             return render(request, 'landing/ajax_search_products.html', {'products': products, 'query': query})
 
@@ -121,9 +122,14 @@ def cart_add(request, id):
 def item_clear(request, id):
     cart = Cart(request)
     product = Product.objects.get(id=id)
-
     cart.remove(product)
-    return redirect("cart_detail")
+    slug = request.GET['slug']
+    red = ''
+    if request.GET['cart'] == 'true':
+        red = '/stores/' + slug + '/cart'
+    elif request.GET['cart'] == 'false':
+        red = '/stores/' + slug
+    return redirect(red)
 
 
 @login_required(login_url="/accounts/login")
@@ -131,7 +137,13 @@ def item_increment(request, id):
     cart = Cart(request)
     product = Product.objects.get(id=id)
     cart.add(product=product)
-    return redirect("cart_detail")
+    slug = request.GET['slug']
+    red = ''
+    if request.GET['cart'] == 'true':
+        red = '/stores/' + slug + '/cart'
+    elif request.GET['cart'] == 'false':
+        red = '/stores/' + slug
+    return redirect(red)
 
 
 @login_required(login_url="/accounts/login")
@@ -139,7 +151,13 @@ def item_decrement(request, id):
     cart = Cart(request)
     product = Product.objects.get(id=id)
     cart.decrement(product=product)
-    return redirect("cart_detail")
+    slug = request.GET['slug']
+    red = ''
+    if request.GET['cart'] == 'true':
+        red = '/stores/' + slug + '/cart'
+    elif request.GET['cart'] == 'false':
+        red = '/stores/' + slug
+    return redirect(red)
 
 
 @login_required(login_url="/accounts/login")
@@ -176,7 +194,7 @@ def checkout(request, slug):
     total_price = []
     # message = """Новый заказ:\n"""
     message = ''
-
+    order_comment = request.GET['order_comment']
     for value in cart.cart.values():
         product_id = value['product_id']
         product = Product.objects.get(id=product_id)
@@ -190,8 +208,10 @@ def checkout(request, slug):
             total_price.append(quantity * float(price))
 
     total_price = sum(total_price)
-    Order.objects.create(user=request.user, order_item=message, address='Адрес', total_price=total_price, status='1')
-    message += 'Адрес: ' + "\n"
+    Order.objects.create(user=request.user, order_item=message, address='Адрес', total_price=total_price, status='1',
+                         comment=order_comment)
+    message += 'Комментария: ' + str(order_comment) + "\n" + str(request.user.first_name) + ' ' + str(
+        request.user.last_name) + "\n" + str(request.user.phone) + 'Адрес: ' + 'алматы' + "\n"
     message += 'ИТОГО: ' + str(total_price)
 
     requests.get("https://api.telegram.org/bot%s/sendMessage" % COURIER_TELEGRAM_BOT_TOKEN,
