@@ -1,16 +1,72 @@
-{#{% extends 'landing/base.html' %}#}
+{% extends 'landing/base.html' %}
 {% load static %}
-{#{% block content %}#}
-    <div>
-        Заказы
+{% block content %}
+    <div class="profbody">
+        <div class="p-body" style="display: inline-flex; margin-left: 10%;">
+            <div class="p-panel">
+                <h4>Мой аккаунт</h4>
+                <div class="panel1" style="margin-left: 5%;">
+                    <a href="{% url 'profile' %}"><p>Информация о
+                        аккаунте</p></a>
+                    <a href="{% url 'wishlist' %}"><p>Избранное</p></a>
+                    <a href="{% url 'addresses' %}"><p>Мои адреса</p></a>
+                    <a href="{% url 'orders' %}"><p style="border-bottom: 4px solid; border-color: #FB0;">История
+                        заказов</p></a>
+                    {#                    <a href="promo.html"><p>Ввести промо-код</p></a>#}
+                    <a href="{% url 'help' %}"><p>Связь с тех.службой</p></a>
+                </div>
+            </div>
+
+            <div class="p-form hist">
+                <div class="pf-1">
+                    <h5>История заказов:</h5>
+                    {% for order in object_list %}
+                        {% if order.user == request.user %}
+                            {% if forloop.counter|divisibleby:"2" %}
+                                <div class="pos hist1" style="margin-top: 5%; height: auto; background: #DBDBDBFF;">
+                                    <div class="pos-body">
+                                        <div class="pos-info">
+                                            <h5 class="name" style="border-bottom: 1px dashed; display: inline-flex;"><p
+                                                    style="font-size: 20px; font-weight: bold; color: #FFB500FF; padding-right: 5px;"></p> {{ order.order_item }}
+                                            </h5>
+                                            {#                                            <p class="info1">Pepsi 500 мл, средний фри, сырный соус</p>#}
+                                            <h5>Итого {{ order.total_price }}₸</h5>
+                                            <div style="display: inline-flex; border-top: 1px solid; border-color: #c4c4c4; width: 100%; margin-top: 5px;">
+                                                <p>Номер заказа: №{{ order.id }}</p>
+                                                <p>
+                                                    Дата: {{ order.pub_date.day }}.{{ order.pub_date.month }}.{{ order.pub_date.year }}</p>
+                                                <button class="adr-edit" style="">Заказать повторно</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% else %}
+                                <div class="pos hist1" style="margin-top: 5%; height: auto; background: #FFF4BFFF;">
+                                    <div class="pos-body">
+                                        <div class="pos-info">
+                                            <h5 class="name" style="border-bottom: 1px dashed; display: inline-flex;"><p
+                                                    style="font-size: 20px; font-weight: bold; color: #FFB500FF; padding-right: 5px;">
+                                            </p> {{ order.order_item }}
+                                            </h5>
+                                            <br>
+                                            <h5>Итого: {{ order.total_price }}₸</h5>
+                                            <div style="display: inline-flex; border-top: 1px solid; border-color: #c4c4c4; width: 100%; margin-top: 5px;">
+                                                <p>Номер заказа: №{{ order.id }}</p>
+                                                <p>
+                                                    Дата: {{ order.pub_date.day }}.{{ order.pub_date.month }}.{{ order.pub_date.year }}</p>
+                                                <button class="adr-edit" style="">Заказать повторно</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+
+
+                </div>
+            </div>
+        </div>
     </div>
-    {% for order in object_list %}
-        {{ forloop.counter }}. Продукт {{ order.order_item }}
-        <br>
-        Цена {{ order.total_price }}
-        <br>
-        Статус {{ order.get_status_display }}
-        <br>
-        <br>
-    {% endfor %}
-{#{% endblock %}#}
+{% endblock %}

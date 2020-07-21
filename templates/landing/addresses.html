@@ -97,7 +97,8 @@
                         {% for address in request.user.address.all %}
                             <div>
                                 <div style="display: inline-flex;">
-                                    <input type="text" class="homeadr"
+
+                                    <input type="text" class="homeadr" id="address"
                                            value="{{ address.address_name }} {{ address.number_house }}, кв{{ address.number_apartment }}"
                                            disabled>
                                     <button onclick="editAddress({{ address.id }})" class="adr-edit"> Изменить</button>
@@ -117,8 +118,9 @@
                     </div>
 
                     {% for address in request.user.address.all %}
-                        <form action="{% url 'addresses' %}" style="display: none"
-                              id="form_edit_address{{ address.id }}" method="post">
+
+                        <form action="{% url 'addresses' %}" method="post" style="display: none; "
+                              id="form_edit_address{{ address.id }}">
                             {% csrf_token %}
                             <div style="display: inline-flex">
                                 <input type="text" value="{{ address.id }}" style="display: none" name="address_id">
@@ -127,13 +129,13 @@
                                        value="{{ address.address_name }}"
                                        name="address_name">
 
-                                <input type="text" class="homeadr" placeholder="номер дома"
+                                <input type="text" class="homeadr" placeholder="дом"
                                        value="{{ address.number_house }}"
-                                       name="address_number_house" style="margin-left: 5px !important;">
+                                       name="address_number_house" style="margin-left: 5px !important; width: 70px">
 
                                 <input type="number" class="homeadr" placeholder="кв"
                                        value="{{ address.number_apartment }}"
-                                       name="address_number_apartment" style="margin-left: 5px !important;">
+                                       name="address_number_apartment" style="margin-left: 5px !important; width: 70px">
                             </div>
                             <br>
                             <br>
@@ -142,15 +144,44 @@
 
                         </form>
 
-                    {% endfor %}
 
+
+                    {% endfor %}
+                    <form action="{% url 'addresses' %}" method="post" style="display: none; "
+                          id="new_address_form">
+                        {% csrf_token %}
+                        <div style="display: inline-flex">
+                                <input type="text" name="type" value="add" style="display: none">
+
+
+                            <input type="text" name="type" value="add" style="display: none">
+                            <input type="text" class="homeadr" placeholder="адрес"
+
+                                   name="address_name">
+
+                            <input type="text" class="homeadr" placeholder="дом"
+
+                                   name="address_number_house" style="margin-left: 5px !important; width: 70px">
+
+                            <input type="number" class="homeadr" placeholder="кв"
+
+                                   name="address_number_apartment" style="margin-left: 5px !important; width: 70px">
+                        </div>
+                        <br>
+                        <br>
+                        <button type="submit" class="adr-edit" name="save" value="save">Добавить</button>
+                        <button onclick="editAddress()" class="adr-edit">Отмена</button>
+
+                    </form>
                     <div class="addloc" style="display: none;">
                         <input type="text" class="homeadr"> <br>
                         <button class="adr-edit" style="margin-left: 7%; margin-top: 2%;">Добавить</button>
                         <button class="adr-edit">Указать на карте</button>
                     </div>
 
-                    <button class="adr-edit other" id="btn_add_address">Добавить другой адрес</button>
+                    <button class="adr-edit other" id="btn_add_address" onclick="newAddressForm()">Добавить другой
+                        адрес
+                    </button>
                 </div>
             </div>
 
