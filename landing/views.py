@@ -289,11 +289,12 @@ class MyAddressView(TemplateView):
                 new_address_number_house = request.POST['address_number_house']
                 new_address_number_apartment = request.POST['address_number_apartment']
                 address = user.address.get(id=id)
+                if 'save' in request.POST:
+                    address.address_name = new_address_name
+                    address.number_house = new_address_number_house
+                    address.number_apartment = new_address_number_apartment
 
-                address.address_name = new_address_name
-                address.number_house = new_address_number_house
-                address.number_apartment = new_address_number_apartment
-                address.save()
+                    address.save()
             if 'delete' in request.POST['type']:
                 id = request.POST['address_id']
                 address = user.address.get(id=id)
@@ -308,3 +309,7 @@ class MyAddressView(TemplateView):
                                            number_apartment=new_address_number_apartment, user=user)
         return redirect('addresses')
         # return super().get(request, *args, **kwargs)
+
+
+class HelpView(TemplateView):
+    template_name = 'landing/help.html'

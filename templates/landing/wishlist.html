@@ -1,14 +1,124 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-{% for item in object_list %}
-    {{ item.store_item }}
+{% extends 'landing/base.html' %}
+{% load static %}
+{% load template_filters %}
+{% block content %}
+    <div class="profbody">
+        <div class="p-body" style="display: inline-flex; margin-left: 10%;">
+            <div class="p-panel">
+                <h4>Мой аккаунт</h4>
+                <div class="panel1" style="margin-left: 5%;">
+                    <a href="{% url 'profile' %}"><p">Информация о
+                        аккаунте</p></a>
+                    <a href="{% url 'wishlist' %}"><p style="border-bottom: 4px solid; border-color: #FB0;">
+                        Избранное</p></a>
+                    <a href="{% url 'addresses' %}"><p>Мои адреса</p></a>
+                    <a href="{% url 'orders' %}"><p>История заказов</p></a>
+                    {#                    <a href="promo.html"><p>Ввести промо-код</p></a>#}
+                    <a href="{% url 'help' %}"><p>Связь с тех.службой</p></a>
+                </div>
+            </div>
 
-    <a type="button" href="{% url 'del_wishlist' %}?store_id={{ item.store_item.id }}">DEL</a>
-{% endfor %}
-</body>
-</html>
+            <div class="p-form wishes">
+                <div class="pf-1">
+                    {% for item in object_list %}
+                        <div class="w-pos">
+                            <div class="pos1" style="width: 700px; border: 1px solid; border-color: #D8D8D8FF">
+                                <div class="list_body" style="display: inline-flex; width: 100%">
+
+                                    <div class="l-img" style="margin-top: 1%; margin-bottom: 1%; margin-left: 2%;">
+                                        <div class="l-img1">
+
+                                            <a href="{% url 'store_detail'  item.store_item.slug %}"><img
+                                                    src="{{ item.store_item.image.url }}" alt=""
+                                                    style="width: 100px; height: 100px;"></a>
+                                        </div>
+                                    </div>
+                                    <div class="listtxt" style="display: inline-flex;">
+                                        <div style="margin-left: 2%; margin-top: 5%;">
+                                            <h5 style="width: 220px;">{{ item.store_item.name }}</h5>
+                                            <p>{{ '$'|multiply:item.store_item.avg_check }}</p>
+                                        </div>
+
+                                        <div class="l-op" style="display: inline-flex; margin-top: 3%;">
+                                            <div class="l-op1" style="font-weight: bold; margin-top: 4%;">
+                                                <p>Расстояние <br> 1 км</p>
+                                            </div>
+
+                                            <div class="l-op2"
+                                                 style="font-weight: bold; margin-left: 10%; margin-top: 4%;">
+                                                <p>Доставка <br> Бесплатно</p>
+                                            </div>
+                                        </div>
+                                        <div class="l-info"
+                                             style="display: inline-flex; margin-left: 5%; margin-top: 5%;">
+                                            <a href="#"
+                                               style="color: #000; text-decoration: none; margin-top: 5%; width: 100%;">
+                                                <div class="i-body" style="display: inline-flex;">
+                                                    <div class="rate" style="display: inline-flex;">
+                                                        {% if item.store_item.average_rating == 1 %}
+                                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                                            <i class="fa fa-star-o" aria-hidden="true"
+                                                               style="color: #FFBB00"></i>
+                                                            <i class="fa fa-star-o" aria-hidden="true"
+                                                               style="color: #FFBB00"></i>
+                                                            <i class="fa fa-star-o" aria-hidden="true"
+                                                               style="color: #FFBB00"></i>
+                                                            <i class="fa fa-star-o" aria-hidden="true"
+                                                               style="color: #FFBB00"></i>
+                                                        {% elif item.store_item.average_rating == 2 %}
+                                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                                            <i class="fa fa-star-o" aria-hidden="true"
+                                                               style="color: #FFBB00"></i>
+                                                            <i class="fa fa-star-o" aria-hidden="true"
+                                                               style="color: #FFBB00"></i>
+                                                            <i class="fa fa-star-o" aria-hidden="true"
+                                                               style="color: #FFBB00"></i>
+                                                        {% elif item.store_item.average_rating == 3 %}
+                                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                                            <i class="fa fa-star-o" aria-hidden="true"
+                                                               style="color: #FFBB00"></i>
+                                                            <i class="fa fa-star-o" aria-hidden="true"
+                                                               style="color: #FFBB00"></i>
+                                                        {% elif item.store_item.average_rating == 4 %}
+                                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                                            <i class="fa fa-star-o" aria-hidden="true"
+                                                               style="color: #FFBB00"></i>
+                                                        {% elif item.store_item.average_rating == 5 %}
+                                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                                        {% elif item.store_item.average_rating == 0 %}
+                                                            <i class="fa fa-star-o" aria-hidden="true"
+                                                               style="color: #FFBB00"></i>
+                                                            <i class="fa fa-star-o" aria-hidden="true"
+                                                               style="color: #FFBB00"></i>
+                                                            <i class="fa fa-star-o" aria-hidden="true"
+                                                               style="color: #FFBB00"></i>
+                                                            <i class="fa fa-star-o" aria-hidden="true"
+                                                               style="color: #FFBB00"></i>
+                                                            <i class="fa fa-star-o" aria-hidden="true"
+                                                               style="color: #FFBB00"></i>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

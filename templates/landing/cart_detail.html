@@ -40,7 +40,8 @@
                                         {% if item.quantity > 1 %}
                                             <span>
                                                 <a href="{% url 'item_decrement' item.product_id %}?slug={{ slug }}&cart=true">
-                                                    <i class="fa fa-minus" style="color: #666666; margin-left: 20px;font-size: 18px"></i>
+                                                    <i class="fa fa-minus"
+                                                       style="color: #666666; margin-left: 20px;font-size: 18px"></i>
                                                 </a></span>
                                         {% else %}
                                             <span><a
