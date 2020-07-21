@@ -2,7 +2,7 @@
 {% load static %}
 {% load template_filters %}
 {% block logo %}
-    <a href="{% url 'home' %}">
+    <a href="{% url 'home' %}" {% comment %}style="margin-left: 5%;"{% endcomment %}>
         <div class="s-logo1">
             <img src="{% static 'images/logo4.png' %}" alt="">
         </div>
@@ -36,30 +36,30 @@
     {#    </div>#}
     <div class="categories" style="display: block">
         <div class="categ_s_body">
-            <div class="s-food categ_s">
+            <div class="s-food categ_s1">
                 <a href="#" class="">Еда</a>
             </div>
 
-            <div class="s-drinks categ_s">
+            <div class="s-drinks categ_s1">
                 <a href="#" class="s-drinks1">Напитки</a>
             </div>
 
-            <div class="s-pharmacy categ_s">
+            <div class="s-pharmacy categ_s1">
                 <a href="#" class="s-pharmacy1">Аптеки</a>
             </div>
 
         </div>
 
         <div class="categ_s_body">
-            <div class="s-shops categ_s">
+            <div class="s-shops categ_s1">
                 <a href="#" class="s-shops1">Магазины</a>
             </div>
 
-            <div class="s-laundry categ_s">
+            <div class="s-laundry categ_s1">
                 <a href="#" class="s-laundry1">Прачечные</a>
             </div>
 
-            <div class="s-auto categ_s">
+            <div class="s-auto categ_s1">
                 <a href="#" class="s-auto1">Автозапчасти</a>
             </div>
 
@@ -68,10 +68,10 @@
     </div>
     <hr style="margin-bottom: 0">
 
-    <div class="body1" style="">
+    <div class="body1" style="display: inline-flex;">
         <div class="accordion" id="accordionExample" style="display: block">
             <div class="card" style="border-radius: 0; border-top: none">
-                <div class="card-header" id="headingOne">
+                <div class="card-header" style="display:none;" id="headingOne">
                     <h2 class="mb-0">
                         <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse"
                                 data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"

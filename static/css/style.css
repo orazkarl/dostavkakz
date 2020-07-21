@@ -111,14 +111,14 @@ a {
  }
  .logo {
   margin-top: 16%;
-  margin-left: 42.5%;
+  margin-left: 41.5%;
  }
  .logo img {
   width: 220px;
   height: 50px;
  }
  .mainsearch {
-  margin-top: 2%;
+  margin-top: 1%;
   margin-left: 38%;
  }
  .mainsearch1 {
@@ -168,7 +168,10 @@ a {
 }
 .maincat-s {
   margin-top: 1%;
-  margin-left: 41.5%;
+  margin-left: 40%;
+}
+.maincat-s img {
+  padding: 5px;
 }
 .m-food {
   color: #000;
@@ -227,26 +230,6 @@ a {
   width: 100%;
   display: none;
 }
-  .categ_s {
-    width: 110px;
-    height: 70px;
-    text-align: center;
-    margin-top: 5%;
-    margin-left: 5%;
-    border: 1px solid;
-    border-color: #666;
-    border-radius: 3px;
-    padding-top: 23px;
-    font-size: 13px;
-    text-decoration: none;
-    box-shadow: 0 0 8px rgba(0,0,0,0.5);
-    cursor: pointer;
-    font-weight: bold;
-    color: #000;
-  }
-  .categ_s a {
-    color: #000;
-  }
   .categories-pc {
     margin-top: 1%;
     border-bottom: 1px solid;
@@ -319,6 +302,9 @@ a {
 }
 .accordion {
   display: none;
+}
+.card-body {
+  width: 350px;
 }
 .filters {
   margin-left: 2%;
