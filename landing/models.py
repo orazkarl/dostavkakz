@@ -32,6 +32,7 @@ class Store(models.Model):
     latitude = models.CharField('Широота', max_length=50, null=True, blank=True)
     longitude = models.CharField('Высота', max_length=50, null=True, blank=True)
     avg_check = models.PositiveIntegerField(null=True, blank=True)
+
     class Meta:
         verbose_name = 'Заведение'
         verbose_name_plural = 'Заведении'
@@ -135,6 +136,8 @@ class Order(models.Model):
     total_price = models.DecimalField('Цена', max_digits=8, decimal_places=2)
     status = models.CharField('Статус', choices=ORDER_STATUS_CHOICES, max_length=25, null=True, blank=True)
     comment = models.CharField('Комментарии', max_length=250, null=True, blank=True)
+    pub_date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+
     class Meta:
         verbose_name = 'Заказ'
         verbose_name_plural = 'Заказы'

@@ -300,13 +300,14 @@ class MyAddressView(TemplateView):
                 address = user.address.get(id=id)
                 address.delete()
             if 'add' in request.POST['type']:
-                new_address_name = request.POST['address_name']
-                new_address_number_house = request.POST['address_number_house']
-                new_address_number_apartment = request.POST['address_number_apartment']
-                if not Address.objects.filter(address_name=new_address_name, number_house=new_address_number_house,
-                                              number_apartment=new_address_number_apartment, user=user):
-                    Address.objects.create(address_name=new_address_name, number_house=new_address_number_house,
-                                           number_apartment=new_address_number_apartment, user=user)
+                if 'save' in request.POST:
+                    new_address_name = request.POST['address_name']
+                    new_address_number_house = request.POST['address_number_house']
+                    new_address_number_apartment = request.POST['address_number_apartment']
+                    if not Address.objects.filter(address_name=new_address_name, number_house=new_address_number_house,
+                                                  number_apartment=new_address_number_apartment, user=user):
+                        Address.objects.create(address_name=new_address_name, number_house=new_address_number_house,
+                                               number_apartment=new_address_number_apartment, user=user)
         return redirect('addresses')
         # return super().get(request, *args, **kwargs)
 
