@@ -205,8 +205,11 @@
 .ord4 {
 	border-top: 1px solid;
 }
+.btn-secondary {
+	width: 100% !important;
+}
 .pos-img {
-	width: 100%;
+	width: auto;
 }
 .pos-img img {
 	height: 75%;
@@ -216,7 +219,7 @@
 	margin-left: 0 !important;
 }
 .obmob {
-	display: inline-flex;
+	display: inline-flex !important;
 }
 iframe {
 	display: none;
@@ -322,7 +325,10 @@ textarea {
 	.prodlist {
 		margin-top: 6%;
 		margin-left: 5%;
-		width: auto;
+		width: 375px;
+	}
+	.pos-info {
+		width: 250px;
 	}
 	.orderbox {
 		margin-left: 9%;
