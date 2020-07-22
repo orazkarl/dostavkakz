@@ -26,12 +26,12 @@ class Store(models.Model):
     description = models.CharField('Описание', max_length=500, null=True, blank=True)
     image = models.ImageField('Изображение', upload_to='store/')
     # category = models.ForeignKey(FoodCategory, verbose_name='Тэг', null=True, blank=True, on_delete=models.CASCADE)
-    tag = models.ManyToManyField(FoodCategory, related_name='tags')
+    tag = models.ManyToManyField(FoodCategory, related_name='tags', null=True, blank=True)
     time_open = models.TimeField('Открывается', null=True, blank=True)
     time_closed = models.TimeField('Закрывается', null=True, blank=True)
     latitude = models.CharField('Широота', max_length=50, null=True, blank=True)
     longitude = models.CharField('Высота', max_length=50, null=True, blank=True)
-    avg_check = models.PositiveIntegerField(null=True, blank=True)
+    avg_check = models.PositiveIntegerField(null=True, blank=True, default=0)
 
     class Meta:
         verbose_name = 'Заведение'
@@ -73,13 +73,14 @@ class Store(models.Model):
 
 
 class Product(models.Model):
+    id_code = models.CharField('КОД', max_length=100, null=True, blank=True)
     store = models.ForeignKey(Store, on_delete=models.DO_NOTHING, verbose_name='Заведение')
-    category = models.ForeignKey(FoodCategory, on_delete=models.DO_NOTHING, verbose_name='Категория')
+    category = models.ForeignKey(FoodCategory, on_delete=models.DO_NOTHING, verbose_name='Категория', null=True, blank=True)
     name = models.CharField('Название', max_length=250)
     price = models.DecimalField('Цена', max_digits=7, decimal_places=2)
-    description = models.CharField('Описание', max_length=100)
-    image = models.ImageField('Изображение', upload_to='products/%Y/%m/%d')
-
+    description = models.CharField('Описание', max_length=100, null=True, blank=True)
+    image = models.ImageField('Изображение', upload_to='products/%Y/%m/%d', default='store/KFC_logo.png')
+    quantity = models.PositiveIntegerField('Количество', null=True, blank=True)
     class Meta:
         verbose_name = 'Продукт'
         verbose_name_plural = 'Продукты'

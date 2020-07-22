@@ -175,6 +175,10 @@ def cart_detail(request, slug):
     for item in cart.cart.values():
         product_id = item['product_id']
         product = Product.objects.get(id=product_id)
+        print(type(item['quantity']))
+        if product.name != item['name'] or float(product.price) != float(item['price']) or product.quantity<item['quantity']:
+            cart.remove(product)
+            break
         if slug == product.store.slug:
             item['description'] = product.description
             items.append(item)

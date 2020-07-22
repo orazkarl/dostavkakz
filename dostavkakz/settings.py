@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'landing',
     # 'landing.apps.LandingConfig',
     'user_auth.apps.UserAuthConfig',
+    'api1c.apps.Api1CConfig',
 
     'allauth',
     'allauth.account',
@@ -48,6 +49,8 @@ INSTALLED_APPS = [
 
     'cart',
     'django_2gis_maps',
+
+    'rest_framework',
 
 ]
 
