@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import *
 from django.http import JsonResponse, HttpResponse
 from .models import FoodCategory, Store, Product, Review, Wishlist, Order
-from user_auth.models import User, Address
+from user_auth.models import User, Address, StreetAdress, NumberHouseAddress
 from django.contrib.auth.decorators import login_required
 from cart.cart import Cart
 from django.db.models import Q
@@ -176,7 +176,8 @@ def cart_detail(request, slug):
         product_id = item['product_id']
         product = Product.objects.get(id=product_id)
         print(type(item['quantity']))
-        if product.name != item['name'] or float(product.price) != float(item['price']) or product.quantity<item['quantity']:
+        if product.name != item['name'] or float(product.price) != float(item['price']) or product.quantity < item[
+            'quantity']:
             cart.remove(product)
             break
         if slug == product.store.slug:
@@ -280,8 +281,23 @@ class OrderView(ListView):
         return super().get(request, *args, **kwargs)
 
 
-class MyAddressView(TemplateView):
+class MyAddressView(ListView):
     template_name = 'landing/addresses.html'
+    model = User
+
+    def get(self, request, *args, **kwargs):
+        houses = ''
+        if request.GET:
+            street = request.GET['street']
+            houses = NumberHouseAddress.objects.filter(street=street)
+            return render(request, 'landing/ajax_address_list.html', {'houses': houses})
+        self.queryset = Address.objects.filter(user=request.user)
+        self.extra_context = {
+            'streets': StreetAdress.objects.all(),
+            'houses': houses,
+        }
+
+        return super().get(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
 
@@ -305,13 +321,14 @@ class MyAddressView(TemplateView):
                 address.delete()
             if 'add' in request.POST['type']:
                 if 'save' in request.POST:
-                    new_address_name = request.POST['address_name']
-                    new_address_number_house = request.POST['address_number_house']
+                    new_address_name = StreetAdress.objects.get(id=request.POST['street'])
+                    new_address_number_house = NumberHouseAddress.objects.get(id=request.POST['house'])
                     new_address_number_apartment = request.POST['address_number_apartment']
                     if not Address.objects.filter(address_name=new_address_name, number_house=new_address_number_house,
                                                   number_apartment=new_address_number_apartment, user=user):
                         Address.objects.create(address_name=new_address_name, number_house=new_address_number_house,
                                                number_apartment=new_address_number_apartment, user=user)
+
         return redirect('addresses')
         # return super().get(request, *args, **kwargs)
 

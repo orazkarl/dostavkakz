@@ -69,7 +69,7 @@ a {
   padding-right: 10px;
   margin-bottom: 6px;
 }
-.p-form input {
+.p-form input, select, option {
   margin-bottom: 5px;
   width: 300px;
   text-align: center;

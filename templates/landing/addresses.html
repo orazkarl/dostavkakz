@@ -1,74 +1,3 @@
-{#{% extends 'landing/base.html' %}#}
-{#{% load static %}#}
-{#{% block content %}#}
-{##}
-
-
-{##}
-{#<button onclick="newAddressForm()" id="btn_add_address">Add address</button>#}
-{#<form action="{% url 'addresses' %}" style="display: none" id="new_address_form" method="post">#}
-{#    {% csrf_token %}#}
-{##}
-{#    <input type="text" name="type" value="add" style="display: none">#}
-{#    <input type="text" placeholder="адрес" name="address_name">#}
-{#    <input type="text" placeholder="номер дома" name="address_number_house">#}
-{#    <input type="number" placeholder="кв" name="address_number_apartment">#}
-{#    <input type="submit">#}
-{#<button onclick="newAddressForm()" type="button">cancel</button>#}
-{#</form>#}
-{##}
-{#<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>#}
-{##}
-{##}
-{#<script>#}
-{#    function myFunct(form) { // catch the form's submit event#}
-{#        event.preventDefault();#}
-{#        $.ajax({ // create an AJAX call...#}
-{#            data: $(form).serialize(), // get the form data#}
-{#            type: $(form).attr('method'), // GET or POST#}
-{#            url: $(form).attr('action'), // the file to call#}
-{#            success: function (response) { // on success..#}
-{#                $('#response').html(response);#}
-{#                console.log(response); // update the DIV#}
-{#            },#}
-{#        });#}
-{#        return false;#}
-{#    }#}
-{#</script>#}
-{#<script>#}
-{#    function editAddress(id) {#}
-{#        addressesList = document.getElementById('addresses_list');#}
-{#        addressForm = document.getElementById('form_edit_address' + id);#}
-{#        btn = document.getElementById('btn_add_address');#}
-{#        if (addressForm.style.display == 'none') {#}
-{#            addressesList.style.display = 'none';#}
-{#            addressForm.style.display = 'block';#}
-{#                btn.style.display = 'none';#}
-{#        } else {#}
-{#            addressForm.style.display = 'none';#}
-{#            addressesList.style.display = 'block';#}
-{#                btn.style.display = 'block';#}
-{#        }#}
-{##}
-{#    }#}
-{##}
-{#    function newAddressForm() {#}
-{#        addressForm = document.getElementById('new_address_form');#}
-{#        btn = document.getElementById('btn_add_address');#}
-{#        addressesList = document.getElementById('addresses_list');#}
-{#        if (addressForm.style.display == 'none') {#}
-{#            addressForm.style.display = 'block';#}
-{#            btn.style.display = 'none';#}
-{#            addressesList.style.display = 'none';#}
-{#        } else {#}
-{#            addressForm.style.display = 'none';#}
-{#            btn.style.display = 'block';#}
-{#            addressesList.style.display = 'block';#}
-{#        }#}
-{#    }#}
-{#</script>#}
-{#{% endblock %}#}
-
 {% extends 'landing/base.html' %}
 {% load static %}
 {% load template_filters %}
@@ -90,7 +19,7 @@
                 </div>
             </div>
             <div class="p-form adr-list">
-                <div id="response"></div>
+
                 <div class="pf-1">
                     {#                    <h5>Дом:</h5>#}
                     <div id="addresses_list">
@@ -99,15 +28,15 @@
                                 <div style="display: inline-flex;">
 
                                     <input type="text" class="homeadr" id="address"
-                                           value="{{ address.address_name }} {{ address.number_house }}, кв{{ address.number_apartment }}"
+                                           value="{{ address.address_name }} {{ address.number_house.number_house }}, кв{{ address.number_apartment }}"
                                            disabled>
-                                    <button onclick="editAddress({{ address.id }})" class="adr-edit"> Изменить</button>
+                                    {#                                    <button onclick="editAddress({{ address.id }})" class="adr-edit"> Изменить</button>#}
                                     <form action="{% url 'addresses' %}" method="post">
                                         {% csrf_token %}
                                         <input type="text" name="type" value="delete" style="display: none">
                                         <input type="text" name="address_id" value="{{ address.id }}"
                                                style="display:none;">
-                                        <button type="submit" class="adr-edit">Удалить</button>
+                                        <button type="submit" class="adr-edit" style="margin-left: 5px">Удалить</button>
                                     </form>
                                 </div>
 
@@ -140,37 +69,38 @@
                             <br>
                             <br>
                             <button type="submit" class="adr-edit" name="save" value="save">Сохранить</button>
-                            <button onclick="editAddress()" class="adr-edit">Отмена</button>
-
+                            {#                            <button onclick="editAddress()" class="adr-edit">Отмена</button>#}
+                            <a href="{% url 'addresses' %}" type="button" class="adr-edit"
+                               style="color: black">Отмена</a>
                         </form>
 
 
 
                     {% endfor %}
-                    <form action="{% url 'addresses' %}" method="post" style="display: none; "
+                    <form action="{% url 'addresses' %}" method="post" style="display: none; margin-left: 8px; margin-top: -3px"
                           id="new_address_form">
                         {% csrf_token %}
                         <div style="display: inline-flex">
-                                <input type="text" name="type" value="add" style="display: none">
-
-
                             <input type="text" name="type" value="add" style="display: none">
-                            <input type="text" class="homeadr" placeholder="адрес"
+                            <select name="street" id="street_list" class="homeadr" style="width: 200px" required>
+                                <option disabled selected value="none">Улица</option>
+                                {% for street in streets %}
+                                    <option value="{{ street.id }}" class="homeadr">{{ street }}</option>
+                                {% endfor %}
 
-                                   name="address_name">
+                            </select>
 
-                            <input type="text" class="homeadr" placeholder="дом"
-
-                                   name="address_number_house" style="margin-left: 5px !important; width: 70px">
-
-                            <input type="number" class="homeadr" placeholder="кв"
-
-                                   name="address_number_apartment" style="margin-left: 5px !important; width: 70px">
+                            <select name="house" id="response" class="homeadr" style="width: 70px;" required>
+                                <option disabled selected value="none">Дом</option>
+                            </select>
+                            <input type="number" class="homeadr" placeholder="кв" name="address_number_apartment"
+                                   style="margin-left: 5px !important; width: 70px" required>
                         </div>
                         <br>
                         <br>
                         <button type="submit" class="adr-edit" name="save" value="save">Добавить</button>
-                        <button onclick="editAddress()" class="adr-edit">Отмена</button>
+                        {#                        <button type="button" onClick="editAddress()" class="adr-edit">Отмена</button>#}
+                        <a href="{% url 'addresses' %}" type="button" class="adr-edit" style="color: black">Отмена</a>
 
                     </form>
                     <div class="addloc" style="display: none;">
@@ -190,24 +120,32 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-
     <script>
-        function myFunct(form) { // catch the form's submit event
-            event.preventDefault();
-            $.ajax({ // create an AJAX call...
-                data: $(form).serialize(), // get the form data
-                type: $(form).attr('method'), // GET or POST
-                url: $(form).attr('action'), // the file to call
-                success: function (response) { // on success..
-                    $('#response').html(response);
-                    console.log(response); // update the DIV
-                },
+        $(function () {
+
+            $('#street_list').click(function () {
+                $.ajax({
+                    type: "GET",
+                    url: "/addresses/",
+                    data: {
+                        'street': $('#street_list').val(),
+                        {#'csrfmiddlewaretoken': $("input[name=csrfmiddlewaretoken]").val()#}
+                    },
+                    success: addressListSuccess,
+                    dataType: 'html'
+
+                });
             });
-            return false;
+        });
+
+        function addressListSuccess(data, textStatus, jqXHR) {
+            console.log(data);
+            $('#response').html(data)
         }
     </script>
     <script>
         function editAddress(id) {
+            console.log('asd');
             addressesList = document.getElementById('addresses_list');
             addressForm = document.getElementById('form_edit_address' + id);
             btn = document.getElementById('btn_add_address');

@@ -102,7 +102,9 @@
  	 	margin-left: 4%;
 }
 	.mainsearch11 {
-		display: none !important;
+		margin-top: 10px;
+		/*display: none !important;*/
+		width: 250px;
 	}
 	.log-block1 {
 		display: none;

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import User, Address
+from .models import User, Address, StreetAdress, NumberHouseAddress
 # Register your models here.
 
 
@@ -14,3 +14,6 @@ class UserAdmin(admin.ModelAdmin):
     list_display = ['username']
 
     inlines = [AddressInline]
+
+admin.site.register(StreetAdress)
+admin.site.register(NumberHouseAddress)
