@@ -10,60 +10,15 @@
 {% endblock %}
 {% block content %}
     <h5 class="selectcat">Пожалуйста, выберите категорию</h5>
-    {#    <div class="categories-pc">#}
-    {#        <div class="categ_s_body">#}
-    {#            <div class="s-food categ_s1">#}
-    {#                <a href="#" class="s-food1">Еда</a>#}
-    {#            </div>#}
-    {#            <div class="s-drinks categ_s1">#}
-    {#                <a href="#" class="s-drinks1">Напитки</a>#}
-    {#            </div>#}
-    {#            <div class="s-pharmacy categ_s1">#}
-    {#                <a href="#" class="s-pharmacy1">Аптеки</a>#}
-    {#            </div>#}
-    {#        </div>#}
-    {#        <div class="categ_s_body">#}
-    {#            <div class="s-shops categ_s1">#}
-    {#                <a href="#" class="s-shops1">Магазины</a>#}
-    {#            </div>#}
-    {#            <div class="s-laundry categ_s1">#}
-    {#                <a href="#" class="s-laundry1">Прачечные</a>#}
-    {#            </div>#}
-    {#            <div class="s-auto categ_s1">#}
-    {#                <a href="#" class="s-auto1">Автозапчасти</a>#}
-    {#            </div>#}
-    {#        </div>#}
-    {#    </div>#}
     <div class="categories" style="display: block">
         <div class="categ_s_body">
-            <div class="s-food categ_s1">
-                <a href="#" class="">Еда</a>
-            </div>
-
-            <div class="s-drinks categ_s1">
-                <a href="#" class="s-drinks1">Напитки</a>
-            </div>
-
-            <div class="s-pharmacy categ_s1">
-                <a href="#" class="s-pharmacy1">Аптеки</a>
-            </div>
-
+            {% for category in categories %}
+                <div class="categ_s1">
+                    <a href="{% url 'stores_list' category.slug %}" class="">{{ category.name }}</a>
+                </div>
+            {% endfor %}
         </div>
 
-        <div class="categ_s_body">
-            <div class="s-shops categ_s1">
-                <a href="#" class="s-shops1">Магазины</a>
-            </div>
-
-            <div class="s-laundry categ_s1">
-                <a href="#" class="s-laundry1">Прачечные</a>
-            </div>
-
-            <div class="s-auto categ_s1">
-                <a href="#" class="s-auto1">Автозапчасти</a>
-            </div>
-
-        </div>
 
     </div>
     <hr style="margin-bottom: 0">
@@ -118,90 +73,32 @@
                                     </select>
                                 </div>
                                 <div class="kitchen">
-                                    <h5>Кухня</h5>
-                                    {% for tag in tags %}
-                                        <div>
-                                            <div class="Filters__filter">
-                                                <label class="Checkbox Filters__label" for="Checkbox__{{ tag.id }}"
-                                                       style="display: -webkit-inline-box; font-size: 20px;">
-                                                    <div class="Checkbox__selection">
-                                                        <input type="checkbox" id="Checkbox__{{ tag.id }}"
-                                                               name="foodcategory"
-                                                               class="Checkbox__selection__input " value="{{ tag.id }}"
-                                                               {% if tag.id|stringformat:"s" in request.GET|get_list:'foodcategory' %}checked {% endif %}>
-                                                        <i class="Checkbox__selection__check "></i>
-                                                    </div>
-                                                    <p class="Checkbox__text"
-                                                       style="margin-left: 2%; font-size: 20px;">  {{ tag.name }}</p>
-                                                </label>
+                                    {% if slug == 'restoran' %}
+                                        <h5>Кухня</h5>
+
+                                        {% for tag in tags %}
+                                            <div>
+                                                <div class="Filters__filter">
+                                                    <label class="Checkbox Filters__label" for="Checkbox__{{ tag.id }}"
+                                                           style="display: -webkit-inline-box; font-size: 20px;">
+                                                        <div class="Checkbox__selection">
+                                                            <input type="checkbox" id="Checkbox__{{ tag.id }}"
+                                                                   name="foodcategory"
+                                                                   class="Checkbox__selection__input "
+                                                                   value="{{ tag.id }}"
+                                                                   {% if tag.id|stringformat:"s" in request.GET|get_list:'foodcategory' %}checked {% endif %}>
+                                                            <i class="Checkbox__selection__check "></i>
+                                                        </div>
+                                                        <p class="Checkbox__text"
+                                                           style="margin-left: 2%; font-size: 20px;">  {{ tag.name }}</p>
+                                                    </label>
+                                                </div>
                                             </div>
-                                        </div>
-                                    {% endfor %}
-                                    {#                                    <select aria-label="Select order date" class="kitchen" name="OrderTimeSelector__Day"#}
-                                    {#                                            id="OrderTimeSelector__Day">#}
-                                    {#                                        <option value="Wed 07/08">Фастфуд</option>#}
-                                    {#                                        <option value="Thu 07/09">Азиатская</option>#}
-                                    {#                                        <option value="Fri 07/10">Европейская</option>#}
-                                    {#                                        <option value="Sat 07/11">Восточная</option>#}
-                                    {#                                        <option value="Sun 07/12">Русская</option>#}
-                                    {#                                        <option value="Mon 07/13">Казахская</option>#}
-                                    {#                                    </select>#}
+                                        {% endfor %}
+                                    {% endif %}
                                 </div>
 
-                                {#                                <div class="ASAP">#}
-                                {#                                    <h5>Время доставки</h5>#}
-                                {#                                    <select aria-label="Select order date" class="kitchen" name="OrderTimeSelector__Day"#}
-                                {#                                            id="OrderTimeSelector__Day">#}
-                                {#                                        <option value="Wed 07/08">Сейчас</option>#}
-                                {#                                        <option value="Thu 07/09">Через час</option>#}
-                                {#                                        <option value="Fri 07/10">Через 2 часа</option>#}
-                                {#                                        <option value="Sat 07/11">Через 3 часа</option>#}
-                                {#                                        <option value="Sun 07/12">Через 4 часа</option>#}
-                                {#                                        <option value="Mon 07/13">Через 5 часов</option>#}
-                                {#                                    </select></div>#}
                             </div>
-                            {#                            <h5>Дополнительно</h5>#}
-                            {#                            <div style="margin-top: 5%;">#}
-                            {#                                <div class="Filters__filter"><label class="Checkbox Filters__label" for="Checkbox__1"#}
-                            {#                                                                    style="display: -webkit-inline-box; font-size: 20px;">#}
-                            {#                                    <div class="Checkbox__selection">#}
-                            {#                                        <input type="checkbox" id="Checkbox__1" name="features"#}
-                            {#                                               class="Checkbox__selection__input " value="free_delivery">#}
-                            {#                                        <i class="Checkbox__selection__check "></i></div>#}
-                            {#                                    <p class="Checkbox__text" style="margin-left: 2%; font-size: 20px;"> Бесплатная#}
-                            {#                                        доставка (105)</p></label></div>#}
-                            {#                            </div>#}
-                            {##}
-                            {#                            <div>#}
-                            {#                                <div class="Filters__filter"><label class="Checkbox Filters__label" for="Checkbox__1"#}
-                            {#                                                                    style="display: -webkit-inline-box; font-size: 20px;">#}
-                            {#                                    <div class="Checkbox__selection">#}
-                            {#                                        <input type="checkbox" id="Checkbox__1" name="features"#}
-                            {#                                               class="Checkbox__selection__input " value="free_delivery">#}
-                            {#                                        <i class="Checkbox__selection__check "></i></div>#}
-                            {#                                    <p class="Checkbox__text" style="margin-left: 2%; font-size: 20px;"> Блюда на#}
-                            {#                                        компанию</p></label></div>#}
-                            {#                            </div>#}
-                            {#                            <div>#}
-                            {#                                <div class="Filters__filter"><label class="Checkbox Filters__label" for="Checkbox__1"#}
-                            {#                                                                    style="display: -webkit-inline-box; font-size: 20px;">#}
-                            {#                                    <div class="Checkbox__selection">#}
-                            {#                                        <input type="checkbox" id="Checkbox__1" name="features"#}
-                            {#                                               class="Checkbox__selection__input " value="free_delivery">#}
-                            {#                                        <i class="Checkbox__selection__check "></i></div>#}
-                            {#                                    <p class="Checkbox__text" style="margin-left: 2%; font-size: 20px;"> Акции</p>#}
-                            {#                                </label></div>#}
-                            {#                            </div>#}
-                            {#                            <div>#}
-                            {#                                <div class="Filters__filter"><label class="Checkbox Filters__label" for="Checkbox__1"#}
-                            {#                                                                    style="display: -webkit-inline-box; font-size: 20px;">#}
-                            {#                                    <div class="Checkbox__selection">#}
-                            {#                                        <input type="checkbox" id="Checkbox__1" name="features"#}
-                            {#                                               class="Checkbox__selection__input " value="free_delivery">#}
-                            {#                                        <i class="Checkbox__selection__check "></i></div>#}
-                            {#                                    <p class="Checkbox__text" style="margin-left: 2%; font-size: 20px;"> Новинки</p>#}
-                            {#                                </label></div>#}
-                            {#                            </div>#}
 
                             <div class="f-price">
                                 <h5>Средний чек</h5>
@@ -228,141 +125,6 @@
                 </div>
             </div>
         </div>
-        {#        <div class="filters">#}
-        {#            <div class="filter-body">#}
-        {#                <form action="{% url 'stores_list' %}" method="get">#}
-        {#                    {% csrf_token %}#}
-        {#                            <div class="ASAP" style="margin-bottom: 3%;">#}
-        {#                                <h5>Сортировать по:</h5>#}
-        {##}
-        {#                                <select aria-label="Select order date" class="kitchen" name="sortby"#}
-        {#                                        id="OrderTimeSelector__Day">#}
-        {#                                    <option value="alphabet" {% if request.GET.sortby == 'alphabet' %}selected{% endif %}>#}
-        {#                                        Алфавиту#}
-        {#                                    </option>#}
-        {#                                    <option value="inexpensive" {% if request.GET.sortby == 'inexpensive' %}selected{% endif %}>#}
-        {#                                        Сначала дешевые#}
-        {#                                    </option>#}
-        {#                                    <option value="expensive" {% if request.GET.sortby == 'expensive' %}selected{% endif %}>#}
-        {#                                        Сначала#}
-        {#                                        дорогие#}
-        {#                                    </option>#}
-        {#                                    <option value="popular" {% if request.GET.sortby == 'popular' %}selected{% endif %}>#}
-        {#                                        Популярность#}
-        {#                                    </option>#}
-        {#                                    <option value="fastdelivery"#}
-        {#                                            {% if request.GET.sortby == 'fastdelivery' %}selected{% endif %}>#}
-        {#                                        Быстрая доставка#}
-        {#                                    </option>#}
-        {#                                    <option value="rating" {% if request.GET.sortby == 'rating' %}selected{% endif %}>Рейтинг#}
-        {#                                    </option>#}
-        {#                                </select>#}
-        {#                            </div>#}
-        {#                    <div class="kitchen">#}
-        {#                        <h5>Кухня</h5>#}
-        {##}
-        {#                    {% for i in request.GET|get_list:'foodcategory' %}#}
-        {#                        {{ i }}#}
-        {#                    {% endfor %}#}
-        {#                                {% for tag in tags %}#}
-        {#                                    <div>#}
-        {#                                        <div class="Filters__filter">#}
-        {#                                            <label class="Checkbox Filters__label" for="Checkbox__{{ tag.id }}"#}
-        {#                                                   style="display: -webkit-inline-box; font-size: 20px;">#}
-        {#                                                <div class="Checkbox__selection">#}
-        {#                                                    <input type="checkbox" id="Checkbox__{{ tag.id }}" name="foodcategory"#}
-        {#                                                           class="Checkbox__selection__input " value="{{ tag.id }}"#}
-        {#                                                           {% if tag.id|stringformat:"s" in request.GET|get_list:'foodcategory' %}checked {% endif %}>#}
-        {#                                                    <i class="Checkbox__selection__check "></i>#}
-        {#                                                </div>#}
-        {#                                                <p class="Checkbox__text"#}
-        {#                                                   style="margin-left: 2%; font-size: 20px;">  {{ tag.name }}</p>#}
-        {#                                            </label>#}
-        {#                                        </div>#}
-        {#                                    </div>#}
-        {#                                {% endfor %}#}
-        {##}
-        {#                    </div>#}
-        {#                <div style="margin-top: 5%; padding-top: 10px; border-top: 1px solid; border-color: #c4c4c4;">#}
-        {#                    <h5>Дополнительно</h5>#}
-        {#                    <div class="Filters__filter"><label class="Checkbox Filters__label" for="Checkbox__1"#}
-        {#                                                        style="display: -webkit-inline-box; font-size: 20px;">#}
-        {#                        <div class="Checkbox__selection">#}
-        {#                            <input type="checkbox" id="Checkbox__1" name="features" class="Checkbox__selection__input "#}
-        {#                                   value="free_delivery">#}
-        {#                            <i class="Checkbox__selection__check "></i></div>#}
-        {#                        <p class="Checkbox__text" style="margin-left: 2%; font-size: 20px;"> Бесплатная доставка#}
-        {#                            (105)</p>#}
-        {#                    </label></div>#}
-        {#                </div>#}
-        {#                <div>#}
-        {#                    <div class="Filters__filter"><label class="Checkbox Filters__label" for="Checkbox__1"#}
-        {#                                                        style="display: -webkit-inline-box; font-size: 20px;">#}
-        {#                        <div class="Checkbox__selection">#}
-        {#                            <input type="checkbox" id="Checkbox__1" name="features" class="Checkbox__selection__input "#}
-        {#                                   value="free_delivery">#}
-        {#                            <i class="Checkbox__selection__check "></i></div>#}
-        {#                        <p class="Checkbox__text" style="margin-left: 2%; font-size: 20px;"> Блюда на компанию</p>#}
-        {#                    </label></div>#}
-        {#                </div>#}
-        {#                <div>#}
-        {#                    <div class="Filters__filter"><label class="Checkbox Filters__label" for="Checkbox__1"#}
-        {#                                                        style="display: -webkit-inline-box; font-size: 20px;">#}
-        {#                        <div class="Checkbox__selection">#}
-        {#                            <input type="checkbox" id="Checkbox__1" name="features" class="Checkbox__selection__input "#}
-        {#                                   value="free_delivery">#}
-        {#                            <i class="Checkbox__selection__check "></i>#}
-        {#                        </div>#}
-        {#                        <p class="Checkbox__text" style="margin-left: 2%; font-size: 20px;"> Акции</p></label>#}
-        {#                    </div>#}
-        {#                </div>#}
-        {#                <div>#}
-        {#                    <div class="Filters__filter"><label class="Checkbox Filters__label" for="Checkbox__1"#}
-        {#                                                        style="display: -webkit-inline-box; font-size: 20px;">#}
-        {#                        <div class="Checkbox__selection">#}
-        {#                            <input type="checkbox" id="Checkbox__1" name="features" class="Checkbox__selection__input "#}
-        {#                                   value="free_delivery">#}
-        {#                            <i class="Checkbox__selection__check "></i></div>#}
-        {#                        <p class="Checkbox__text" style="margin-left: 2%; font-size: 20px;"> Новинки</p></label></div>#}
-        {#                </div>#}
-        {##}
-        {#                    <div class="f-price">#}
-        {#                        <h5>Средний чек</h5>#}
-        {#                                <div class="radio-toolbar">#}
-        {#                                    <input type="radio" id="radio1" name="avgcheck" value="1"#}
-        {#                                           {% if request.GET.avgcheck == '1' %}checked{% endif %}>#}
-        {#                                    <label for="radio1">$</label>#}
-        {#                                    <input type="radio" id="radio2" name="avgcheck" value="2"#}
-        {#                                           {% if request.GET.avgcheck == '2' %}checked{% endif %}>#}
-        {#                                    <label for="radio2">$$</label>#}
-        {#                                    <input type="radio" id="radio3" name="avgcheck" value="3"#}
-        {#                                           {% if request.GET.avgcheck == '3' %}checked{% endif %}>#}
-        {#                                    <label for="radio3">$$$</label>#}
-        {#                                    <input type="radio" id="radio4" name="avgcheck" value="4"#}
-        {#                                           {% if request.GET.avgcheck == '4' %}checked{% endif %}>#}
-        {#                                    <label for="radio4">$$$$</label>#}
-        {#                                </div>#}
-        {#                    <div classf="btn-group btn-group-toggle" data-toggle="buttons">#}
-        {#                        <input type="radio" style="display: none">#}
-        {#                        <label class="btn btn-secondary active">$#}
-        {#                        </label>#}
-        {#                        <input type="radio" name="options" value="option1" class="avg-check-checkbox" style="display: none">#}
-        {#                        <label class="btn btn-secondary">#}
-        {#                        <input type="radio" name="options" value id="option2"> $$#}
-        {#                        </label>#}
-        {#                        <label class="btn btn-secondary">#}
-        {#                        <input type="radio" name="options" value id="option3"> $$$#}
-        {#                        </label>#}
-        {#                        <label class="btn btn-secondary">#}
-        {#                        <input type="radio" name="options" value id="option3"> $$$$#}
-        {#                        </label>#}
-        {#                    </div>#}
-        {#                    </div>#}
-        {##}
-        {#                            <button class="fil-btn"> Применить фильтры</button>#}
-        {#                </form>#}
-        {#            </div>#}
-        {#        </div>#}
 
         <div class="list-body11"> <!-- Начало списка с результатами -->
             {% for store in stores %}

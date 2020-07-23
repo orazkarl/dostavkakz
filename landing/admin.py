@@ -2,8 +2,14 @@ from django.contrib import admin
 from .models import *
 
 
-@admin.register(FoodCategory)
-class FoodCategoryAdmin(admin.ModelAdmin):
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ['name']
+    prepopulated_fields = {'slug': ('name',)}
+
+
+@admin.register(FoodTag)
+class FoodTagAdmin(admin.ModelAdmin):
     list_display = ['name']
     prepopulated_fields = {'slug': ('name',)}
 

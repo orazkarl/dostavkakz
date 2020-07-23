@@ -5,8 +5,7 @@ import numpy as np
 slug_help_text = "Слаг - это короткая метка для представления страницы в URL. \
 Содержит только буквы, цифры, подчеркивания или дефисы."
 
-
-class FoodCategory(models.Model):
+class Category(models.Model):
     name = models.CharField('Название', max_length=250)
     slug = models.SlugField(max_length=150, null=True, help_text=slug_help_text, db_index=True, unique=True)
 
@@ -17,16 +16,27 @@ class FoodCategory(models.Model):
     def __str__(self):
         return self.name
 
+class FoodTag(models.Model):
+    name = models.CharField('Название', max_length=250)
+    slug = models.SlugField(max_length=150, null=True, help_text=slug_help_text, db_index=True, unique=True)
+
+    class Meta:
+        verbose_name = 'Тег еды'
+        verbose_name_plural = 'Тег еды'
+
+    def __str__(self):
+        return self.name
+
 
 class Store(models.Model):
-    # category = models.ForeignKey(FoodCategory, on_delete=models.DO_NOTHING, verbose_name='Категория')
+    category = models.ForeignKey(Category, on_delete=models.DO_NOTHING, verbose_name='Категория')
     name = models.CharField('Название', max_length=250)
     slug = models.SlugField(max_length=150, null=True, help_text=slug_help_text, db_index=True, unique=True)
     address = models.CharField('Адрес', max_length=250, null=True, blank=True)
     description = models.CharField('Описание', max_length=500, null=True, blank=True)
     image = models.ImageField('Изображение', upload_to='store/')
     # category = models.ForeignKey(FoodCategory, verbose_name='Тэг', null=True, blank=True, on_delete=models.CASCADE)
-    tag = models.ManyToManyField(FoodCategory, related_name='tags', null=True, blank=True)
+    tag = models.ManyToManyField(FoodTag, related_name='tags', null=True, blank=True)
     time_open = models.TimeField('Открывается', null=True, blank=True)
     time_closed = models.TimeField('Закрывается', null=True, blank=True)
     latitude = models.CharField('Широота', max_length=50, null=True, blank=True)
@@ -75,7 +85,7 @@ class Store(models.Model):
 class Product(models.Model):
     id_code = models.CharField('КОД', max_length=100, null=True, blank=True)
     store = models.ForeignKey(Store, on_delete=models.DO_NOTHING, verbose_name='Заведение')
-    category = models.ForeignKey(FoodCategory, on_delete=models.DO_NOTHING, verbose_name='Категория', null=True, blank=True)
+    category = models.ForeignKey(FoodTag, on_delete=models.DO_NOTHING, verbose_name='Тег', null=True, blank=True)
     name = models.CharField('Название', max_length=250)
     price = models.DecimalField('Цена', max_digits=7, decimal_places=2)
     description = models.CharField('Описание', max_length=100, null=True, blank=True)

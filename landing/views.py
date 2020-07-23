@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import *
 from django.http import JsonResponse, HttpResponse
-from .models import FoodCategory, Store, Product, Review, Wishlist, Order
+from .models import FoodTag, Store, Product, Review, Wishlist, Order, Category
 from user_auth.models import User, Address, StreetAdress, NumberHouseAddress
 from django.contrib.auth.decorators import login_required
 from cart.cart import Cart
@@ -20,18 +20,15 @@ class HomeView(TemplateView):
 class StoresList(ListView):
     template_name = 'landing/stores_list.html'
     queryset = Store.objects.all()
+    # model = Store
 
     def get(self, request, *args, **kwargs):
-        stores = Store.objects.all()
-        foodcategory = FoodCategory.objects.all().values_list('id', flat=True)
 
+
+        store_category_slug = self.kwargs['slug']
+        stores = Store.objects.filter(category__slug=store_category_slug)
+        foodtags = FoodTag.objects.all()
         if request.GET:
-            if 'foodcategory' in request.GET:
-                foodcategory = request.GET.getlist('foodcategory')
-            stores = Store.objects.filter(tag__id__in=foodcategory).distinct('name')
-            if 'avgcheck' in request.GET:
-                avgcheck = request.GET['avgcheck']
-                stores = stores.filter(avg_check=avgcheck)
             sort = request.GET['sortby']
             if sort == 'alphabet':
                 stores = stores.order_by('name')
@@ -42,16 +39,22 @@ class StoresList(ListView):
                 stores = reversed(sorted(stores, key=lambda s: s.average_check()))
             if sort == 'rating':
                 stores = reversed(sorted(stores, key=lambda s: s.average_rating()))
+            if 'avgcheck' in request.GET:
+                avgcheck = request.GET['avgcheck']
+                stores = stores.filter(avg_check=avgcheck)
+            if store_category_slug == 'restoran':
+                if 'foodcategory' in request.GET:
+                    foodtag = request.GET.getlist('foodcategory')
+                    stores = stores.filter(tag__id__in=foodtag).distinct('name')
+
+
         self.extra_context = {
             'stores': stores,
-            'tags': FoodCategory.objects.all(),
+            'tags': foodtags,
+            'slug': store_category_slug,
+            'categories': Category.objects.all(),
         }
         return super().get(request, *args, **kwargs)
-
-    # def post(self, request, *args, **kwargs):
-    #     print(request.POST)
-    #     return super().get(request, *args, **kwargs)
-
 
 def search_stores(request):
     query = request.GET['q']
@@ -176,8 +179,7 @@ def cart_detail(request, slug):
         product_id = item['product_id']
         product = Product.objects.get(id=product_id)
         print(type(item['quantity']))
-        if product.name != item['name'] or float(product.price) != float(item['price']) or product.quantity < item[
-            'quantity']:
+        if product.name != item['name'] or float(product.price) != float(item['price']) or product.quantity < item['quantity']:
             cart.remove(product)
             break
         if slug == product.store.slug:
@@ -225,7 +227,7 @@ def checkout(request, slug):
 
 
 class WishlistView(ListView):
-    template_name = 'landing/wishlist.html'
+    template_name = 'profile/wishlist.html'
 
     def get(self, request, *args, **kwargs):
         self.queryset = Wishlist.objects.filter(user_id=request.user.id)
@@ -257,7 +259,7 @@ def del_wishlist(request):
 
 
 class ProfileView(TemplateView):
-    template_name = 'landing/profile.html'
+    template_name = 'profile/profile.html'
 
     def post(self, request, *args, **kwargs):
         if request.POST:
@@ -273,7 +275,7 @@ class ProfileView(TemplateView):
 
 
 class OrderView(ListView):
-    template_name = 'landing/order.html'
+    template_name = 'profile/order.html'
     queryset = Order.objects.all()
 
     def get(self, request, *args, **kwargs):
@@ -282,7 +284,7 @@ class OrderView(ListView):
 
 
 class MyAddressView(ListView):
-    template_name = 'landing/addresses.html'
+    template_name = 'profile/addresses.html'
     model = User
 
     def get(self, request, *args, **kwargs):
@@ -290,7 +292,7 @@ class MyAddressView(ListView):
         if request.GET:
             street = request.GET['street']
             houses = NumberHouseAddress.objects.filter(street=street)
-            return render(request, 'landing/ajax_address_list.html', {'houses': houses})
+            return render(request, 'profile/ajax_address_list.html', {'houses': houses})
         self.queryset = Address.objects.filter(user=request.user)
         self.extra_context = {
             'streets': StreetAdress.objects.all(),
@@ -334,4 +336,4 @@ class MyAddressView(ListView):
 
 
 class HelpView(TemplateView):
-    template_name = 'landing/help.html'
+    template_name = 'profile/help.html'
