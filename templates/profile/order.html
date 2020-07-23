@@ -1,6 +1,14 @@
 {% extends 'landing/base.html' %}
 {% load static %}
+{% block logo %}
+    <a href="{% url 'home' %}">
+        <div class="s-logo1">
+            <img src="{% static 'images/logo4.png' %}" alt="">
+        </div>
+    </a>
+{% endblock %}
 {% block content %}
+
     <div class="profbody">
         <div class="p-body" style="display: inline-flex; margin-left: 10%;">
             <div class="p-panel">

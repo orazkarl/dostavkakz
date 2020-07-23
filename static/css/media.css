@@ -1,4 +1,7 @@
 @media screen and (max-width: 450px) {
+	footer {
+		display: none !important;
+	}
 	.navbar1 {
 		display: block !important;
 	}

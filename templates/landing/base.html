@@ -183,7 +183,7 @@
 <header style="display: inline-flex; background: #FB0; width: 100%; border-bottom: 2px solid; border-color: #c4c4c4;">
 
     {% block logo %}
-{% endblock %}
+    {% endblock %}
     <div class="mainsearch11" style="display: inline-flex;">
         <form class="search">
             <input id="search" class="search" placeholder="Поиск...">
@@ -200,48 +200,93 @@
         {% endif %}
     </div>
 
-        <div class="navbar1" style="display: none;">
-            <nav class="navbar navbar2 navbar-expand-lg navbar-light bg-light" style="background: #FB0 !important;">
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+    <div class="navbar1" style="display: none;">
+        <nav class="navbar navbar2 navbar-expand-lg navbar-light bg-light" style="background: #FB0 !important;">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mr-auto">
-                        {% if user.is_authenticated %}
-                            <li class="nav-item active">
-                                <a class="nav-link" href="{% url 'profile' %}">Профиль <span
-                                        class="sr-only">(current)</span></a>
-                            </li>
-                            <li class="nav-item active">
-                                <a class="nav-link" href="{% url 'logout_user' %}">Выйти</a>
-                            </li>
-                        {% else %}
-                            <li class="nav-item active">
-                                <a class="nav-link" href="{% url 'account_login' %}">Войти <span
-                                        class="sr-only">(current)</span></a>
-                            </li>
-                            <li class="nav-item active">
-                                <a class="nav-link" href="{% url 'account_signup' %}">Регистрация</a>
-                            </li>
-                        {% endif %}
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    {% if user.is_authenticated %}
                         <li class="nav-item active">
-                            <a class="nav-link" href="#">Избранное</a>
+                            <a class="nav-link" href="/">Главная</a>
                         </li>
-                    </ul>
-                </div>
-            </nav>
-        </div>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{% url 'profile' %}">Профиль <span
+                                    class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{% url 'logout_user' %}">Выйти</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{% url 'account_login' %}">Войти <span
+                                    class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{% url 'account_signup' %}">Регистрация</a>
+                        </li>
+                    {% endif %}
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Избранное</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
 </header>
-<body style="background: none;">
+<body style="background: none; margin-bottom: 2%;">
 
 {% block content %}
 
 {% endblock %}
-
 </body>
+<br>
+<footer style="width: 100%; position: fixed; bottom: -1; left: 0;">
+    <div style="width: 100%; height: 100%; background-color: #666;">
+    <div style="margin-left: 5%;">
+        <div style="display: inline-flex; margin-left: 10%; width: 100%; margin-top: -0.8%;">
+            <div class="footlogo" style="margin-left: 10%; margin-top: 1%; margin-bottom: 1%;">
+                <img src="{% static 'images/footer/footlogo.png' %}" alt="">
+                <h5 style="color: #fff; margin-top: 10%; margin-bottom: 5%;">Скачайте приложение</h5>
+                <img src="{% static 'images/footer/appstore.png' %}" alt="">
+            </div>
 
+            <div style="margin-left: 10%; margin-top: 4.3%;">
+                <h5 style="color: #fff; margin-bottom: 5%;">Партнерство</h5>
+                <a href="#" style="color: #fff; text-decoration: none;">Курьерам</a><br>
+                <a href="#" style="color: #fff; text-decoration: none;">Добавить организацию</a><br>
+                <a href="#" style="color: #fff; text-decoration: none;">Вакансии</a><br>
+                <a href="#" style="color: #fff; text-decoration: none;">Реклама</a>
+            </div>
+
+            <div style="margin-left: 10%; margin-top: 4.3%;">
+                <h5 style="color: #fff; margin-bottom: 5%;">Ссылки</h5>
+                <a href="#" style="color: #fff; text-decoration: none;">Главная</a><br>
+                <a href="#" style="color: #fff; text-decoration: none;">Поиск</a><br>
+                <a href="#" style="color: #fff; text-decoration: none;">Помощь</a><br>
+                <a href="#" style="color: #fff; text-decoration: none;">О компании</a><br>
+            </div>
+        </div>
+        <br>
+        <div style="display: inline-flex; margin-left: 20%; width: 100%; margin-top: 2%; margin-bottom: 2%;">
+            <p style="color: #c4c4c4; font-size: 20px; font-weight: lighter;">©️Jetkizu.me 2020</p>
+            <a href="#"
+               style="color: #fff; text-decoration: none; margin-top: 4px; padding-right: 10px; margin-left: 13%;">Условия
+                использования</a>
+            <a href="#"
+               style="color: #fff; text-decoration: none; margin-top: 4px; padding-right: 9px; margin-left: 9.5%;"><img
+                    src="{% static 'images/footer/fb.png' %}" alt=""></a>
+            <a href="#" style="color: #fff; text-decoration: none; margin-top: 4px; padding-right: 9px;"><img
+                    src="{% static 'images/footer/inst.png' %}" alt=""></a>
+            <a href="#" style="color: #fff; text-decoration: none; margin-top: 4px; padding-right: 9px;"><img
+                    src="{% static 'images/footer/yt.png' %}" alt=""></a>
+        </div>
+    </div>
+        </div>
+</footer>
 
 <script type="text/javascript">
     function changeButtonName() {
