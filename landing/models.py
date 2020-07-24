@@ -1,5 +1,5 @@
 from django.db import models
-from user_auth.models import User
+from dostavkakz.settings import AUTH_USER_MODEL as User
 import numpy as np
 
 slug_help_text = "Слаг - это короткая метка для представления страницы в URL. \
@@ -96,7 +96,7 @@ class Product(models.Model):
         verbose_name_plural = 'Продукты'
 
     def __str__(self):
-        return self.name
+        return f"{self.name}"
 
 
 class Review(models.Model):
@@ -121,37 +121,28 @@ class Review(models.Model):
         verbose_name_plural = 'Отзывы'
 
 
-class Wishlist(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь')
-    store_item = models.ForeignKey(Store, on_delete=models.CASCADE, verbose_name='Заведения')
-    added_data = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return f"{self.user} - {self.store_item}"
-
-    class Meta:
-        verbose_name = 'Избранное'
-        verbose_name_plural = 'Избранные'
 
 
-class Order(models.Model):
-    ORDER_STATUS_CHOICES = (
-        ('1', 'Не оплачен'),
-        ('2', 'Оплачен'),
-        ('3', 'Доставлен'),
-    )
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь')
-    order_item = models.CharField('Заказ', max_length=1000, null=True, blank=True)
-    address = models.CharField('Адрес', null=True, blank=True, max_length=250)
-    total_price = models.DecimalField('Цена', max_digits=8, decimal_places=2)
-    status = models.CharField('Статус', choices=ORDER_STATUS_CHOICES, max_length=25, null=True, blank=True)
-    comment = models.CharField('Комментарии', max_length=250, null=True, blank=True)
-    pub_date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
-
-    class Meta:
-        verbose_name = 'Заказ'
-        verbose_name_plural = 'Заказы'
-
-    def __str__(self):
-        return self.order_item
+# class Order(models.Model):
+#     ORDER_STATUS_CHOICES = (
+#         ('1', 'Не оплачен'),
+#         ('2', 'Оплачен'),
+#         ('3', 'Доставлен'),
+#     )
+#
+#     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь')
+#     # order_item = models.CharField('Заказ', max_length=1000, null=True, blank=True)
+#     order_item = models.ManyToManyField(Product, related_name='product')
+#     address = models.CharField('Адрес', null=True, blank=True, max_length=250)
+#     total_price = models.DecimalField('Цена', max_digits=8, decimal_places=2)
+#     status = models.CharField('Статус', choices=ORDER_STATUS_CHOICES, max_length=25, null=True, blank=True)
+#     comment = models.CharField('Комментарии', max_length=250, null=True, blank=True)
+#     pub_date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+#
+#     class Meta:
+#         verbose_name = 'Заказ'
+#         verbose_name_plural = 'Заказы'
+#
+#     def __str__(self):
+#         return self.order_item

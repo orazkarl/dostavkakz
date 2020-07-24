@@ -9,26 +9,36 @@
     </a>
 {% endblock %}
 {% block content %}
-{#    <style>#}
-{#        header {#}
-{#            background-color: #fff !important;#}
-{#        }#}
-{#    </style>#}
+    {#    <style>#}
+    {#        header {#}
+    {#            background-color: #fff !important;#}
+    {#        }#}
+    {#    </style>#}
     <iframe frameborder="no" style="width: 100%;border: 1px solid #a3a3a3;box-sizing: border-box;" width="640"
             height="600"
             src="http://widgets.2gis.com/widget?type=firmsonmap&amp;options=%7B%22pos%22%3A%7B%22lat%22%3A43.23455750575289%2C%22lon%22%3A76.95727586746217%2C%22zoom%22%3A16%7D%2C%22opt%22%3A%7B%22city%22%3A%22almaty%22%7D%2C%22org%22%3A%229429940001617972%22%7D"></iframe>
-    <form action="{% url 'checkout' slug %}">
+    <form action="{% url 'checkout' store.slug %}">
         <div class="orderbody">
 
 
             <div class="ord1">
-                <h4>Способ и время доставки</h4>
+                <h4>Способ доставки</h4>
                 <br class="brord">
-                <p>Доставка в течении 20-30 минут к
-                <p class="adres1" style="font-weight: bold; padding-left: 7px;"> Аль-Фараби 19</p> <a href="">изменить
-                адрес</a></p>
-
-
+                {#                <p>Доставка в течении 20-30 минут к<p class="adres1" style="font-weight: bold; padding-left: 7px;"> Аль-Фараби 19</p> <a href="">изменить адрес</a></p>#}
+                <input type="radio" id="delibery" name="delivery_method" value="delivery" required>
+                <label for="delibery">
+                    <p>
+                        Адрес: {{ request.user.address.first.address_name }}, {{ request.user.address.first.number_house }},
+                        кв/офис {{ request.user.address.first.number_apartment }}<a href="{% url 'addresses' %}"
+                                                                                    style="margin-left: 5px"> изменить
+                        адрес</a></p>
+                </label>
+                <br>
+                <input type="radio" id="pickup" name="delivery_method" value="pickup" required>
+                <label for="pickup">
+                    <p>
+                        Самовызов: {{ store.name }} - {{ store.address }} {{ store.time_open }}: {{ store.time_closed }}</p>
+                </label>
                 <div class="ord2">
                     <h4>Выбранные позиции</h4>
                     {% for item in items %}
@@ -39,13 +49,13 @@
                                         "{{ item.name }}"
                                         {% if item.quantity > 1 %}
                                             <span>
-                                                <a href="{% url 'item_decrement' item.product_id %}?slug={{ slug }}&cart=true">
+                                                <a href="{% url 'item_decrement' item.product_id %}?slug={{ store.slug }}&cart=true">
                                                     <i class="fa fa-minus"
                                                        style="color: #666666; margin-left: 20px;font-size: 18px"></i>
                                                 </a></span>
                                         {% else %}
                                             <span><a
-                                                    href="{% url 'item_clear' item.product_id %}?slug={{ slug }}&cart=true"><i
+                                                    href="{% url 'item_clear' item.product_id %}?slug={{ store.slug }}&cart=true"><i
                                                     class="fa fa-minus"
                                                     style="color: #666666; margin-left: 20px;font-size: 18px"></i></a>
                                             </span>
@@ -54,7 +64,7 @@
                                             x{{ item.quantity }}
                                         </span>
                                         <span>
-                                            <a href="{% url 'item_increment' item.product_id %}?slug={{ slug }}&cart=true"><i
+                                            <a href="{% url 'item_increment' item.product_id %}?slug={{ store.slug }}&cart=true"><i
                                                     class="fa fa-plus"
                                                     style="color: #666666; margin-left: 5px;font-size: 18px"></i></a>
                                         </span>
@@ -62,7 +72,7 @@
 
                                     </h5>
                                     <p>
-                                        <a href="{% url 'item_clear' item.product_id %}?slug={{ slug }}&cart=true"><i
+                                        <a href="{% url 'item_clear' item.product_id %}?slug={{ store.slug }}&cart=true"><i
                                                 class="fa fa-close"
                                                 style="color: #666666; margin-left: 5px;font-size: 18px"></i></a>
                                     </p>
@@ -77,30 +87,33 @@
                     {% endfor %}
 
                     <div class="plus" style="font-size: 20px;">
-                        <a href="{% url 'store_detail' slug %}" style="text-decoration: none; width: 300px;"><p><i
+                        <a href="{% url 'store_detail' store.slug %}" style="text-decoration: none; width: 300px;"><p><i
                                 class="fa fa-plus" aria-hidden="true" style="padding-right: 5px;"></i> Добавить больше
                             позиций</p></a>
                         <br>
                         <p><i class="fa fa-commenting-o" aria-hidden="true" style="padding-right: 5px;"></i> Комментарий
-                            для
-                            ресторана</p>
+                        </p>
                         <br>
-                        <textarea name="order_comment" rows="3" maxlength="400"
+                        <textarea name="order_comment" rows="3" maxlength="250"
                                   placeholder="Добавьте комментарий (например об аллергии, специальной диете)..."
-                                  class="comment" style="resize: none; width: 450px;" autocomplete="off"></textarea>
+                                  class="comment" style="resize: none; width: 450px; padding: 7px"
+                                  autocomplete="off"></textarea>
                     </div>
 
                     <div class="order">
                         <h4>Детали оплаты</h4>
                         <br>
-                        <a href="" style="text-decoration: none;"><p class="credit"><i class="fa fa-credit-card"
-                                                                                       aria-hidden="true"
-                                                                                       style="padding-right: 5px;"></i>
-                            Онлайн оплата</p></a>
+                        <input type="radio" id="radioOnline" name="payment" value="online" checked>
+                        <label for="radioOnline">
+                            <p class="credit"><i class="fa fa-credit-card" style="padding-right: 5px;"></i>Онлайн
+                                оплата</p></label>
                         <br>
-                        <p class="cash"><i class="fa fa-money" aria-hidden="true" style="padding-right: 5px;"></i>
-                            Наличными
-                        </p>
+                        <input type="radio" id="radioIncash" name="payment" value="incash">
+                        <label for="radioIncash">
+                            <p class="cash"><i class="fa fa-money" aria-hidden="true" style="padding-right: 5px;"></i>
+                                Наличными
+                            </p>
+                        </label>
                     </div>
                 </div>
             </div>

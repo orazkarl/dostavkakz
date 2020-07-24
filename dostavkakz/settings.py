@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     # 'landing.apps.LandingConfig',
     'user_auth.apps.UserAuthConfig',
     'api1c.apps.Api1CConfig',
+    'order.apps.OrderConfig',
 
     'allauth',
     'allauth.account',

@@ -1,8 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from phonenumber_field.modelfields import PhoneNumberField
-from dostavkakz.settings import AUTH_USER_MODEL
 
+from landing.models import Store
 
 # Create your models here.
 
@@ -13,26 +13,29 @@ class User(AbstractUser):
                              help_text='Номер телефона должен быть введен в формате: +77777777777')
     # address = models.ForeignKey(Address, on_delete=models.CASCADE, null=True, blank=True)
 
+
 class StreetAdress(models.Model):
     street_name = models.CharField('Улица', max_length=250, null=True, blank=True)
 
     def __str__(self):
-        return self.street_name
+        return f"{self.street_name}"
 
     class Meta:
         verbose_name = 'Улица'
         verbose_name_plural = 'Улицы'
+
 
 class NumberHouseAddress(models.Model):
     street = models.ForeignKey(StreetAdress, on_delete=models.CASCADE, null=True, blank=True)
     number_house = models.CharField('Номер дома', max_length=50, null=True, blank=True)
 
     def __str__(self):
-        return f"{self.street}, {self.number_house}"
+        return f"{self.number_house}"
 
     class Meta:
         verbose_name = 'Номер дома'
         verbose_name_plural = 'Номера домов'
+
 
 class Address(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, related_name='address')
@@ -41,7 +44,21 @@ class Address(models.Model):
     address_name = models.ForeignKey(StreetAdress, on_delete=models.CASCADE, null=True, blank=True)
     number_house = models.ForeignKey(NumberHouseAddress, on_delete=models.CASCADE, null=True, blank=True)
     number_apartment = models.PositiveIntegerField(null=True, blank=True)
+
     # status = models.CharField('Статус', max_length=100, null=True, blank=True)
 
     def __str__(self):
-        return self.address_name
+        return f"{self.address_name}"
+
+
+class Wishlist(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь')
+    store_item = models.ForeignKey(Store, on_delete=models.CASCADE, verbose_name='Заведения')
+    added_data = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.user} - {self.store_item}"
+
+    class Meta:
+        verbose_name = 'Избранное'
+        verbose_name_plural = 'Избранные'
