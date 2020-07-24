@@ -34,40 +34,53 @@
                                 <div class="pos hist1" style="margin-top: 5%; height: auto; background: #DBDBDBFF;">
                                     <div class="pos-body">
                                         <div class="pos-info">
-                                            <h5 class="name" style="border-bottom: 1px dashed; display: inline-flex;"><p
-                                                    style="font-size: 20px; font-weight: bold; color: #FFB500FF; padding-right: 5px;"></p> {{ order.order_item }}
-                                            </h5>
-                                            {#                                            <p class="info1">Pepsi 500 мл, средний фри, сырный соус</p>#}
+                                            {% for item in order.items.all %}
+                                                <h5 class="name"
+                                                    style="border-bottom: 1px dashed; display: inline-flex;"><p
+                                                        style="font-size: 20px; font-weight: bold; color: #FFB500FF; padding-right: 5px;"></p> {{ item.item.name }}
+                                                </h5>
+                                                <p class="info1"> {{ item.quantity }}x {{ item.item.price }}
+                                                    = {{ item.price }}</p>
+                                            {% endfor %}
+
                                             <h5>Итого {{ order.total_price }}₸</h5>
                                             <div style="display: inline-flex; border-top: 1px solid; border-color: #c4c4c4; width: 100%; margin-top: 5px;">
-                                                <p>Номер заказа: №{{ order.id }}</p>
+                                                {#                                                <p>Номер заказа: №{{ order.id }}</p>#}
                                                 <p>
-                                                    Дата: {{ order.pub_date.day }}.{{ order.pub_date.month }}.{{ order.pub_date.year }}</p>
-                                                <button class="adr-edit" style="">Заказать повторно</button>
+                                                    Дата: {{ order.created_date.day }}.{{ order.created_date.month }}.{{ order.created_date.year }}</p>
+                                                <p>
+                                                    Время: {{ order.created_date.hour }}.{{ order.created_date.minute }}.{{ order.created_date.second }}</p>
+                                                <button class="adr-edit" style=" ">Заказать повторно</button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             {% else %}
                                 <div class="pos hist1" style="margin-top: 5%; height: auto; background: #FFF4BFFF;">
+
                                     <div class="pos-body">
                                         <div class="pos-info">
-                                            <h5 class="name" style="border-bottom: 1px dashed; display: inline-flex;"><p
-                                                    style="font-size: 20px; font-weight: bold; color: #FFB500FF; padding-right: 5px;">
-                                            </p> {{ order.order_item }}
-                                            </h5>
-                                            <br>
-                                            <h5>Итого: {{ order.total_price }}₸</h5>
+                                            {% for item in order.items.all %}
+                                                <h5 class="name"
+                                                    style="border-bottom: 1px dashed; display: inline-flex;"><p
+                                                        style="font-size: 20px; font-weight: bold; color: #FFB500FF; padding-right: 5px;"></p> {{ item.item.name }}
+                                                </h5>
+                                                <p class="info1"> {{ item.quantity }}x {{ item.item.price }}
+                                                    = {{ item.price }}</p>
+                                            {% endfor %}
+
+                                            <h5>Итого {{ order.total_price }}₸</h5>
                                             <div style="display: inline-flex; border-top: 1px solid; border-color: #c4c4c4; width: 100%; margin-top: 5px;">
-                                                <p>Номер заказа: №{{ order.id }}</p>
+                                                {#                                                <p>Номер заказа: №{{ order.id }}</p>#}
                                                 <p>
-                                                    Дата: {{ order.pub_date.day }}.{{ order.pub_date.month }}.{{ order.pub_date.year }}</p>
-                                                <button class="adr-edit" style="">Заказать повторно</button>
+                                                    Дата: {{ order.created_date.day }}.{{ order.created_date.month }}.{{ order.created_date.year }}</p>
+                                                <p>
+                                                    Время: {{ order.created_date.hour }}.{{ order.created_date.minute }}.{{ order.created_date.second }}</p>
+                                                <button class="adr-edit" style=" ">Заказать повторно</button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
                             {% endif %}
                         {% endif %}
                     {% endfor %}

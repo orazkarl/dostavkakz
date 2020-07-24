@@ -13,11 +13,11 @@ class CustomSignupForm(SignupForm):
         for visible in self.visible_fields():
             visible.field.widget.attrs['class'] = 'form-control'
 
-    first_name = forms.CharField(label='Имя', max_length=50, widget=forms.TextInput(attrs={'placeholder': 'Имя'}))
+    first_name = forms.CharField(label='Имя', max_length=50, widget=forms.TextInput(attrs={'placeholder': 'Имя'}), required=True)
     last_name = forms.CharField(label='Фамилия', max_length=50,
-                                widget=forms.TextInput(attrs={'placeholder': 'Фамилия'}))
+                                widget=forms.TextInput(attrs={'placeholder': 'Фамилия'}), required=True)
 
-    phone = PhoneNumberField(label='Телефон', widget=forms.TextInput(attrs={'placeholder': 'Телефон'}), error_messages=my_default_errors)
+    phone = PhoneNumberField(label='Телефон', widget=forms.TextInput(attrs={'placeholder': 'Пример: +77777777777'}), error_messages=my_default_errors, required=True)
 
 
 

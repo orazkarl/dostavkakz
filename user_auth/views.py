@@ -5,7 +5,7 @@ from django.urls import  reverse_lazy
 from .models import Wishlist,User, Address, StreetAdress, NumberHouseAddress
 from landing.models import Store, Product
 from django.views.generic import TemplateView, ListView, DetailView
-
+from order.models import Order
 def logout_user(request):
     logout(request)
     return redirect('home')
@@ -112,13 +112,13 @@ class MyAddressView(ListView):
         return redirect('addresses')
         # return super().get(request, *args, **kwargs)
 
-# class OrderView(ListView):
-#     template_name = 'profile/order.html'
-#     queryset = Order.objects.all()
-#
-#     def get(self, request, *args, **kwargs):
-#         self.queryset = Order.objects.filter(user=request.user)
-#         return super().get(request, *args, **kwargs)
+class OrderView(ListView):
+    template_name = 'profile/order.html'
+    queryset = Order.objects.all()
+
+    def get(self, request, *args, **kwargs):
+        self.queryset = Order.objects.filter(user=request.user)
+        return super().get(request, *args, **kwargs)
 
 
 class HelpView(TemplateView):

@@ -55,7 +55,7 @@ def telegramMessage(order):
     for item in order.items.all():
         temp = 'Название: ' + str(item.item.name) + '\n'
         temp += 'Количество: ' + str(item.quantity) + '\n'
-        temp += 'Цена: ' + str(item.price) + '\n'
+        # temp += 'Цена: ' + str(item.price) + '\n'
         message += temp
     message += '\n'
     message += 'Итого: ' + str(order.total_price) + '\n'

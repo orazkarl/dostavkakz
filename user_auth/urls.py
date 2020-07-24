@@ -12,7 +12,7 @@ urlpatterns = [
 
     # profile
     path('profile/', views.ProfileView.as_view(), name='profile'),
-    # path('orders/', views.OrderView.as_view(), name='orders'),
+    path('orders/', views.OrderView.as_view(), name='orders'),
     path('addresses/', views.MyAddressView.as_view(), name='addresses'),
     path('help/', views.HelpView.as_view(), name='help')
 ]
