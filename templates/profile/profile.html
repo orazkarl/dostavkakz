@@ -162,6 +162,7 @@
                         <p>Фамилия:</p>
                         <p>Мобильный:</p>
                         <p>Эл.адрес</p>
+                        <p>Пароль</p>
                     </div>
 
                     <div class="p-names1" style="margin-left: 5%;">
@@ -169,9 +170,13 @@
                         <input type="text" value="{{ request.user.last_name }}" disabled><br>
                         <input type="text" value="{{ request.user.phone }}" disabled><br>
                         <input type="text" value="{{ request.user.email }}" disabled>
+                        <p><a href="{% url 'account_change_password' %}">Изменить пароль</a></p>
                     </div>
+
                 </div>
+
             </div>
+
         </div>
     </div>
 

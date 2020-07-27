@@ -1,0 +1,50 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Signup" %}{% endblock %}
+
+{% block content %}
+    <form class="form-signin" action="{% url 'signup' %}" method="post" onsubmit="return signUp(this);">
+        <div id="errors"></div>
+        <p class="text-center btn-lg"><a style="text-decoration: none" href="{% url 'home' %}">Главная</a></p>
+        <h2 class="form-signin-heading text-center">Регистрация</h2>
+        <br>
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Регистрация</button>
+        <hr>
+        <span class="text"> Уже есть аккаунт? <a href="{% url 'account_login' %}">Войти</a></span>
+    </form>
+
+    <!-- jQuery !-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <!-- jQuery UI !-->
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+
+    <script>
+        function signUp(form) {
+            event.preventDefault();
+            $.ajax({ // create an AJAX call...
+                data: $(form).serialize(), // get the form data
+                type: $(form).attr('method'), // GET or POST
+                url: $(form).attr('action'), // the file to call
+                success: function (response) { // on success..
+                    if (response === 'success') {
+                        console.log('asd');
+                        window.location.replace('/accounts/login');
+                    }
+                    else {
+                        $('#errors').html(response);
+                    }
+
+                    console.log(response.text); // update the DIV
+                    {#document.getElementById("results").style.display = "none";#}
+                },
+            });
+            return false;
+        }
+    </script>
+{% endblock %}

@@ -155,35 +155,38 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 # Sendgrid
-SENDGRID_API_KEY = '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'
-EMAIL_HOST = 'smtp.sendgrid.net'
-EMAIL_HOST_USER = 'apikey'
-EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
-EMAIL_PORT = 2525
-EMAIL_USE_TLS = True
+# SENDGRID_API_KEY = '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'
+# EMAIL_HOST = 'smtp.sendgrid.net'
+# EMAIL_HOST_USER = 'apikey'
+# EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
+# EMAIL_PORT = 2525
+# EMAIL_USE_TLS = True
 # DEFAULT_FROM_EMAIL = 'noreply@getall.kz'
 
-
+ACCOUNT_EMAIL_VERIFICATION = 'none'
 SITE_ID = 1
 AUTH_USER_MODEL = 'user_auth.User'
-ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 7
+# ACCOUNT_AUTHENTICATION_METHOD = 'phone'
+ACCOUNT_USERNAME_REQUIRED = True
+ACCOUNT_AUTHENTICATION_METHOD = 'username'
+# ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 7
 ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_EMAIL_VERIFICATION = "mandatory"
-ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 5
-ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 86400  # 1 day in seconds
-ACCOUNT_LOGOUT_REDIRECT_URL = '/accounts/login'
+# ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+# ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 5
+# ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 86400  # 1 day in seconds
+# ACCOUNT_LOGOUT_REDIRECT_URL = '/accounts/login'
 LOGIN_REDIRECT_URL = '/'
-ACCOUNT_ADAPTER = 'user_auth.adapter.AccountAdapter'
+# ACCOUNT_ADAPTER = 'user_auth.adapter.AccountAdapter'
 
 ACCOUNT_FORMS = {
     'login': 'user_auth.forms.CustomLoginForm',
     'signup': 'user_auth.forms.CustomSignupForm',
-    'add_email': 'allauth.account.forms.AddEmailForm',
+    # 'add_email': 'allauth.account.forms.AddEmailForm',
     'change_password': 'user_auth.forms.CustomChangePasswordForm',
-    'set_password': 'allauth.account.forms.SetPasswordForm',
+    # 'set_password': 'allauth.account.forms.SetPasswordForm',
     'reset_password': 'user_auth.forms.CustomResetPasswordForm',
-    'reset_password_from_key': 'user_auth.forms.CustomResetPasswordKeyForm',
-    'disconnect': 'allauth.socialaccount.forms.DisconnectForm',
+    # 'reset_password_from_key': 'user_auth.forms.CustomResetPasswordKeyForm',
+    # 'disconnect': 'allauth.socialaccount.forms.DisconnectForm',
 }
 
 CART_SESSION_ID = 'cart'

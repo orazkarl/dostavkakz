@@ -14,10 +14,10 @@
         <br>
         {% csrf_token %}
         {{ form.as_p }}
-        <span class="text"> <a href="{% url 'account_reset_password' %}">Забыли пароль?</a></span>
+        <span class="text"> <a href="{% url 'reset_password' %}">Забыли пароль?</a></span>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
         <hr>
-        <span class="text"> Нет аккаунта? <a href="{% url 'account_signup' %}">Регистрация</a></span>
+        <span class="text"> Нет аккаунта? <a href="{% url 'signup' %}">Регистрация</a></span>
     </form>
     {#    <h1>{% trans "Sign In" %}</h1>#}
     {##}

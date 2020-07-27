@@ -22,7 +22,7 @@
             <a href="{% url 'logout_user' %}" class="reg">Выйти</a>
         {% else %}
             <a href="{% url 'account_login' %}" class="login">Войти</a>
-            <a href="{% url 'account_signup' %}" class="reg">Регистрация</a>
+            <a href="{% url 'signup' %}" class="reg">Регистрация</a>
         {% endif %}
     </div>
 
@@ -50,7 +50,7 @@
                                     class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item active">
-                            <a class="nav-link" href="{% url 'account_signup' %}">Регистрация</a>
+                            <a class="nav-link" href="{% url 'signup' %}">Регистрация</a>
                         </li>
                     {% endif %}
                     <li class="nav-item active">
