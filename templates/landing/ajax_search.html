@@ -2,7 +2,9 @@
     <li>
         <a href="{% url 'store_detail' result.slug %}">{{ result.name }}
             <br/>
-            <span>{{ result.address }}</span>
+            <span>{{ result.category }}</span>
+            <br>
+            <span>{{ result.address}}</span>
         </a>
     </li>
 {% endfor %}

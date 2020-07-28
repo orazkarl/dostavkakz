@@ -26,5 +26,6 @@ class UserAdmin(admin.ModelAdmin):
     )
     inlines = [AddressInline]
 
+
 admin.site.register(StreetAdress)
 admin.site.register(NumberHouseAddress)

@@ -42,13 +42,13 @@ def checkout(request, slug):
 
     # cart = Cart(request)
     # cart.clear()
-
-    return HttpResponse('Заказ принят')
+    message = 'Заказ принят! ID номер заказа #' + str(order.id)
+    return HttpResponse(message)
 
 
 def telegramMessage(order):
     message = 'Новый заказ!!!\n'
-    message+= 'ID номер заказа: ' + str(order.id) + '\n'
+    message+= 'ID номер заказа: #' + str(order.id) + '\n'
     for item in order.items.all():
         temp = 'Название: ' + str(item.item.name) + '\n'
         temp += 'Количество: ' + str(item.quantity) + '\n'

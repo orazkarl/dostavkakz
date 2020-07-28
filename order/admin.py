@@ -17,6 +17,7 @@ class OrderAdmin(admin.ModelAdmin):
     def has_delete_permission(self, request, obj=None):
         return False
 
+
 # admin.site.register(OrderItem)
 
 from allauth.account.admin import EmailAddress

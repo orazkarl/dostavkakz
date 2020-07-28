@@ -36,6 +36,7 @@ class Store(models.Model):
     address = models.CharField('Адрес', max_length=250, null=True, blank=True)
     description = models.CharField('Описание', max_length=500, null=True, blank=True)
     image = models.ImageField('Изображение', upload_to='store/')
+    background_image = models.ImageField('Изображение фона', upload_to='store/backgrounds')
     # category = models.ForeignKey(FoodCategory, verbose_name='Тэг', null=True, blank=True, on_delete=models.CASCADE)
     tag = models.ManyToManyField(FoodTag, related_name='tags', null=True, blank=True)
     time_open = models.TimeField('Открывается', null=True, blank=True)
