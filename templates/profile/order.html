@@ -49,8 +49,12 @@
                                                 <p>
                                                     Дата: {{ order.created_date.day }}.{{ order.created_date.month }}.{{ order.created_date.year }}</p>
                                                 <p>
-                                                    Время: {{ order.created_date.hour }}.{{ order.created_date.minute }}.{{ order.created_date.second }}</p>
-                                                <button class="adr-edit" style=" ">Заказать повторно</button>
+                                                    Время: {{ order.created_date.hour }}:{{ order.created_date.minute }}:{{ order.created_date.second }}</p>
+
+                                                <form action="{% url 'reorder' order.store.slug %}">
+                                                    <input type="text" value="{{ order.id }}" name="id" style="display:none;">
+                                                    <button class="adr-edit" style=" ">Заказать повторно</button>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
@@ -75,8 +79,11 @@
                                                 <p>
                                                     Дата: {{ order.created_date.day }}.{{ order.created_date.month }}.{{ order.created_date.year }}</p>
                                                 <p>
-                                                    Время: {{ order.created_date.hour }}.{{ order.created_date.minute }}.{{ order.created_date.second }}</p>
-                                                <button class="adr-edit" style=" ">Заказать повторно</button>
+                                                    Время: {{ order.created_date.hour }}:{{ order.created_date.minute }}:{{ order.created_date.second }}</p>
+                                                <form action="{% url 'reorder' order.store.slug %}">
+                                                    <input type="text" value="{{ order.id }}" name="id" style="display: none">
+                                                    <button class="adr-edit" style=" ">Заказать повторно</button>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>

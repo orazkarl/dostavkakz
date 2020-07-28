@@ -34,7 +34,6 @@ class StoresList(ListView):
                 stores = stores.order_by('name')
             if sort == 'inexpensive':
                 stores = sorted(stores, key=lambda s: s.average_check())
-                print(stores)
             if sort == 'expemsive':
                 stores = reversed(sorted(stores, key=lambda s: s.average_check()))
             if sort == 'rating':
@@ -84,13 +83,13 @@ class StoreView(DetailView):
             return render(request, 'landing/ajax_search_products.html', {'products': products, 'query': query})
 
         products = Product.objects.filter(store=store)
-        print(products)
+
         reviews = Review.objects.filter(store=store)
 
         cart = Cart(request)
         items = []
         total_price = []
-        print(cart.cart.values())
+
         for item in cart.cart.values():
             product_id = item['product_id']
             product = Product.objects.get(id=product_id)
@@ -182,7 +181,6 @@ def cart_detail(request, slug):
     for item in cart.cart.values():
         product_id = item['product_id']
         product = Product.objects.get(id=product_id)
-        print(type(item['quantity']))
         if product.name != item['name'] or float(product.price) != float(item['price']) or product.quantity < item['quantity']:
             cart.remove(product)
             break

@@ -36,7 +36,7 @@ def sign_up(request):
                   'recipient=' + str(phone).split('+')[1] + '&' \
                                                             'text=Vash+parol+dlya+vhoda:+' + password + \
                   '&apiKey=' + MOBIZON_API_KEY
-            # requests.get(url=url)
+            requests.get(url=url)
             username = str(phone)
             user = User.objects.create_user(username=username, phone=phone, password=password, first_name=first_name,
                                             last_name=last_name, email=email)
@@ -61,6 +61,11 @@ def reset_password(request):
             print(new_password)
             user.set_password(new_password)
             user.save()
+            url = 'https://api.mobizon.kz/service/message/sendsmsmessage?' \
+                  'recipient=' + str(phone).split('+')[1] + '&' \
+                                                            'text=Vash+parol+dlya+vhoda:+' + new_password + \
+                  '&apiKey=' + MOBIZON_API_KEY
+            requests.get(url=url)
             return HttpResponse('success')
         else:
             return HttpResponse(str(form.errors))
@@ -181,7 +186,7 @@ class OrderView(ListView):
     queryset = Order.objects.all()
 
     def get(self, request, *args, **kwargs):
-        self.queryset = Order.objects.filter(user=request.user)
+        self.queryset = Order.objects.filter(user=request.user).order_by('-created_date')
         return super().get(request, *args, **kwargs)
 
 

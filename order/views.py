@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import JsonResponse, HttpResponse
 from cart.cart import Cart
 from landing.models import Product, Store
@@ -20,22 +20,18 @@ def checkout(request, slug):
     delivery_method = request.GET['delivery_method']
     total_price = []
     order_items = []
+    del_product = []
     for value in cart.cart.values():
         product_id = value['product_id']
         product = Product.objects.get(id=product_id)
         if store == product.store:
             price = int(value['quantity']) * float(value['price'])
             order_item = OrderItem.objects.create(user=user, item=product, quantity=value['quantity'], price=price)
-
             order_items.append(order_item)
             total_price.append(price)
-
-        #     name = value['name']
-        #     quantity = value['quantity']
-        #     price = value['price']
-        #     temp = 'Названия: ' + name + "\n" + 'Количество: ' + str(quantity) + "\n" + 'Цена: ' + str(quantity * float(price)) + "\n"
-        #     message = message + temp + "\n"
-        #     total_price.append(quantity * float(price))
+            del_product.append(product)
+    for product in del_product:
+        cart.remove(product)
     total_price = sum(total_price)
     order = Order.objects.create(user=user, store=store, total_price=total_price, payment_method=payment,
                                  delivery_method=delivery_method, address=address, comment=order_comment, paid=True)
@@ -44,14 +40,15 @@ def checkout(request, slug):
     order.save()
     response = telegramMessage(order)
 
-    cart = Cart(request)
-    cart.clear()
+    # cart = Cart(request)
+    # cart.clear()
 
     return HttpResponse('Заказ принят')
 
 
 def telegramMessage(order):
     message = 'Новый заказ!!!\n'
+    message+= 'ID номер заказа: ' + str(order.id) + '\n'
     for item in order.items.all():
         temp = 'Название: ' + str(item.item.name) + '\n'
         temp += 'Количество: ' + str(item.quantity) + '\n'
@@ -80,3 +77,27 @@ def telegramMessage(order):
                  params={'chat_id': '-1001302242759', 'text': message})
 
     return 1
+
+
+@login_required(login_url="/accounts/login")
+def re_order(request, slug):
+    order = Order.objects.get(id=request.GET['id'])
+    cart = Cart(request)
+    store = Store.objects.get(slug=slug)
+    del_product = []
+    for value in cart.cart.values():
+        product_id = value['product_id']
+        product = Product.objects.get(id=product_id)
+        if store == product.store:
+            del_product.append(product)
+    for product in del_product:
+        cart.remove(product)
+    for item in order.items.all():
+        cart.add(product=item.item)
+
+        list(cart.cart.values())[len(cart.cart.values())-1]['quantity'] = item.quantity
+        print(cart.cart.values())
+
+
+    red = '/stores/' + slug + '/cart'
+    return redirect(red)

@@ -4,7 +4,7 @@ from landing.models import Product, Store
 
 class OrderItem(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь')
-    item = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='Продукт')
+    item = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='Продукт', related_name='product')
     quantity = models.PositiveIntegerField('Количество')
     price = models.DecimalField('Цена', max_digits=8, decimal_places=2)
 
