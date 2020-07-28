@@ -7,7 +7,6 @@ defusedxml==0.6.0
 Django==3.0.7
 django-2gis-maps==1.0.3
 django-allauth==0.42.0
-django-elasticsearch==0.5
 django-geoip2-extras==1.2
 django-haystack==2.4.0
 django-lockout==0.1.1

@@ -1,3 +1,7 @@
+html {
+overflow-x: hidden !important;
+}
+
 *{
   margin: 0;
   padding: 0;
@@ -11,6 +15,7 @@ body {
   background-repeat: no-repeat;
   background-position: center -50px;
   background-size: 100%;
+  overflow-x: hidden !important;
 }
 a {
   text-decoration: none !important;
