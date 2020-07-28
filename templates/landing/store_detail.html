@@ -78,7 +78,7 @@
             <p>Среднее время приготовления: 15 минут</p>
         </div>
         <div class="izbr1">
-            <a href="{% url 'add_wishlist' %}?store_id={{ store.id }}" class="btn btn-secondary "
+            <a href="{% url 'add_wishlist' %}?store_id={{ store.id }}&slug={{ store.slug }}" class="btn btn-secondary "
                style="width: 200px; border: 1px solid; border-radius: 0.5rem; color: #000000; background-color: #ffffff; padding: 10px">
                 Добавить в избранное
             </a>

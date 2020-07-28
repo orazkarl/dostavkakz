@@ -1,6 +1,7 @@
 {% extends 'landing/base.html' %}
 {% load static %}
 {% load template_filters %}
+
 {% block logo %}
     <a href="{% url 'home' %}">
         <div class="s-logo1">
@@ -9,6 +10,11 @@
     </a>
 {% endblock %}
 {% block content %}
+    <style>
+        body {
+            height: 70%;
+        }
+    </style>
     <div class="profbody">
         <div class="p-body" style="display: inline-flex; margin-left: 10%;">
             <div class="p-panel">
@@ -94,7 +100,6 @@
                                 {% for street in streets %}
                                     <option value="{{ street.id }}" class="homeadr">{{ street }}</option>
                                 {% endfor %}
-
                             </select>
 
                             <select name="house" id="response" class="homeadr" style="width: 70px;" required>
@@ -133,7 +138,7 @@
             $('#street_list').click(function () {
                 $.ajax({
                     type: "GET",
-                    url: "/addresses/",
+                    url: "/accounts/addresses",
                     data: {
                         'street': $('#street_list').val(),
                         {#'csrfmiddlewaretoken': $("input[name=csrfmiddlewaretoken]").val()#}

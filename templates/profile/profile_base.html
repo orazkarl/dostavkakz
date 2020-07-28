@@ -1,0 +1,163 @@
+{% extends 'landing/base.html' %}
+{% load static %}
+{% block logo %}
+    <a href="{% url 'home' %}">
+        <div class="s-logo1">
+            <img src="{% static 'images/logo4.png' %}" alt="">
+        </div>
+    </a>
+{% endblock %}
+{% block content %}
+    {##}
+    {#<a href="{% url 'order' %}">Заказы</a>#}
+    {#<a href="{% url 'addresses' %}">Добавить адрес</a>#}
+    {#<div>#}
+    {#    <h3>Profile</h3>#}
+    {#    <p>Username</p>#}
+    {#    <div id="show_username">#}
+    {#        <p>{{ request.user.username }}</p>#}
+    {#        <button type="button" onclick="editUsernameFunction()">Edit</button>#}
+    {#    </div>#}
+    {#    <form action="{% url 'profile' %}" id="edit_username" method="post" style="display:none;">#}
+    {#        {% csrf_token %}#}
+    {#        <input type="text" name="username" value="{{ request.user.username }}">#}
+    {#        <button type="submit">Сохранить</button>#}
+    {#        <button type="button" onclick="editUsernameFunction()">Cancel</button>#}
+    {#    </form>#}
+    {#    <p>Name </p>#}
+    {#    <div id="show_name">#}
+    {#        <p>{{ request.user.first_name }} {{ request.user.last_name }}</p>#}
+    {#        <button type="button" onclick="editNameFunction()">Edit</button>#}
+    {#    </div>#}
+    {#    <form action="{% url 'profile' %}" style="display: none" id="edit_name" method="post">#}
+    {#        {% csrf_token %}#}
+    {#        <input type="text" name="first_name" value="{{ request.user.first_name }}">#}
+    {#        <input type="text" name="last_name" value="{{ request.user.last_name }}">#}
+    {#        <button type="submit">Сохранить</button>#}
+    {#        <button type="button" onclick="editNameFunction()">Cancel</button>#}
+    {#    </form>#}
+    {#    <div>#}
+    {#        <a href="{% url 'account_change_password' %}">Изменить пароль</a>#}
+    {#    </div>#}
+    {#        <div id="change_passowrd">#}
+    {#            <button onclick="changePasswordFunction()" >Change password</button>#}
+    {#        </div>#}
+    {#        <form action="{% url 'account_change_password' %}" id="form_password" style="display: none" method="post">#}
+    {#            {% csrf_token %}#}
+    {#            <input type="password" name="oldpassword">#}
+    {#            <br>#}
+    {#            <input type="password" name="password1">#}
+    {#            <br>#}
+    {#            <input type="password" name="password2">#}
+    {#            <br>#}
+    {#            <button type="submit" name="action"> Сохранить</button>#}
+    {#            <button type="button" onclick="changePasswordFunction()">Cancel</button>#}
+    {#        </form>#}
+    {#</div>#}
+    {##}
+    {##}
+    {##}
+    {#<script>#}
+    {#function changePasswordFunction() {#}
+    {#    formPassword = document.getElementById('form_password');#}
+    {#    buttonChangePassowrd = document.getElementById('change_passowrd');#}
+    {#    if(formPassword.style.display === 'none'){#}
+    {#        formPassword.style.display = 'block';#}
+    {#        buttonChangePassowrd.style.display = 'none';#}
+    {#    }#}
+    {#    else {#}
+    {#        formPassword.style.display = 'none';#}
+    {#        buttonChangePassowrd.style.display = 'block';#}
+    {#    }#}
+    {# } #}
+    {##}
+    {#    function editUsernameFunction() {#}
+    {#        showUsername = document.getElementById('show_username');#}
+    {#        editUsername = document.getElementById('edit_username');#}
+    {#        if (showUsername.style.display === 'none') {#}
+    {#            showUsername.style.display = 'block';#}
+    {#            editUsername.style.display = 'none';#}
+    {#        } else {#}
+    {#            showUsername.style.display = 'none';#}
+    {#            editUsername.style.display = 'block';#}
+    {#        }#}
+    {#    }#}
+    {##}
+    {#    function editNameFunction() {#}
+    {#        showName = document.getElementById('show_name');#}
+    {#        editName = document.getElementById('edit_name');#}
+    {#        if (showName.style.display === 'none') {#}
+    {#            showName.style.display = 'block';#}
+    {#            editName.style.display = 'none';#}
+    {#        } else {#}
+    {#            showName.style.display = 'none';#}
+    {#            editName.style.display = 'block';#}
+    {#        }#}
+    {#    }#}
+    {##}
+    {#</script>#}
+    {#    Координатымаркера:#}
+    {#    <div id="location">LatLng(54.98, 82.89)</div>#}
+    {#    <div id="map" style="width: 100%; height: 400px;"></div>#}
+    {#    <script src="https://maps.api.2gis.ru/2.0/loader.js"></script>#}
+    {##}
+    {#    <script type="text/javascript">#}
+    {#        var locationInfo = document.getElementById('location');#}
+    {##}
+    {#        DG.then(function () {#}
+    {#            var map,#}
+    {#                marker;#}
+    {##}
+    {#            map = DG.map('map', {#}
+    {#                center: [43.23317, 76.957453],#}
+    {#                zoom: 15,#}
+    {##}
+    {#            });#}
+    {#            map.locate({setView: true, watch: true})#}
+    {##}
+    {#                .on('locationfound', function (e) {#}
+    {#                    DG.marker([e.latitude, e.longitude]).addTo(map);#}
+    {#                    marker = DG.marker([e.latitude, e.longitude], {draggable: true}).addTo(map);#}
+    {#                    marker.on('drag', function (e) {#}
+    {#                        var lat = e.target._latlng.lat.toFixed(3),#}
+    {#                            lng = e.target._latlng.lng.toFixed(3);#}
+    {##}
+    {#                        locationInfo.innerHTML = lat + ', ' + lng;#}
+    {#                    });#}
+    {#                })#}
+    {#                .on('locationerror', function (e) {#}
+    {#                    DG.popup()#}
+    {#                        .setLatLng(map.getCenter())#}
+    {#                        .setContent('Доступ к определению местоположения отключён')#}
+    {#                        .openOn(map);#}
+    {#                });#}
+    {##}
+    {##}
+    {##}
+    {#        });#}
+    {#    </script>#}
+
+
+
+
+    <div class="profbody">
+        <div class="p-body" style="display: inline-flex; margin-left: 10%;">
+            <div class="p-panel">
+                <h4>Мой аккаунт</h4>
+                <div class="panel1" style="margin-left: 5%;">
+                    <a href="{% url 'profile' %}"><p style="border-bottom: 4px solid; border-color: #FB0;">Информация о
+                        аккаунте</p></a>
+                    <a href="{% url 'wishlist' %}"><p>Избранное</p></a>
+                    <a href="{% url 'addresses' %}"><p>Мои адреса</p></a>
+                    <a href="{% url 'orders' %}"><p>История заказов</p></a>
+                    {#                    <a href="promo.html"><p>Ввести промо-код</p></a>#}
+                    <a href="{% url 'help' %}"><p>Связь с тех.службой</p></a>
+                </div>
+            </div>
+            {% block section %}
+            {% endblock %}
+
+        </div>
+    </div>
+
+{% endblock %}

@@ -11,8 +11,19 @@ class AddressInline(admin.TabularInline):
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
-    list_display = ['username']
+    list_display = ['username', 'first_name', 'last_name', 'email', 'phone']
 
+    fieldsets = (
+        (None,
+         {'fields': ('username', 'email')}),
+        (('Личная информация'),
+         {'fields': (
+             'first_name', 'last_name', 'phone')}),
+        (('Права доступа'), {
+            'fields': ('is_active', 'is_staff', 'is_superuser'),
+        }),
+        ('Дата и время', {'fields': ('last_login', 'date_joined')}),
+    )
     inlines = [AddressInline]
 
 admin.site.register(StreetAdress)

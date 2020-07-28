@@ -16,11 +16,14 @@ class FoodTagAdmin(admin.ModelAdmin):
 
 @admin.register(Store)
 class StoreAdmin(admin.ModelAdmin):
-    list_display = ['name', 'average_rating', 'average_check']
+    list_display = ['name', 'address', 'description', 'average_rating', 'average_check']
     prepopulated_fields = {'slug': ('name',)}
     filter_horizontal = ('tag',)
 
 
-admin.site.register(Product)
-admin.site.register(Review)
-
+@admin.register(Product)
+class ProductAdmin(admin.ModelAdmin):
+    list_display = ['name', 'category', 'store', 'description', 'price']
+    list_filter = ['store']
+    ordering = ['store']
+# admin.site.register(Review)

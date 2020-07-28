@@ -66,6 +66,8 @@ def telegramMessage(order):
     message += 'Способ доставки: ' + str(order.get_delivery_method_display()) + '\n'
     if order.delivery_method == 'delivery':
         message += 'Адрес: ' + str(order.address) + '\n'
+    message += 'Заведение: ' + str(order.store.name) + '\n'
+    message += 'Адрес заведение: ' + str(order.store.address) + '\n'
     if order.comment != '':
         message += 'Комментария' + str(order.comment) + '\n'
     message += 'Дата: ' + str(order.created_date.day) + '.' + str(order.created_date.month) + '.' + str(

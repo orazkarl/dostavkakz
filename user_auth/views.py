@@ -93,9 +93,9 @@ def add_wishlist(request):
     user = request.user
     store_id = request.GET['store_id']
     # url = request.GET['url']
-
+    # slug = request.GET['slug']
     item = get_object_or_404(Store, id=store_id)
-    url = '/stores/' + item.slug
+    url = '/stores/detail/' + item.slug
     if not Wishlist.objects.filter(user_id=user.id, store_item=item):
         Wishlist.objects.create(user_id=user.id, store_item=item)
 
@@ -135,6 +135,7 @@ class MyAddressView(ListView):
 
     def get(self, request, *args, **kwargs):
         houses = ''
+        print(request.GET)
         if request.GET:
             street = request.GET['street']
             houses = NumberHouseAddress.objects.filter(street=street)
@@ -148,7 +149,6 @@ class MyAddressView(ListView):
         return super().get(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-
         if request.POST:
             user = request.user
             if 'edit' in request.POST['type']:

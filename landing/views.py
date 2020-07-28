@@ -7,7 +7,6 @@ from django.contrib.auth.decorators import login_required
 from cart.cart import Cart
 from django.db.models import Q
 from django.core import serializers
-
 import requests
 from bs4 import BeautifulSoup
 import json
@@ -16,14 +15,17 @@ import json
 class HomeView(TemplateView):
     template_name = 'landing/index.html'
 
+    def get(self, request, *args, **kwargs):
+        return redirect('/stores/restoran')
+
 
 class StoresList(ListView):
     template_name = 'landing/stores_list.html'
     queryset = Store.objects.all()
+
     # model = Store
 
     def get(self, request, *args, **kwargs):
-
 
         store_category_slug = self.kwargs['slug']
         stores = Store.objects.filter(category__slug=store_category_slug)
@@ -46,7 +48,6 @@ class StoresList(ListView):
                     foodtag = request.GET.getlist('foodcategory')
                     stores = stores.filter(tag__id__in=foodtag).distinct('name')
 
-
         self.extra_context = {
             'stores': stores,
             'tags': foodtags,
@@ -54,6 +55,7 @@ class StoresList(ListView):
             'categories': Category.objects.all(),
         }
         return super().get(request, *args, **kwargs)
+
 
 def search_stores(request):
     query = request.GET['q']
@@ -181,7 +183,8 @@ def cart_detail(request, slug):
     for item in cart.cart.values():
         product_id = item['product_id']
         product = Product.objects.get(id=product_id)
-        if product.name != item['name'] or float(product.price) != float(item['price']) or product.quantity < item['quantity']:
+        if product.name != item['name'] or float(product.price) != float(item['price']) or product.quantity < item[
+            'quantity']:
             cart.remove(product)
             break
         if slug == product.store.slug:
@@ -196,9 +199,3 @@ def cart_detail(request, slug):
         'total_price': total_price,
     }
     return render(request, 'landing/cart_detail.html', context=context)
-
-
-
-
-
-
