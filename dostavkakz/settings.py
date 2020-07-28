@@ -95,7 +95,7 @@ WSGI_APPLICATION = 'dostavkakz.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'mydb',
+        'NAME': 'jetkizudb',
         'USER': 'admin',
         'PASSWORD': '123admin',
         'HOST': 'localhost',
