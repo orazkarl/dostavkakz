@@ -1,24 +1,26 @@
 {% extends 'profile/profile_base.html' %}
 {% block section %}
-<div class="p-form">
-                <div class="pf-1" style="display: inline-flex; margin-top: 17%;">
-                    <div class="p-names">
-                        <p>Имя:</p>
-                        <p>Фамилия:</p>
-                        <p>Мобильный:</p>
-                        <p>Эл.адрес</p>
-                        <p>Пароль</p>
-                    </div>
-
-                    <div class="p-names1" style="margin-left: 5%;">
-                        <input type="text" value="{{ request.user.first_name }}" disabled><br>
-                        <input type="text" value="{{ request.user.last_name }}" disabled><br>
-                        <input type="text" value="{{ request.user.phone }}" disabled><br>
-                        <input type="text" value="{{ request.user.email }}" disabled>
-                        <p><a href="{% url 'account_change_password' %}">Изменить пароль</a></p>
-                    </div>
-
-                </div>
-
+    <div class="p-form">
+        <div class="pf-1" style="display: inline-flex; margin-top: 3%;">
+            <div class="p-names" style="font-size: 20px">
+                <p>Имя:</p>
+                <p>Фамилия:</p>
+                <p>Мобильный:</p>
+                <p>Эл.адрес</p>
+                {#                        <p>Пароль</p>#}
             </div>
+
+            <div class="p-names1" style="margin-left: 5%;">
+                <input type="text" value="{{ request.user.first_name }}" disabled><br>
+                <input type="text" value="{{ request.user.last_name }}" disabled><br>
+                <input type="text" value="{{ request.user.phone }}" disabled><br>
+                <input type="text" value="{{ request.user.email }}" disabled>
+                <p style="text-align: center; font-size: 20px"><a href="{% url 'account_change_password' %}">Изменить
+                    пароль</a></p>
+                {#                        <input type="text" value="{{ request.user.email }}" disabled>#}
+            </div>
+
+        </div>
+
+    </div>
 {% endblock %}
